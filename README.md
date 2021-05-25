@@ -13,15 +13,11 @@ npm install --save react-draw-circuits
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
+import CircuitCanvas from 'react-draw-circuits';
+import 'react-draw-circuits/dist/index.css';
 
-import MyComponent from 'react-draw-circuits'
-import 'react-draw-circuits/dist/index.css'
-
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
+function App() {
+  return <CircuitCanvas />;
 }
 ```
 

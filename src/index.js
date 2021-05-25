@@ -1,6 +1,3 @@
-import React from 'react'
-import styles from './styles.module.css'
+import CircuitCanvas from './CircuitCanvas.jsx';
 
-export const ExampleComponent = ({ text }) => {
-  return <div className={styles.test}>Example Component: {text}</div>
-}
+export default CircuitCanvas;
