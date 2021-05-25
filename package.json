@@ -49,5 +49,9 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "react-draggable": "^4.4.3",
+    "react-xarrows": "^1.7.0"
+  }
 }
