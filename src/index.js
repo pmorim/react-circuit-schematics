@@ -1,3 +1,3 @@
-import CircuitCanvas from './CircuitCanvas.jsx';
+import { CircuitCanvas } from './components/CircuitCanvas';
 
 export default CircuitCanvas;

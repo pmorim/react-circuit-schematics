@@ -1,6 +1,6 @@
 {
   "parser": "babel-eslint",
-  "extends": ["eslint:recommended", "google"],
+  "extends": ["plugin:prettier/recommended", "react", "google"],
   "env": {
     "node": true
   },
