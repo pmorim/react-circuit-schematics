@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const CircuitCanvas = ({ width, height, ...rest }) => {
+export const Canvas = ({ width, height, ...rest }) => {
   return (
     <div style={{ width, height }} {...rest}>
       <h2>Hello World</h2>
@@ -9,7 +9,7 @@ export const CircuitCanvas = ({ width, height, ...rest }) => {
   );
 };
 
-CircuitCanvas.propTypes = {
+Canvas.propTypes = {
   /**
    * The width of the canvas
    */
@@ -20,7 +20,7 @@ CircuitCanvas.propTypes = {
   height: PropTypes.number,
 };
 
-CircuitCanvas.defaultProps = {
+Canvas.defaultProps = {
   width: 500,
   height: 500,
 };

@@ -1,0 +1,78 @@
+import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
+import Draggable from 'react-draggable';
+
+import cx from 'classnames';
+import styles from './Core.module.css';
+
+import { Ports, Port } from '../Ports';
+import { Label } from '../Label';
+
+export const Core = ({ Symbol, type, label, ports, ...rest }) => {
+  const nodeRef = useRef();
+
+  return (
+    <Draggable handle='.rdc-handle' nodeRef={nodeRef} {...rest}>
+      <div ref={nodeRef}>
+        <img
+          className={cx(styles.noDrag, 'rdc-handle')}
+          src={Symbol}
+          alt={Symbol}
+        />
+
+        <Ports>
+          {ports.map((port, i) => (
+            <Port
+              key={i}
+              radius={port.radius}
+              position={port.position}
+              bounds={{ x: 190, y: 190 }} // TODO: Get image size automatically
+            />
+          ))}
+        </Ports>
+
+        <Label
+          name={label.name}
+          value={label.value}
+          unit={label.unit}
+          position={label.position}
+        />
+      </div>
+    </Draggable>
+  );
+};
+
+Core.propTypes = {
+  /**
+   * Path to the SVG file to be used as the electrical symbol
+   */
+  Symbol: PropTypes.string,
+  /**
+   * The type of the component
+   */
+  type: PropTypes.oneOf(['Resistor', 'Capacitor', 'Inductor']),
+  /**
+   * The label of the component
+   */
+  label: PropTypes.exact({
+    name: PropTypes.string,
+    value: PropTypes.string,
+    unit: PropTypes.string,
+    position: PropTypes.exact({
+      x: PropTypes.number,
+      y: PropTypes.number,
+    }),
+  }),
+  /**
+   * A list of the connection ports
+   */
+  ports: PropTypes.arrayOf(
+    PropTypes.exact({
+      type: PropTypes.string,
+      position: PropTypes.exact({
+        x: PropTypes.number,
+        y: PropTypes.number,
+      }),
+    }),
+  ),
+};

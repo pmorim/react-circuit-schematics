@@ -1,6 +1,5 @@
 .port {
-  width: 25px;
-  height: 25px;
+  position: absolute;
   border-radius: 50%;
   background-color: #bbb;
 }
