@@ -1,0 +1,41 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+
+import { Ports, Port } from '../../components/Ports';
+import { Padding } from '../StoryComps';
+
+<Meta title='Basic/Ports' component={Port} />
+
+# Ports
+
+Ports are what allow you to create connections (`<Connection />`) between components.
+
+They can be of 3 different types: `hybrid`, `input`, and `output`. `input` ports can only connect to `output` ports and vice versa; whereas `hybrid` ports don't have those restrictions, i.e., they can connect with all other types.
+
+## Simple Port
+
+This is how a port looks like by default:
+
+<Story name='Simple Port'>
+  <Ports style={{ position: 'absolute' }}>
+    <Port />
+  </Ports>
+</Story>
+
+<Padding />
+
+## Organization
+
+You can organize the `<Port />` components inside the `<Ports />` component. This component is just a simple `<div />` and is entirely optional; its only use is organization.
+
+<Canvas>
+  <Story name='Organization'>
+    <Ports>
+      <Port bounds={{ x: 25, y: 25 }} />
+      <Port bounds={{ x: 50, y: 25 }} />
+    </Ports>
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable of={Port} />

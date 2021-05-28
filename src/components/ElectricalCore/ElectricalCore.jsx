@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
 
 import cx from 'classnames';
-import styles from './Core.module.css';
+import styles from './ElectricalCore.module.css';
 
 import { Ports, Port } from '../Ports';
 import { Label } from '../Label';
 
-export const Core = ({ Symbol, type, label, ports, ...rest }) => {
+export const ElectricalCore = ({ symbol, type, label, ports, ...rest }) => {
   const nodeRef = useRef();
 
   return (
@@ -16,8 +16,8 @@ export const Core = ({ Symbol, type, label, ports, ...rest }) => {
       <div ref={nodeRef}>
         <img
           className={cx(styles.noDrag, 'rdc-handle')}
-          src={Symbol}
-          alt={Symbol}
+          src={symbol}
+          alt={symbol}
         />
 
         <Ports>
@@ -42,11 +42,11 @@ export const Core = ({ Symbol, type, label, ports, ...rest }) => {
   );
 };
 
-Core.propTypes = {
+ElectricalCore.propTypes = {
   /**
    * Path to the SVG file to be used as the electrical symbol
    */
-  Symbol: PropTypes.string,
+  symbol: PropTypes.string,
   /**
    * The type of the component
    */

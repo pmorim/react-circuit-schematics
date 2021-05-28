@@ -1,0 +1,19 @@
+.CircuitCanvas {
+  --color: #3333;
+
+  background-image: linear-gradient(
+      to right,
+      var(--color) 1%,
+      transparent 1%,
+      transparent 99%,
+      var(--color)
+    ),
+    linear-gradient(
+      to bottom,
+      var(--color) 1%,
+      transparent 1%,
+      transparent 99%,
+      var(--color)
+    );
+  background-size: 100px 100px;
+}
