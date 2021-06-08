@@ -38,6 +38,6 @@ Port.propTypes = {
 
 Port.defaultProps = {
   radius: 10,
-  position: { x: 1, y: 1 },
+  position: { x: 0, y: 0 },
   bounds: { x: 10, y: 10 },
 };

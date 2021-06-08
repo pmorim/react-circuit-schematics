@@ -12,33 +12,41 @@ export const ElectricalCore = ({ symbol, type, label, ports, ...rest }) => {
   const nodeRef = useRef();
 
   return (
-    <Draggable handle='.rdc-handle' nodeRef={nodeRef} {...rest}>
-      <div ref={nodeRef}>
-        <img
-          className={cx(styles.noDrag, 'rdc-handle')}
-          src={symbol}
-          alt={symbol}
-        />
+    // The wrapper div forces <Draggable /> to fit it's content
+    <div style={{ display: 'inline-block' }}>
+      <Draggable
+        className='test'
+        handle='.rdc-handle'
+        nodeRef={nodeRef}
+        {...rest}
+      >
+        <div ref={nodeRef}>
+          <img
+            className={cx(styles.noDrag, 'rdc-handle')}
+            src={symbol}
+            alt={symbol}
+          />
 
-        <Ports>
-          {ports.map((port, i) => (
-            <Port
-              key={i}
-              radius={port.radius}
-              position={port.position}
-              bounds={{ x: 190, y: 190 }} // TODO: Get image size automatically
-            />
-          ))}
-        </Ports>
+          <Ports>
+            {ports.map((port, i) => (
+              <Port
+                key={i}
+                radius={port.radius}
+                position={port.position}
+                bounds={{ x: 190, y: 190 }} // TODO: Get image size automatically
+              />
+            ))}
+          </Ports>
 
-        <Label
-          name={label.name}
-          value={label.value}
-          unit={label.unit}
-          position={label.position}
-        />
-      </div>
-    </Draggable>
+          <Label
+            name={label.name}
+            value={label.value}
+            unit={label.unit}
+            position={label.position}
+          />
+        </div>
+      </Draggable>
+    </div>
   );
 };
 
@@ -50,7 +58,7 @@ ElectricalCore.propTypes = {
   /**
    * The type of the component
    */
-  type: PropTypes.oneOf(['Resistor', 'Capacitor', 'Inductor']),
+  type: PropTypes.string,
   /**
    * The label of the component
    */
