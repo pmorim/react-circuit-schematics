@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './Port.module.css';
 
-export const Port = ({ radius, position, bounds, ...rest }) => {
+export const Port = forwardRef(({ radius, position, bounds, ...rest }, ref) => {
   return (
     <div
+      ref={ref}
       className={styles.port}
       style={{
         // The size of the port
@@ -19,7 +20,7 @@ export const Port = ({ radius, position, bounds, ...rest }) => {
       {...rest}
     />
   );
-};
+});
 
 Port.propTypes = {
   /**
