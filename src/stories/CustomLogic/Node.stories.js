@@ -1,7 +1,7 @@
 import { Node } from '../../components/Node';
 
 export default {
-  title: 'Advanced/Node',
+  title: 'Custom Logic/Node',
   component: Node,
   parameters: {
     docs: {

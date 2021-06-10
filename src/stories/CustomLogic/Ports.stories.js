@@ -2,7 +2,7 @@ import React from 'react';
 import { Port } from '../../components/Ports';
 
 export default {
-  title: 'Advanced/Port',
+  title: 'Custom Logic/Port',
   component: Port,
   argTypes: {
     children: {

@@ -1,7 +1,7 @@
 import { Label } from '../../components/Label';
 
 export default {
-  title: 'Advanced/Label',
+  title: 'Custom Logic/Label',
   component: Label,
   parameters: {
     docs: {

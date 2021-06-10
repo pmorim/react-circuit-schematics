@@ -2,7 +2,7 @@ import { Connection } from '../../components/Connection';
 import { Port } from '../../components/Ports';
 
 export default {
-  title: 'Advanced/Connection',
+  title: 'Custom Logic/Connection',
   component: Connection,
   parameters: {
     docs: {

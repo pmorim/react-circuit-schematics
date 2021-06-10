@@ -2,7 +2,7 @@ import { ElectricalCore } from '../../components/ElectricalCore';
 import ResistorSVG from '../../assets/resistor-us.svg';
 
 export default {
-  title: 'Advanced/ElectricalCore',
+  title: 'Custom Components/ElectricalCore',
   component: ElectricalCore,
   argTypes: {
     symbol: { control: { type: null } },
@@ -11,7 +11,7 @@ export default {
     docs: {
       description: {
         component:
-          'All electrical components are created with this one. Electrical Core takes care of all the logic that comes with assembling the component itself.',
+          'All electrical components are created with this one. Electrical Core takes care of all the logic that comes with assembling the component itself. You can use this component to make your own electrical components.',
       },
     },
   },
