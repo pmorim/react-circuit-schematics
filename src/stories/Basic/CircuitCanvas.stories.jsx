@@ -14,11 +14,3 @@ export default {
 };
 
 export const EmptyCanvas = (args) => <CircuitCanvas {...args} />;
-EmptyCanvas.parameters = {
-  docs: {
-    description: {
-      story:
-        'This demonstrates react hooks working inside stories. **Go team!** 🚀',
-    },
-  },
-};
