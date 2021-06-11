@@ -5,6 +5,10 @@ import { Port } from '../../components/Ports';
 export default {
   title: 'Custom Logic/Connection',
   component: Connection,
+  argTypes: {
+    start: { control: '' },
+    end: { control: '' },
+  },
   parameters: {
     docs: {
       description: {
@@ -15,16 +19,18 @@ export default {
   },
 };
 
-export const Simple = () => {
+const Template = (args) => {
   const start = useRef();
   const end = useRef();
 
   return (
     <div style={{ position: 'relative' }}>
-      <Port position={{ x: 0, y: 0 }} bounds={{ x: 200, y: 200 }} ref={start} />
-      <Port position={{ x: 1, y: 0 }} bounds={{ x: 200, y: 200 }} ref={end} />
+      <Connection start={start} end={end} {...args} />
 
-      <Connection start={start} end={end} />
+      <Port position={{ x: 0, y: 0 }} bounds={{ x: 200, y: 200 }} ref={start} />
+      <Port position={{ x: 1, y: 0.5 }} bounds={{ x: 200, y: 200 }} ref={end} />
     </div>
   );
 };
+
+export const Simple = Template.bind({});
