@@ -20,4 +20,4 @@ npm install --save react-draw-circuits
 
 ## License
 
-MIT © [pmorim](https://github.com/pmorim)
+MIT © [URIsolve](https://urisolve.pt/app/)
