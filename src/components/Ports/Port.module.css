@@ -1,9 +1,8 @@
 .port {
   position: absolute;
   border-radius: 50%;
-  background-color: #bbb;
 }
 
 .port:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
