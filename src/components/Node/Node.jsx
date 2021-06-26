@@ -22,7 +22,7 @@ Node.propTypes = {
   /**
    * The color of the node
    */
-  color: PropTypes.color,
+  color: PropTypes.string,
 };
 
 Node.defaultProps = {

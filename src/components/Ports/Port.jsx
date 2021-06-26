@@ -35,7 +35,7 @@ Port.propTypes = {
   /**
    * The color of the port
    */
-  color: PropTypes.color,
+  color: PropTypes.string,
   /**
    * The relative position of the port
    */
