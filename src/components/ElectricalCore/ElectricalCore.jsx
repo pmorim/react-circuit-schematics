@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
-import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
+import PropTypes from 'prop-types';
 
 import cx from 'classnames';
 import styles from './ElectricalCore.module.css';
@@ -8,7 +8,7 @@ import styles from './ElectricalCore.module.css';
 import { Ports, Port } from '../Ports';
 import { Label } from '../Label';
 
-export const ElectricalCore = ({ symbol, type, label, ports, ...rest }) => {
+export const ElectricalCore = ({ id, symbol, type, label, ports, ...rest }) => {
   const nodeRef = useRef();
 
   return (

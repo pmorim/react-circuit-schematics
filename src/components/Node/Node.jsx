@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 
 import styles from './Node.module.css';
 
-export const Node = forwardRef(({ radius, color, ...rest }, ref) => {
+export const Node = forwardRef(({ id, radius, color, ...rest }, ref) => {
   return (
     <div
       ref={ref}
