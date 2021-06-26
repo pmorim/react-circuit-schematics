@@ -34,6 +34,7 @@ export const Label = ({
             <div
               className={styles.editable}
               onInput={(e) => onNameChange(e.currentTarget.textContent)}
+              suppressContentEditableWarning
               contentEditable
             >
               {name}
@@ -42,6 +43,7 @@ export const Label = ({
             <div
               className={styles.editable}
               onInput={(e) => onValueChange(e.currentTarget.textContent)}
+              suppressContentEditableWarning
               contentEditable
             >
               {value}
