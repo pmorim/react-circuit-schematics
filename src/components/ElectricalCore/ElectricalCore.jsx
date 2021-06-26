@@ -14,12 +14,7 @@ export const ElectricalCore = ({ symbol, type, label, ports, ...rest }) => {
   return (
     // The wrapper div forces <Draggable /> to fit it's content
     <div style={{ display: 'inline-block' }}>
-      <Draggable
-        className='test'
-        handle='.rdc-handle'
-        nodeRef={nodeRef}
-        {...rest}
-      >
+      <Draggable handle='.rdc-handle' nodeRef={nodeRef} {...rest}>
         <div ref={nodeRef}>
           <img
             className={cx(styles.noDrag, 'rdc-handle')}
