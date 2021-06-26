@@ -4,13 +4,23 @@ import Draggable from 'react-draggable';
 
 import styles from './Label.module.css';
 
-export const Label = ({ name, value, unit, position, ...rest }) => {
+export const Label = ({ as, name, value, unit, defaultPosition, ...rest }) => {
   const nodeRef = useRef();
 
+  // Custom Label
+  if (as) return React.createElement(as, { ref: nodeRef, name, value, unit });
+
   return (
-    <Draggable defaultPosition={position} nodeRef={nodeRef} {...rest}>
+    <Draggable defaultPosition={defaultPosition} nodeRef={nodeRef} {...rest}>
       <div className={styles.label} ref={nodeRef}>
-        {`${name} = ${value} ${unit}`}
+        <div className={styles.editable} contentEditable>
+          {name}
+        </div>
+        {' = '}
+        <div className={styles.editable} contentEditable>
+          {value}
+        </div>
+        {' ' + unit}
       </div>
     </Draggable>
   );
@@ -18,7 +28,15 @@ export const Label = ({ name, value, unit, position, ...rest }) => {
 
 Label.propTypes = {
   /**
-   * The name of the component
+   * A custom label component. Passes the given 'name', 'value' and 'unit' as
+   * children.
+   */
+  as: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.elementType }),
+  ]),
+  /**
+   * The name of the component.
    */
   name: PropTypes.string,
   /**
@@ -32,12 +50,12 @@ Label.propTypes = {
   /**
    * The position of the label relative to the component
    */
-  position: PropTypes.exact({
+  defaultPosition: PropTypes.exact({
     x: PropTypes.number,
     y: PropTypes.number,
   }),
 };
 
 Label.defaultProps = {
-  position: { x: 0, y: 0 },
+  defaultPosition: { x: 0, y: 0 },
 };

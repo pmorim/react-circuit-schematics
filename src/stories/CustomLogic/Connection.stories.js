@@ -25,10 +25,10 @@ const Template = (args) => {
 
   return (
     <div style={{ position: 'relative' }}>
-      <Connection start={start} end={end} {...args} />
-
       <Port position={{ x: 0, y: 0 }} bounds={{ x: 200, y: 200 }} ref={start} />
       <Port position={{ x: 1, y: 0.5 }} bounds={{ x: 200, y: 200 }} ref={end} />
+
+      <Connection start={start} end={end} {...args} />
     </div>
   );
 };

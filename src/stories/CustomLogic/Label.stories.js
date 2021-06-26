@@ -3,6 +3,9 @@ import { Label } from '../../components/Label';
 export default {
   title: 'Custom Logic/Label',
   component: Label,
+  argTypes: {
+    as: { control: { type: null } },
+  },
   parameters: {
     docs: {
       description: {
@@ -18,5 +21,4 @@ ResistorLabel.args = {
   name: 'R1',
   value: '10k',
   unit: 'Ω',
-  position: { x: 0, y: 0 },
 };
