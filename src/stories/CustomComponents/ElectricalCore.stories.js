@@ -25,7 +25,7 @@ ResistorExample.args = {
     name: 'R1',
     value: '10k',
     unit: 'Ω',
-    position: { x: 50, y: -25 },
+    defaultPosition: { x: 50, y: -25 },
   },
   ports: [
     { type: 'hybrid', position: { x: 0, y: 0.5 } },
