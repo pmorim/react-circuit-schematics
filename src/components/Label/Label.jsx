@@ -4,7 +4,16 @@ import Draggable from 'react-draggable';
 
 import styles from './Label.module.css';
 
-export const Label = ({ as, name, value, unit, defaultPosition, ...rest }) => {
+export const Label = ({
+  as,
+  name,
+  value,
+  unit,
+  onNameChange,
+  onValueChange,
+  defaultPosition,
+  ...rest
+}) => {
   const nodeRef = useRef();
 
   return (
@@ -12,15 +21,29 @@ export const Label = ({ as, name, value, unit, defaultPosition, ...rest }) => {
       <div className={styles.label} ref={nodeRef}>
         {as ? (
           // Render Custom Label
-          React.createElement(as, { name, value, unit })
+          React.createElement(as, {
+            name,
+            value,
+            unit,
+            onNameChange,
+            onValueChange,
+          })
         ) : (
           // Render Default Label
           <>
-            <div className={styles.editable} contentEditable>
+            <div
+              className={styles.editable}
+              onInput={(e) => onNameChange(e.currentTarget.textContent)}
+              contentEditable
+            >
               {name}
             </div>
             {' = '}
-            <div className={styles.editable} contentEditable>
+            <div
+              className={styles.editable}
+              onInput={(e) => onValueChange(e.currentTarget.textContent)}
+              contentEditable
+            >
               {value}
             </div>
             {' ' + unit}
@@ -49,6 +72,16 @@ Label.propTypes = {
    * The unit of the component
    */
   unit: PropTypes.string,
+  /**
+   * The function to execute when the use changes the name of the component.
+   * Use this to update the state of the component's name.
+   */
+  onNameChange: PropTypes.func,
+  /**
+   * The function to execute when the use changes the value of the component.
+   * Use this to update the state of the component's value.
+   */
+  onValueChange: PropTypes.func,
   /**
    * The position of the label relative to the component
    */
