@@ -12,7 +12,7 @@ export const ElectricalCore = ({ symbol, type, label, ports, ...rest }) => {
   const nodeRef = useRef();
 
   return (
-    // The wrapper div forces <Draggable /> to fit it's content
+    // The wrapper inline-block div forces <Draggable /> to fit it's content
     <div style={{ display: 'inline-block' }}>
       <Draggable handle='.rdc-handle' nodeRef={nodeRef} {...rest}>
         <div ref={nodeRef}>
