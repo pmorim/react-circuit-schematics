@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ElectricalCore } from '../ElectricalCore';
-import ResistorSVG from '../../assets/resistor-us.svg';
+import ResistorSVG from '../../assets/resistor.svg';
 
 export const Resistor = ({ name, value, labelPosition, ...rest }) => (
   <ElectricalCore

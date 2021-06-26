@@ -1,5 +1,5 @@
 import { ElectricalCore } from '../../components/ElectricalCore';
-import ResistorSVG from '../../assets/resistor-us.svg';
+import ResistorSVG from '../../assets/resistor.svg';
 
 export default {
   title: 'Custom Components/ElectricalCore',
@@ -25,7 +25,7 @@ ResistorExample.args = {
     name: 'R1',
     value: '10k',
     unit: 'Ω',
-    defaultPosition: { x: 50, y: -25 },
+    position: { x: 50, y: -25 },
   },
   ports: [
     { type: 'hybrid', position: { x: 0, y: 0.5 } },

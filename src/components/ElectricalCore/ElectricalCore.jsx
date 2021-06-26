@@ -37,7 +37,7 @@ export const ElectricalCore = ({ symbol, type, label, ports, ...rest }) => {
             name={label.name}
             value={label.value}
             unit={label.unit}
-            position={label.position}
+            defaultPosition={label.position}
           />
         </div>
       </Draggable>
