@@ -16,9 +16,29 @@ export default {
   },
 };
 
-export const ResistorLabel = (args) => <Label {...args} />;
+const Template = (args) => <Label {...args} />;
+
+export const ResistorLabel = Template.bind({});
 ResistorLabel.args = {
   name: 'R1',
   value: '10k',
   unit: 'Ω',
+};
+
+export const CustomLabel = Template.bind({});
+CustomLabel.args = {
+  name: 'R1',
+  value: '10k',
+  unit: 'Ω',
+  as: ({ name, value, unit }) => (
+    <>
+      <div>Hi, I'm a custom label</div>
+      <div>
+        My name is <b>{name}</b> and I'm worth{' '}
+        <b>
+          {value} {unit}
+        </b>
+      </div>
+    </>
+  ),
 };

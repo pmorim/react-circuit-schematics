@@ -7,20 +7,25 @@ import styles from './Label.module.css';
 export const Label = ({ as, name, value, unit, defaultPosition, ...rest }) => {
   const nodeRef = useRef();
 
-  // Custom Label
-  if (as) return React.createElement(as, { ref: nodeRef, name, value, unit });
-
   return (
     <Draggable defaultPosition={defaultPosition} nodeRef={nodeRef} {...rest}>
       <div className={styles.label} ref={nodeRef}>
-        <div className={styles.editable} contentEditable>
-          {name}
-        </div>
-        {' = '}
-        <div className={styles.editable} contentEditable>
-          {value}
-        </div>
-        {' ' + unit}
+        {as ? (
+          // Render Custom Label
+          React.createElement(as, { name, value, unit })
+        ) : (
+          // Render Default Label
+          <>
+            <div className={styles.editable} contentEditable>
+              {name}
+            </div>
+            {' = '}
+            <div className={styles.editable} contentEditable>
+              {value}
+            </div>
+            {' ' + unit}
+          </>
+        )}
       </div>
     </Draggable>
   );
