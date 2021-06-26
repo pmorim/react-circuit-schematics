@@ -61,7 +61,7 @@ Label.propTypes = {
    * A custom label component. Passes the given 'name', 'value' and 'unit' as
    * children.
    */
-  as: PropTypes.element,
+  as: PropTypes.func,
   /**
    * The name of the component.
    */
