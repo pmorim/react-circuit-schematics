@@ -85,14 +85,14 @@ Label.propTypes = {
    */
   onValueChange: PropTypes.func,
   /**
-   * The position of the label relative to the component
+   * The default position of the label relative to the component
    */
-  defaultPosition: PropTypes.exact({
+  position: PropTypes.exact({
     x: PropTypes.number,
     y: PropTypes.number,
   }),
 };
 
 Label.defaultProps = {
-  defaultPosition: { x: 0, y: 0 },
+  position: { x: 0, y: 0 },
 };

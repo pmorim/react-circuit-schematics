@@ -18,8 +18,8 @@ export const Port = forwardRef(
           backgroundColor: color,
 
           // The positioning of the port
-          left: `calc(${position.x * bounds.x}px - ${radius}px)`,
-          top: `calc(${position.y * bounds.y}px - ${radius}px)`,
+          left: position.x * bounds.x - radius,
+          top: position.y * bounds.y - radius,
         }}
         {...rest}
       />
@@ -37,18 +37,24 @@ Port.propTypes = {
    */
   color: PropTypes.string,
   /**
-   * The relative position of the port
+   * The relative position of the port. Range between `o` and `1`
    */
-  position: PropTypes.exact({ x: PropTypes.number, y: PropTypes.number }),
+  position: PropTypes.exact({
+    x: PropTypes.number,
+    y: PropTypes.number,
+  }),
   /**
-   * The bounds of the component's electrical symbol's image
+   * The bounding box of the port's position
    */
-  bounds: PropTypes.exact({ x: PropTypes.number, y: PropTypes.number }),
+  bounds: PropTypes.exact({
+    x: PropTypes.number,
+    y: PropTypes.number,
+  }),
 };
 
 Port.defaultProps = {
   radius: 10,
   color: '#bbb',
-  position: { x: 0, y: 0 },
-  bounds: { x: 10, y: 10 },
+  position: { x: 0.5, y: 0.5 },
+  bounds: { x: 1, y: 1 },
 };
