@@ -4,13 +4,53 @@ import Draggable from 'react-draggable';
 
 import styles from './Label.module.css';
 
-export const Label = ({ name, value, unit, position, ...rest }) => {
+export const Label = ({
+  as,
+  name,
+  value,
+  unit,
+  onNameChange,
+  onValueChange,
+  defaultPosition,
+  ...rest
+}) => {
   const nodeRef = useRef();
 
   return (
-    <Draggable defaultPosition={position} nodeRef={nodeRef} {...rest}>
+    <Draggable defaultPosition={defaultPosition} nodeRef={nodeRef} {...rest}>
       <div className={styles.label} ref={nodeRef}>
-        {`${name} = ${value} ${unit}`}
+        {as ? (
+          // Render Custom Label
+          React.createElement(as, {
+            name,
+            value,
+            unit,
+            onNameChange,
+            onValueChange,
+          })
+        ) : (
+          // Render Default Label
+          <>
+            <div
+              className={styles.editable}
+              onInput={(e) => onNameChange(e.currentTarget.textContent)}
+              suppressContentEditableWarning
+              contentEditable
+            >
+              {name}
+            </div>
+            {' = '}
+            <div
+              className={styles.editable}
+              onInput={(e) => onValueChange(e.currentTarget.textContent)}
+              suppressContentEditableWarning
+              contentEditable
+            >
+              {value}
+            </div>
+            {' ' + unit}
+          </>
+        )}
       </div>
     </Draggable>
   );
@@ -18,7 +58,12 @@ export const Label = ({ name, value, unit, position, ...rest }) => {
 
 Label.propTypes = {
   /**
-   * The name of the component
+   * A custom label component. Passes the given 'name', 'value' and 'unit' as
+   * children.
+   */
+  as: PropTypes.func,
+  /**
+   * The name of the component.
    */
   name: PropTypes.string,
   /**
@@ -30,7 +75,17 @@ Label.propTypes = {
    */
   unit: PropTypes.string,
   /**
-   * The position of the label relative to the component
+   * The function to execute when the use changes the name of the component.
+   * Use this to update the state of the component's name.
+   */
+  onNameChange: PropTypes.func,
+  /**
+   * The function to execute when the use changes the value of the component.
+   * Use this to update the state of the component's value.
+   */
+  onValueChange: PropTypes.func,
+  /**
+   * The default position of the label relative to the component
    */
   position: PropTypes.exact({
     x: PropTypes.number,

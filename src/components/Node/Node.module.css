@@ -1,0 +1,7 @@
+.node {
+  border-radius: 50%;
+}
+
+.node:hover {
+  transform: scale(1.1);
+}

@@ -1,21 +1,14 @@
 import React from 'react';
-import { Port } from '../../components/Ports';
+import { Port } from '../../components/Port';
 
 export default {
   title: 'Custom Logic/Port',
   component: Port,
-  argTypes: {
-    children: {
-      table: {
-        disable: true,
-      },
-    },
-  },
   parameters: {
     docs: {
       description: {
         component:
-          'The Port component is what allows the user to create connections between components.',
+          'The Port component is what allows the user to create connections between components',
       },
     },
   },

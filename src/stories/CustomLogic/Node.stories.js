@@ -13,4 +13,4 @@ export default {
   },
 };
 
-export const SimpleNode = (args) => <Node {...args} />;
+export const Simple = (args) => <Node {...args} />;

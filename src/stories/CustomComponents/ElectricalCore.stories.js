@@ -1,5 +1,5 @@
 import { ElectricalCore } from '../../components/ElectricalCore';
-import ResistorSVG from '../../assets/resistor-us.svg';
+import ResistorSVG from '../../assets/resistor.svg';
 
 export default {
   title: 'Custom Components/ElectricalCore',
