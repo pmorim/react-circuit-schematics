@@ -1,5 +1,4 @@
 import React from 'react';
-import { CircuitCanvas } from '../../components/CircuitCanvas';
 import { Port } from '../../components/Port';
 
 export default {
@@ -15,12 +14,8 @@ export default {
   },
 };
 
-export const Simple = () => {
-  const size = 500;
-
-  return (
-    <CircuitCanvas width={size} height={size}>
-      <Port bounds={{ x: size, y: size }} />
-    </CircuitCanvas>
-  );
-};
+export const Simple = () => (
+  <div style={{ position: 'relative' }}>
+    <Port />
+  </div>
+);
