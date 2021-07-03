@@ -14,8 +14,8 @@ export default {
   },
 };
 
-export const Simple = () => (
+export const Simple = (args) => (
   <div style={{ position: 'relative' }}>
-    <Port />
+    <Port {...args} />
   </div>
 );
