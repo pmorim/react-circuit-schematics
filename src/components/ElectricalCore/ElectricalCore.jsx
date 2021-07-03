@@ -10,19 +10,21 @@ import { Label } from '../Label';
 
 export const ElectricalCore = ({ symbol, type, label, ports, ...rest }) => {
   const [bounds, setBounds] = useState({ x: 0, y: 0 });
-  const [renderCount, setRenderCount] = useState(1);
+  const [renderCount, setRenderCount] = useState(0);
 
   const draggableRef = useRef();
   const boundingRef = useRef();
 
   useEffect(() => {
-    // Force 3 re-render
-    if (renderCount <= 3) setRenderCount(renderCount + 1);
+    // Calculate the bounds of the component image
+    const newBounds = {
+      x: boundingRef.current?.offsetWidth,
+      y: boundingRef.current?.offsetHeight,
+    };
 
-    setBounds({
-      x: boundingRef.current?.offsetWidth ?? 0,
-      y: boundingRef.current?.offsetHeight ?? 0,
-    });
+    // Update the bounds or force re-render
+    if (newBounds.x && newBounds.y) setBounds(newBounds);
+    else setRenderCount(renderCount + 1);
   }, [boundingRef, renderCount]);
 
   return (
