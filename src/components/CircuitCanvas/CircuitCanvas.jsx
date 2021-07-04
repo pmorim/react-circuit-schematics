@@ -1,11 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useReducer, useRef } from 'react';
 import PropTypes from 'prop-types';
+import useMouse from '@react-hook/mouse-position';
+
 import styles from './CircuitCanvas.module.css';
 
-import useMouse from '@react-hook/mouse-position';
-import { v4 as uuidv4 } from 'uuid';
+import { reducer, initialState, initializer } from '../../schematic';
+import { Connection } from '../Connection';
+import { Node } from '../Node';
 
 export const CircuitCanvas = ({ width, height, children, ...rest }) => {
+  const [state, dispatch] = useReducer(reducer, initialState, initializer);
+
   const canvasRef = useRef();
   const mouse = useMouse(canvasRef);
 
@@ -16,7 +21,14 @@ export const CircuitCanvas = ({ width, height, children, ...rest }) => {
       style={{ width, height, position: 'relative' }}
       {...rest}
     >
-      {React.Children.map(children, (child) => React.cloneElement(child, {}))}
+      {children}
+
+      {state.schematic.nodes.map((node) => (
+        <Node key={node.id} {...node} />
+      ))}
+      {state.schematic.connections.map((conn) => (
+        <Connection key={conn.id} {...conn} />
+      ))}
     </div>
   );
 };

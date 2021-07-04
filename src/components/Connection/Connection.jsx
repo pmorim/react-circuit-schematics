@@ -2,9 +2,7 @@ import React from 'react';
 import XArrow from 'react-xarrows';
 import PropTypes from 'prop-types';
 
-import styles from './Connection.module.css';
-
-export const Connection = ({ id, start, end, path, ...rest }) => {
+export const Connection = ({ start, end, path, ...rest }) => {
   return (
     <XArrow start={start} end={end} path={path} showHead={false} {...rest} />
   );

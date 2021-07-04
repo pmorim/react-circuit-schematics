@@ -3,12 +3,21 @@ import { PropTypes } from 'prop-types';
 
 import styles from './Node.module.css';
 
-export const Node = forwardRef(({ id, radius, color, ...rest }, ref) => {
+export const Node = forwardRef(({ position, properties, ...rest }, ref) => {
   return (
     <div
       ref={ref}
       className={styles.node}
-      style={{ width: radius * 2, height: radius * 2, backgroundColor: color }}
+      style={{
+        // Positioning of the node
+        left: position.x - properties.radius,
+        top: position.y - properties.radius,
+
+        // Properties of the node
+        width: properties.radius * 2,
+        height: properties.radius * 2,
+        backgroundColor: properties.color,
+      }}
       {...rest}
     />
   );
@@ -16,16 +25,24 @@ export const Node = forwardRef(({ id, radius, color, ...rest }, ref) => {
 
 Node.propTypes = {
   /**
-   * The radius of the node
+   * The position of the node
    */
-  radius: PropTypes.number,
+  position: PropTypes.exact({
+    x: PropTypes.number,
+    y: PropTypes.number,
+  }),
   /**
-   * The color of the node
+   * The optional properties fo the node
    */
-  color: PropTypes.string,
+  properties: PropTypes.exact({
+    color: PropTypes.string,
+    radius: PropTypes.number,
+  }),
 };
 
 Node.defaultProps = {
-  radius: 7,
-  color: '#6495ED',
+  properties: {
+    radius: 7,
+    color: '#6495ED',
+  },
 };
