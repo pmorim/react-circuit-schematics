@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { ElectricalCore } from '../ElectricalCore';
 import CapacitorSVG from '../../assets/capacitor.svg';
@@ -7,7 +8,7 @@ export const Capacitor = ({ name, value, labelPosition, ...rest }) => (
   <ElectricalCore
     type='Capacitor'
     symbol={CapacitorSVG}
-    label={{ name, value, unit: 'F', defaultPosition: labelPosition }}
+    label={{ name, value, unit: 'F', position: labelPosition }}
     ports={[
       { type: 'hybrid', position: { x: 0, y: 0.5 } },
       { type: 'hybrid', position: { x: 1, y: 0.5 } },

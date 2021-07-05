@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { ElectricalCore } from '../ElectricalCore';
 import PolarizedCapacitorSVG from '../../assets/polarized-capacitor.svg';
@@ -7,7 +8,7 @@ export const PolarizedCapacitor = ({ name, value, labelPosition, ...rest }) => (
   <ElectricalCore
     type='Polarized Capacitor'
     symbol={PolarizedCapacitorSVG}
-    label={{ name, value, unit: 'F', defaultPosition: labelPosition }}
+    label={{ name, value, unit: 'F', position: labelPosition }}
     ports={[
       { type: 'hybrid', position: { x: 0, y: 0.5 } },
       { type: 'hybrid', position: { x: 1, y: 0.5 } },
@@ -16,7 +17,7 @@ export const PolarizedCapacitor = ({ name, value, labelPosition, ...rest }) => (
   />
 );
 
-PolarizedCapacitorSVG.propTypes = {
+PolarizedCapacitor.propTypes = {
   /**
    * The name of the component
    */
@@ -34,7 +35,7 @@ PolarizedCapacitorSVG.propTypes = {
   }),
 };
 
-PolarizedCapacitorSVG.defaultProps = {
+PolarizedCapacitor.defaultProps = {
   name: 'C',
   value: '10µ',
   labelPosition: { x: 50, y: -25 },

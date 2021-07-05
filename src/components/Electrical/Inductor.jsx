@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { ElectricalCore } from '../ElectricalCore';
 import InductorSVG from '../../assets/inductor.svg';
@@ -7,7 +8,7 @@ export const Inductor = ({ name, value, labelPosition, ...rest }) => (
   <ElectricalCore
     type='Inductor'
     symbol={InductorSVG}
-    label={{ name, value, unit: 'H', defaultPosition: labelPosition }}
+    label={{ name, value, unit: 'H', position: labelPosition }}
     ports={[
       { type: 'hybrid', position: { x: 0, y: 0.5 } },
       { type: 'hybrid', position: { x: 1, y: 0.5 } },
