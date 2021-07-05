@@ -41,8 +41,6 @@ Node.propTypes = {
 };
 
 Node.defaultProps = {
-  properties: {
-    radius: 7,
-    color: '#6495ED',
-  },
+  position: { x: 0, y: 0 },
+  properties: { radius: 7, color: '#6495ED' },
 };

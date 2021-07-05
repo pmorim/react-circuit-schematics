@@ -21,8 +21,6 @@ export const reducer = (state, action) => {
         ),
       };
 
-    case 'buildRefs':
-
     /**
      * Throw error if the given action type is not defined
      */

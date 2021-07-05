@@ -1,7 +1,7 @@
 import React from 'react';
-import { initialSchematicState } from './state';
+import { initialState } from './state';
 
 export const SchematicContext = React.createContext({
-  state: initialSchematicState,
+  state: initialState,
   dispatch: () => undefined,
 });

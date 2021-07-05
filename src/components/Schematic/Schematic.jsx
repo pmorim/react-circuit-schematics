@@ -1,15 +1,17 @@
 import React, { useReducer, useRef } from 'react';
 import PropTypes from 'prop-types';
 import useMouse from '@react-hook/mouse-position';
+import useDynamicRefs from 'use-dynamic-refs';
 
-import styles from './CircuitCanvas.module.css';
+import styles from './Schematic.module.css';
 
-import { reducer, initialState, initializer } from '../../schematic';
+import { reducer, initialState } from '../../schematic';
 import { Connection } from '../Connection';
 import { Node } from '../Node';
 
-export const CircuitCanvas = ({ width, height, children, ...rest }) => {
-  const [state, dispatch] = useReducer(reducer, initialState, initializer);
+export const Schematic = ({ width, height, children, ...rest }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [getRef, setRef] = useDynamicRefs();
 
   const canvasRef = useRef();
   const mouse = useMouse(canvasRef);
@@ -17,23 +19,27 @@ export const CircuitCanvas = ({ width, height, children, ...rest }) => {
   return (
     <div
       ref={canvasRef}
-      className={styles.CircuitCanvas}
+      className={styles.Schematic}
       style={{ width, height, position: 'relative' }}
       {...rest}
     >
       {children}
 
       {state.schematic.nodes.map((node) => (
-        <Node key={node.id} {...node} />
+        <Node key={node.id} ref={setRef(node.id)} {...node} />
       ))}
       {state.schematic.connections.map((conn) => (
-        <Connection key={conn.id} {...conn} />
+        <Connection
+          key={conn.id}
+          start={getRef(conn.start)}
+          end={getRef(conn.end)}
+        />
       ))}
     </div>
   );
 };
 
-CircuitCanvas.propTypes = {
+Schematic.propTypes = {
   /**
    * The width of the canvas
    */
@@ -44,7 +50,7 @@ CircuitCanvas.propTypes = {
   height: PropTypes.number,
 };
 
-CircuitCanvas.defaultProps = {
+Schematic.defaultProps = {
   width: 800,
   height: 500,
 };

@@ -26,13 +26,13 @@
     "build-storybook": "build-storybook"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^6.2.9",
-    "@storybook/addon-docs": "^6.2.9",
-    "@storybook/addon-essentials": "^6.2.9",
-    "@storybook/addon-links": "^6.2.9",
-    "@storybook/node-logger": "^6.2.9",
+    "@storybook/addon-actions": "^6.3.2",
+    "@storybook/addon-docs": "^6.3.2",
+    "@storybook/addon-essentials": "^6.3.2",
+    "@storybook/addon-links": "^6.3.2",
+    "@storybook/node-logger": "^6.3.2",
     "@storybook/preset-create-react-app": "^3.1.7",
-    "@storybook/react": "^6.2.9",
+    "@storybook/react": "^6.3.2",
     "babel-eslint": "^10.0.3",
     "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
@@ -52,7 +52,7 @@
     "prettier": "^2.0.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "storybook-addon-paddings": "^4.1.1",
+    "storybook-addon-paddings": "^4.2.0",
     "storybook-css-modules-preset": "^1.1.1",
     "storybook-dark-mode": "^1.0.8"
   },
@@ -61,13 +61,14 @@
   ],
   "dependencies": {
     "@react-hook/mouse-position": "^4.1.0",
-    "@storybook/addon-a11y": "^6.2.9",
+    "@storybook/addon-a11y": "^6.3.2",
     "@storybook/addon-postcss": "^2.0.0",
-    "@storybook/addon-storysource": "^6.2.9",
+    "@storybook/addon-storysource": "^6.3.2",
     "classnames": "^2.3.1",
     "prop-types": "^15.7.2",
     "react-draggable": "^4.4.3",
     "react-xarrows": "^1.7.0",
+    "use-dynamic-refs": "^1.0.0",
     "uuid": "^8.3.2"
   },
   "eslintConfig": {

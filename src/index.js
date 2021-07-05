@@ -1,3 +1,3 @@
-import { CircuitCanvas } from './components/CircuitCanvas';
+import { Schematic } from './components/Schematic';
 
-export default CircuitCanvas;
+export default Schematic;
