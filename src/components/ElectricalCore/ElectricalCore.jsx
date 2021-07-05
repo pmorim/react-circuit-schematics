@@ -1,19 +1,21 @@
 import React, { useRef, useState, useEffect } from 'react';
+import useDynamicRefs from 'use-dynamic-refs';
 import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
 
 import cx from 'classnames';
 import styles from './ElectricalCore.module.css';
 
+import { svgMap } from '../../assets';
 import { Port } from '../Port';
 import { Label } from '../Label';
 
-export const ElectricalCore = ({ symbol, type, label, ports, ...rest }) => {
-  const [bounds, setBounds] = useState({ x: 0, y: 0 });
-  const [renderCount, setRenderCount] = useState(0);
-
+export const ElectricalCore = ({ type, position, label, ports, ...rest }) => {
   const draggableRef = useRef();
   const boundingRef = useRef();
+
+  const [bounds, setBounds] = useState({ x: 0, y: 0 });
+  const [renderCount, setRenderCount] = useState(0);
 
   useEffect(() => {
     // Calculate the bounds of the component image
@@ -29,25 +31,26 @@ export const ElectricalCore = ({ symbol, type, label, ports, ...rest }) => {
 
   return (
     <div className={styles.wrapper}>
-      <Draggable handle='.rdc-handle' nodeRef={draggableRef} {...rest}>
+      <Draggable
+        defaultPosition={position}
+        handle='.rdc-handle'
+        nodeRef={draggableRef}
+        {...rest}
+      >
         <div ref={draggableRef}>
           <img
             className={cx(styles.noDrag, 'rdc-handle')}
             ref={boundingRef}
-            src={symbol}
-            alt={symbol}
+            src={svgMap.get(type)}
+            alt={type}
           />
 
-          <Label {...label} />
+          {ports.map((port, i) => {
+            const { id, ...temp } = port;
+            return <Port key={i} ref={port.ref} bounds={bounds} {...temp} />;
+          })}
 
-          {ports.map((port, i) => (
-            <Port
-              key={i}
-              radius={port.radius}
-              position={port.position}
-              bounds={bounds}
-            />
-          ))}
+          <Label {...label} />
         </div>
       </Draggable>
     </div>
@@ -56,13 +59,17 @@ export const ElectricalCore = ({ symbol, type, label, ports, ...rest }) => {
 
 ElectricalCore.propTypes = {
   /**
-   * Path to the SVG file to be used as the electrical symbol
-   */
-  symbol: PropTypes.string,
-  /**
    * The type of the component
    */
-  type: PropTypes.string,
+  type: PropTypes.string.isRequired,
+  /**
+   * The position of the component
+   */
+  position: PropTypes.exact({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+    z: PropTypes.number,
+  }).isRequired,
   /**
    * The label of the component
    */
@@ -74,17 +81,22 @@ ElectricalCore.propTypes = {
       x: PropTypes.number,
       y: PropTypes.number,
     }),
-  }),
+  }).isRequired,
   /**
    * An array of the connection ports
    */
   ports: PropTypes.arrayOf(
     PropTypes.exact({
-      type: PropTypes.string,
+      id: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
       position: PropTypes.exact({
         x: PropTypes.number,
         y: PropTypes.number,
-      }),
+      }).isRequired,
+      ref: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.shape({ current: PropTypes.any }),
+      ]).isRequired,
     }),
-  ),
+  ).isRequired,
 };

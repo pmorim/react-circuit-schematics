@@ -30,7 +30,7 @@ Node.propTypes = {
   position: PropTypes.exact({
     x: PropTypes.number,
     y: PropTypes.number,
-  }),
+  }).isRequired,
   /**
    * The optional properties fo the node
    */

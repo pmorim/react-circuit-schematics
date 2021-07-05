@@ -11,13 +11,13 @@ export const Label = ({
   unit,
   onNameChange,
   onValueChange,
-  defaultPosition,
+  position,
   ...rest
 }) => {
   const nodeRef = useRef();
 
   return (
-    <Draggable defaultPosition={defaultPosition} nodeRef={nodeRef} {...rest}>
+    <Draggable defaultPosition={position} nodeRef={nodeRef} {...rest}>
       <div className={styles.label} ref={nodeRef}>
         {as ? (
           // Render Custom Label

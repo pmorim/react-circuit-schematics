@@ -4,16 +4,36 @@ export const initialState = {
       {
         id: 'd',
         type: 'Resistor',
-        name: 'RL',
-        value: '2M',
+        position: { x: 100, y: 100, z: 0 },
+        label: {
+          name: 'RL',
+          value: '2M',
+          unit: 'Ω',
+        },
+        ports: [
+          {
+            id: 'd1',
+            type: 'hybrid',
+            position: { x: 0, y: 0.5 },
+          },
+          {
+            id: 'd2',
+            type: 'hybrid',
+            position: { x: 1, y: 0.5 },
+          },
+        ],
       },
     ],
     connections: [
       {
         id: 'c',
-        path: 'grid',
         start: 'a',
         end: 'b',
+      },
+      {
+        id: 'e',
+        start: 'b',
+        end: 'd1',
       },
     ],
     nodes: [

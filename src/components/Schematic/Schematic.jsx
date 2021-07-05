@@ -6,7 +6,7 @@ import styles from './Schematic.module.css';
 import PropTypes from 'prop-types';
 
 import { reducer, initialState } from '../../schematic';
-import { compMap } from '../Electrical';
+import { ElectricalCore } from '../ElectricalCore';
 import { Connection } from '../Connection';
 import { Node } from '../Node';
 
@@ -26,12 +26,15 @@ export const Schematic = ({ width, height, children, ...rest }) => {
     >
       {children}
 
-      {state.schematic.components.map((comp) =>
-        React.cloneElement(compMap.get(comp.type), comp),
-      )}
+      {state.schematic.components.map((comp) => {
+        comp.ports.forEach((port) => (port.ref = setRef(port.id)));
+        return <ElectricalCore key={comp.id} {...comp} />;
+      })}
+
       {state.schematic.nodes.map((node) => (
         <Node key={node.id} ref={setRef(node.id)} {...node} />
       ))}
+
       {state.schematic.connections.map((conn) => (
         <Connection
           key={conn.id}
