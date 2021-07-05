@@ -1,6 +1,13 @@
 export const initialState = {
   schematic: {
-    components: [],
+    components: [
+      {
+        id: 'd',
+        type: 'Resistor',
+        name: 'RL',
+        value: '2M',
+      },
+    ],
     connections: [
       {
         id: 'c',

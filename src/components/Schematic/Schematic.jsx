@@ -1,11 +1,12 @@
 import React, { useReducer, useRef } from 'react';
-import PropTypes from 'prop-types';
-import useMouse from '@react-hook/mouse-position';
 import useDynamicRefs from 'use-dynamic-refs';
+import useMouse from '@react-hook/mouse-position';
 
 import styles from './Schematic.module.css';
+import PropTypes from 'prop-types';
 
 import { reducer, initialState } from '../../schematic';
+import { compMap } from '../Electrical';
 import { Connection } from '../Connection';
 import { Node } from '../Node';
 
@@ -25,6 +26,9 @@ export const Schematic = ({ width, height, children, ...rest }) => {
     >
       {children}
 
+      {state.schematic.components.map((comp) =>
+        React.cloneElement(compMap.get(comp.type), comp),
+      )}
       {state.schematic.nodes.map((node) => (
         <Node key={node.id} ref={setRef(node.id)} {...node} />
       ))}

@@ -28,8 +28,7 @@ export const ElectricalCore = ({ symbol, type, label, ports, ...rest }) => {
   }, [boundingRef, renderCount]);
 
   return (
-    // The wrapper inline-block div forces <Draggable /> to fit it's content
-    <div style={{ display: 'inline-block' }}>
+    <div className={styles.wrapper}>
       <Draggable handle='.rdc-handle' nodeRef={draggableRef} {...rest}>
         <div ref={draggableRef}>
           <img
