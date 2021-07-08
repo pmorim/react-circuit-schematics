@@ -7,7 +7,6 @@ export const Port = forwardRef(
   ({ position, bounds, properties, ...rest }, ref) => {
     return (
       <div
-        ref={ref}
         className={styles.port}
         style={{
           // The size of the port
@@ -22,7 +21,9 @@ export const Port = forwardRef(
           top: position.y * bounds.y - properties.radius,
         }}
         {...rest}
-      />
+      >
+        <div ref={ref} />
+      </div>
     );
   },
 );

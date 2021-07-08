@@ -6,7 +6,6 @@ import styles from './Node.module.css';
 export const Node = forwardRef(({ position, properties, ...rest }, ref) => {
   return (
     <div
-      ref={ref}
       className={styles.node}
       style={{
         // Positioning of the node
@@ -19,7 +18,9 @@ export const Node = forwardRef(({ position, properties, ...rest }, ref) => {
         backgroundColor: properties.color,
       }}
       {...rest}
-    />
+    >
+      <div ref={ref} />
+    </div>
   );
 });
 
