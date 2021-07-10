@@ -1,12 +1,8 @@
 import { ElectricalCore } from '../../components/ElectricalCore';
-import ResistorSVG from '../../assets/resistor.svg';
 
 export default {
   title: 'Custom Components/ElectricalCore',
   component: ElectricalCore,
-  argTypes: {
-    symbol: { control: { type: null } },
-  },
   parameters: {
     docs: {
       description: {
@@ -19,8 +15,8 @@ export default {
 
 export const ResistorExample = (args) => <ElectricalCore {...args} />;
 ResistorExample.args = {
-  symbol: ResistorSVG,
   type: 'Resistor',
+  position: { x: 0, y: 0 },
   label: {
     name: 'R1',
     value: '10k',
@@ -28,7 +24,15 @@ ResistorExample.args = {
     position: { x: 50, y: -25 },
   },
   ports: [
-    { type: 'hybrid', position: { x: 0, y: 0.5 } },
-    { type: 'hybrid', position: { x: 1, y: 0.5 } },
+    {
+      id: 'a',
+      type: 'hybrid',
+      position: { x: 0, y: 0.5 },
+    },
+    {
+      id: 'b',
+      type: 'hybrid',
+      position: { x: 1, y: 0.5 },
+    },
   ],
 };

@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react';
-import useDynamicRefs from 'use-dynamic-refs';
 import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
 
@@ -32,9 +31,9 @@ export const ElectricalCore = ({ type, position, label, ports, ...rest }) => {
   return (
     <div className={styles.wrapper}>
       <Draggable
-        defaultPosition={position}
         handle='.rdc-handle'
         nodeRef={draggableRef}
+        defaultPosition={position}
         {...rest}
       >
         <div ref={draggableRef}>
@@ -46,8 +45,7 @@ export const ElectricalCore = ({ type, position, label, ports, ...rest }) => {
           />
 
           {ports.map((port, i) => {
-            const { id, ...temp } = port;
-            return <Port key={i} ref={port.ref} bounds={bounds} {...temp} />;
+            return <Port key={i} ref={port.ref} bounds={bounds} {...port} />;
           })}
 
           <Label {...label} />

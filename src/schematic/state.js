@@ -4,7 +4,7 @@ export const initialState = {
       {
         id: 'd',
         type: 'Resistor',
-        position: { x: 100, y: 100, z: 0 },
+        position: { x: 100, y: 100 },
         label: {
           name: 'RL',
           value: '2M',
