@@ -65,6 +65,7 @@
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/addon-storysource": "^6.3.2",
     "classnames": "^2.3.1",
+    "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
     "react-draggable": "^4.4.3",
     "react-xarrows": "^1.7.0",
