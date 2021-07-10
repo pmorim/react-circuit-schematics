@@ -10,7 +10,7 @@ import { ElectricalCore } from '../ElectricalCore';
 import { Connection } from '../Connection';
 import { Node } from '../Node';
 
-export const Schematic = ({ width, height, children, ...rest }) => {
+export const Schematic = ({ width, height, gridSize, children, ...rest }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [getRef, setRef] = useDynamicRefs();
 
@@ -28,7 +28,9 @@ export const Schematic = ({ width, height, children, ...rest }) => {
 
       {state.schematic.components.map((comp) => {
         comp.ports.forEach((port) => (port.ref = setRef(port.id)));
-        return <ElectricalCore key={comp.id} {...comp} />;
+        return (
+          <ElectricalCore key={comp.id} grid={[gridSize, gridSize]} {...comp} />
+        );
       })}
 
       {state.schematic.nodes.map((node) => (
@@ -55,9 +57,14 @@ Schematic.propTypes = {
    * The height of the canvas
    */
   height: PropTypes.number,
+  /**
+   * The size of the grid units, in pixels
+   */
+  gridSize: PropTypes.number,
 };
 
 Schematic.defaultProps = {
   width: 800,
   height: 500,
+  gridSize: 1,
 };
