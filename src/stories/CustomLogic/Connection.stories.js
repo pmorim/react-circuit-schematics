@@ -11,9 +11,8 @@ export default {
   },
   parameters: {
     docs: {
-      description: {
-        component:
-          'The Connection component is used to connect two components. Usually, instances of either `Port` or `Node`. This component makes use of [react-xarrows](https://www.npmjs.com/package/react-xarrows), therefore, any extra props you pass to this component will be forwarded to `XArrow`.',
+      source: {
+        type: 'code',
       },
     },
   },
