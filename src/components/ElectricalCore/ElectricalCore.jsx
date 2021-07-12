@@ -16,8 +16,11 @@ export const ElectricalCore = ({ type, position, label, ports, ...rest }) => {
   const [bounds, setBounds] = useState({ x: 0, y: 0 });
   const [renderCount, setRenderCount] = useState(0);
 
+  /**
+   * Calculate the bounds of the component
+   */
   useEffect(() => {
-    // Calculate the bounds of the component image
+    // Calculate the bounds of the component's image
     const newBounds = {
       x: boundingRef.current?.offsetWidth,
       y: boundingRef.current?.offsetHeight,
@@ -27,6 +30,34 @@ export const ElectricalCore = ({ type, position, label, ports, ...rest }) => {
     if (newBounds.x && newBounds.y) setBounds(newBounds);
     else setRenderCount(renderCount + 1);
   }, [boundingRef, renderCount]);
+
+  /**
+   * Update the port's position to take into account the component's rotation.
+   */
+  useEffect(() => {
+    for (const port of ports) {
+      let { x, y } = port.position;
+
+      // Shift the coordinates to origin
+      x = x * 2 - 1;
+      y = y * 2 - 1;
+
+      // Convert to polar coordinates
+      let radius = Math.sqrt(x * x + y * y);
+      let teta = Math.atan2(y, x);
+
+      // Convert the component's rotation to radians
+      const rot = position.angle * (Math.PI / 180);
+
+      // Convert to Cartesian coordinates
+      x = radius * Math.cos(teta - rot);
+      y = radius * Math.sin(teta - rot);
+
+      // Shift the coordinates back
+      port.position.x = (x + 1) / 2;
+      port.position.y = (y + 1) / 2;
+    }
+  }, [position]);
 
   return (
     <div className={styles.wrapper}>
@@ -39,6 +70,7 @@ export const ElectricalCore = ({ type, position, label, ports, ...rest }) => {
         <div ref={draggableRef}>
           <img
             className={cx(styles.noDrag, 'rdc-handle')}
+            style={{ transform: `rotate(-${position.angle}deg)` }}
             ref={boundingRef}
             src={svgMap.get(type)}
             alt={type}
@@ -67,6 +99,7 @@ ElectricalCore.propTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
     z: PropTypes.number,
+    angle: PropTypes.number,
   }).isRequired,
   /**
    * The label of the component
