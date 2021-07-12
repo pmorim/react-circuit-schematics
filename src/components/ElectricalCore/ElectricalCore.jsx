@@ -47,7 +47,7 @@ export const ElectricalCore = ({ type, position, label, ports, ...rest }) => {
       let teta = Math.atan2(y, x);
 
       // Convert the component's rotation to radians
-      const rot = position.angle * (Math.PI / 180);
+      const rot = (position.angle ?? 0) * (Math.PI / 180);
 
       // Convert to Cartesian coordinates
       x = radius * Math.cos(teta - rot);
@@ -118,7 +118,7 @@ ElectricalCore.propTypes = {
    */
   ports: PropTypes.arrayOf(
     PropTypes.exact({
-      id: PropTypes.string.isRequired,
+      id: PropTypes.string,
       type: PropTypes.string.isRequired,
       position: PropTypes.exact({
         x: PropTypes.number,
@@ -127,7 +127,7 @@ ElectricalCore.propTypes = {
       ref: PropTypes.oneOfType([
         PropTypes.func,
         PropTypes.shape({ current: PropTypes.any }),
-      ]).isRequired,
+      ]),
     }),
   ).isRequired,
 };

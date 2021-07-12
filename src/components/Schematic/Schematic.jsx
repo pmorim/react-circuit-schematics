@@ -1,21 +1,28 @@
-import React, { useReducer, useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import useDynamicRefs from 'use-dynamic-refs';
 import useMouse from '@react-hook/mouse-position';
 
 import styles from './Schematic.module.css';
 import PropTypes from 'prop-types';
 
-import { reducer, initialState } from '../../schematic';
 import { ElectricalCore } from '../ElectricalCore';
 import { Connection } from '../Connection';
 import { Node } from '../Node';
 
-export const Schematic = ({ width, height, gridSize, children, ...rest }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+export const Schematic = ({
+  data,
+  width,
+  height,
+  gridSize,
+  children,
+  ...rest
+}) => {
   const [getRef, setRef] = useDynamicRefs();
 
   const canvasRef = useRef();
   const mouse = useMouse(canvasRef);
+
+  useEffect(() => {}, [data]);
 
   return (
     <div
@@ -26,18 +33,19 @@ export const Schematic = ({ width, height, gridSize, children, ...rest }) => {
     >
       {children}
 
-      {state.schematic.components.map((comp) => {
+      {data.components?.map((comp) => {
+        // Pre-build all refs
         comp.ports.forEach((port) => (port.ref = setRef(port.id)));
         return (
           <ElectricalCore key={comp.id} grid={[gridSize, gridSize]} {...comp} />
         );
       })}
 
-      {state.schematic.nodes.map((node) => (
+      {data.nodes?.map((node) => (
         <Node key={node.id} ref={setRef(node.id)} {...node} />
       ))}
 
-      {state.schematic.connections.map((conn) => (
+      {data.connections?.map((conn) => (
         <Connection
           key={conn.id}
           start={getRef(conn.start)}
@@ -49,6 +57,10 @@ export const Schematic = ({ width, height, gridSize, children, ...rest }) => {
 };
 
 Schematic.propTypes = {
+  /**
+   * The schematic data
+   */
+  data: PropTypes.any,
   /**
    * The width of the canvas
    */
@@ -64,7 +76,8 @@ Schematic.propTypes = {
 };
 
 Schematic.defaultProps = {
+  data: {},
   width: 800,
   height: 500,
-  gridSize: 1,
+  gridSize: 10,
 };

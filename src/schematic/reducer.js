@@ -1,25 +1,46 @@
-import { useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { findKey } from 'lodash';
+
+// Helper functions
+import { optimizeSchematic } from './optimizeSchematic';
 
 export const reducer = (state, action) => {
   switch (action.type) {
     /**
-     * Adds the given component with a randomly generated id
+     * Adds the given element with a randomly generated id
+     * If the element already contained an id, than use that one
      */
     case 'add':
-      state[action.which].push({ id: uuidv4(), ...action.payload });
-      return state;
+      state.schematic[action.where].push({ id: uuidv4(), ...action.payload });
+      break;
 
     /**
-     * Deletes a component by the given id
+     * Deletes an element by the given id
+     * Delete all connections to that element as well
      */
     case 'delete':
-      return {
-        ...state,
-        [action.which]: state[action.which].filter(
-          (comp) => comp.id !== action.id,
-        ),
-      };
+      // Find the type of element
+      const type = findKey(state.schematic, (group) =>
+        group.find((elem) => elem.id === action.id),
+      );
+
+      // Find the element itself
+      const element = state.schematic[type].find(
+        (elem) => elem.id === action.id,
+      );
+
+      // Delete the element
+      state.schematic[type] = state.schematic[key].filter(
+        (elem) => elem.id !== action.id,
+      );
+
+      // Delete the connections to the element
+      state.schematic.connections.filter((conn) => {
+        for (const port of element.ports)
+          return port.id !== conn.start && port.id !== conn.end;
+      });
+
+      break;
 
     /**
      * Throw error if the given action type is not defined
@@ -27,4 +48,8 @@ export const reducer = (state, action) => {
     default:
       throw new Error('Action type not supported.');
   }
+
+  // Return the updated schematic
+  if (!state.settings.optimize) return state;
+  return optimizeSchematic(state);
 };
