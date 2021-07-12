@@ -9,6 +9,9 @@ export default {
         component:
           'The Node components acts like an independent Port. You are able to to connect it to other Nodes or Ports.',
       },
+      source: {
+        type: 'code',
+      },
     },
   },
 };

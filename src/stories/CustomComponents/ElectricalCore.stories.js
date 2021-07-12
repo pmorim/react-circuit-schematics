@@ -9,6 +9,9 @@ export default {
         component:
           'All electrical components are created with this one. Electrical Core takes care of all the logic that comes with assembling the component itself. You can use this component to make your own electrical components.',
       },
+      source: {
+        type: 'code',
+      },
     },
   },
 };
@@ -25,12 +28,10 @@ ResistorExample.args = {
   },
   ports: [
     {
-      id: 'a',
       type: 'hybrid',
       position: { x: 0, y: 0.5 },
     },
     {
-      id: 'b',
       type: 'hybrid',
       position: { x: 1, y: 0.5 },
     },

@@ -12,6 +12,9 @@ export default {
         component:
           'The Label component displays to the user the name, value and unit of the electrical component. It is also able to be dragged around.',
       },
+      source: {
+        type: 'code',
+      },
     },
   },
 };

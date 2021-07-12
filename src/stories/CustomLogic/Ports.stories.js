@@ -10,6 +10,9 @@ export default {
         component:
           'The Port component is what allows the user to create connections between components',
       },
+      source: {
+        type: 'code',
+      },
     },
   },
 };
