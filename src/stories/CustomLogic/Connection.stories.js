@@ -18,7 +18,7 @@ export default {
   },
 };
 
-const Template = (args) => {
+export const Simple = () => {
   const start = useRef();
   const end = useRef();
 
@@ -30,9 +30,7 @@ const Template = (args) => {
       <Port ref={start} position={{ x: 0, y: 0 }} bounds={bounds} />
       <Port ref={end} position={{ x: 1, y: 0.5 }} bounds={bounds} />
 
-      <Connection start={start} end={end} {...args} />
+      <Connection start={start} end={end} />
     </div>
   );
 };
-
-export const Simple = Template.bind({});

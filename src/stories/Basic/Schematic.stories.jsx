@@ -1,5 +1,6 @@
 import { Schematic } from '../../components/Schematic';
 import { useSchematic } from '../../schematic';
+import { initialState } from '../../schematic/initialState';
 
 export default {
   title: 'Basic/Schematic',
@@ -17,9 +18,10 @@ export default {
   },
 };
 
-import { initialState } from '../../schematic/initialState';
-export const EmptySchematic = (args) => {
+export const Empty = () => <Schematic />;
+
+export const Simple = () => {
   const { schematic } = useSchematic(initialState);
 
-  return <Schematic data={schematic} {...args} />;
+  return <Schematic data={schematic} />;
 };

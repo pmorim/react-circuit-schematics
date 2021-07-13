@@ -41,5 +41,5 @@ Connection.propTypes = {
 };
 
 Connection.defaultProps = {
-  path: 'grid',
+  type: 'grid',
 };

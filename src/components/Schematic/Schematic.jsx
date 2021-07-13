@@ -22,8 +22,6 @@ export const Schematic = ({
   const canvasRef = useRef();
   const mouse = useMouse(canvasRef);
 
-  useEffect(() => {}, [data]);
-
   return (
     <div
       ref={canvasRef}

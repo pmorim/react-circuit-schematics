@@ -16,8 +16,8 @@ export default {
   },
 };
 
-export const Simple = (args) => (
+export const Simple = () => (
   <div style={{ position: 'relative' }}>
-    <Node {...args} />
+    <Node />
   </div>
 );
