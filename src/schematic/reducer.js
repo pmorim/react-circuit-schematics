@@ -4,34 +4,44 @@ import { findKey } from 'lodash';
 // Helper functions
 import { optimizeSchematic } from './optimizeSchematic';
 
+export const ACTIONS = {
+  ADD: 'add',
+  DELETE: 'delete',
+  UNDO: 'undo',
+  REDO: 'redo',
+};
+
 export const reducer = (state, action) => {
   switch (action.type) {
     /**
      * Adds the given element with a randomly generated id
      * If the element already contained an id, than use that one
      */
-    case 'add':
-      state.schematic[action.where].push({ id: uuidv4(), ...action.payload });
+    case ACTIONS.ADD:
+      state.schematic[action.payload.where].push({
+        id: uuidv4(),
+        ...action.payload.element,
+      });
       break;
 
     /**
      * Deletes an element by the given id
      * Delete all connections to that element as well
      */
-    case 'delete':
+    case ACTIONS.DELETE:
       // Find the type of element
       const type = findKey(state.schematic, (group) =>
-        group.find((elem) => elem.id === action.id),
+        group.find((elem) => elem.id === action.payload.id),
       );
 
       // Find the element itself
       const element = state.schematic[type].find(
-        (elem) => elem.id === action.id,
+        (elem) => elem.id === action.payload.id,
       );
 
       // Delete the element
       state.schematic[type] = state.schematic[key].filter(
-        (elem) => elem.id !== action.id,
+        (elem) => elem.id !== action.payload.id,
       );
 
       // Delete the connections to the element
@@ -40,6 +50,12 @@ export const reducer = (state, action) => {
           return port.id !== conn.start && port.id !== conn.end;
       });
 
+      break;
+
+    case ACTIONS.UNDO:
+      break;
+
+    case ACTIONS.REDO:
       break;
 
     /**
