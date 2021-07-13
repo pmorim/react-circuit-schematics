@@ -77,7 +77,7 @@ export const Simple = () => {
             name: 'C',
             value: '1µ',
             unit: 'F',
-            position: { x: 90, y: -65 },
+            position: { x: 90, y: -70 },
           },
           ports: [
             {

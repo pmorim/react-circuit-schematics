@@ -15,6 +15,7 @@ export const ElectricalCore = ({
   label,
   ports,
   size,
+  gridSize,
   ...rest
 }) => {
   const draggableRef = useRef();
@@ -77,6 +78,7 @@ export const ElectricalCore = ({
         positionOffset={{ x: 5, y: 5 }}
         onStart={() => setIsGrabbing(true)}
         onStop={() => setIsGrabbing(false)}
+        grid={[gridSize, gridSize]}
         {...rest}
       >
         <div ref={draggableRef}>
@@ -96,7 +98,7 @@ export const ElectricalCore = ({
             return <Port key={i} ref={port.ref} bounds={bounds} {...port} />;
           })}
 
-          <Label {...label} />
+          <Label gridSize={gridSize} {...label} />
         </div>
       </Draggable>
     </div>
@@ -150,4 +152,14 @@ ElectricalCore.propTypes = {
    * The size of the component
    */
   size: PropTypes.number,
+  /**
+   * The size of the grid, i.e., the amount of pixels the drag skips
+   */
+  gridSize: PropTypes.number,
+};
+
+ElectricalCore.defaultArgs = {
+  position: { x: 0, y: 0 },
+  size: 100,
+  gridSize: 10,
 };

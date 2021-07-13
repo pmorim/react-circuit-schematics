@@ -50,7 +50,7 @@ export const Schematic = ({
         return (
           <ElectricalCore
             key={comp.id}
-            grid={[gridSize, gridSize]}
+            gridSize={gridSize}
             size={componentSize}
             {...comp}
           />

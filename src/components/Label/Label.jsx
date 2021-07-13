@@ -40,11 +40,16 @@ const DefaultLabel = (props) => {
   );
 };
 
-export const Label = ({ as, position, ...rest }) => {
+export const Label = ({ as, position, gridSize, ...rest }) => {
   const draggableRef = useRef();
 
   return (
-    <Draggable defaultPosition={position} nodeRef={draggableRef} {...rest}>
+    <Draggable
+      defaultPosition={position}
+      nodeRef={draggableRef}
+      grid={[gridSize, gridSize]}
+      {...rest}
+    >
       <div className={styles.label} ref={draggableRef}>
         {as ? React.createElement(as, rest) : <DefaultLabel {...rest} />}
       </div>
@@ -87,8 +92,13 @@ Label.propTypes = {
     x: PropTypes.number,
     y: PropTypes.number,
   }),
+  /**
+   * The size of the grid, i.e., the amount of pixels the drag skips
+   */
+  gridSize: PropTypes.number,
 };
 
 Label.defaultProps = {
   position: { x: 0, y: 0 },
+  gridSize: 10,
 };
