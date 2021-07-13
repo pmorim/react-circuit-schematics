@@ -8,3 +8,13 @@
 .wrapper {
   display: inline-block;
 }
+
+/* Grab and Grabbing cursor states */
+.grab {
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+.grabbing {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}

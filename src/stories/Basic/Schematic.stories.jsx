@@ -31,7 +31,7 @@ export const Simple = () => {
             name: 'R',
             value: '10k',
             unit: 'Ω',
-            position: { x: 10, y: -100 },
+            position: { x: 10, y: -110 },
           },
           ports: [
             {
@@ -54,7 +54,7 @@ export const Simple = () => {
             name: 'L',
             value: '10m',
             unit: 'H',
-            position: { x: 10, y: -100 },
+            position: { x: 10, y: -110 },
           },
           ports: [
             {

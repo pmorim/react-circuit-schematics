@@ -2,8 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
 
-import cx from 'classnames';
 import styles from './ElectricalCore.module.css';
+import cx from 'classnames';
 
 import { svgMap } from '../../../assets';
 import { Port } from '../Port';
@@ -22,6 +22,8 @@ export const ElectricalCore = ({
 
   const [bounds, setBounds] = useState({ x: 0, y: 0 });
   const [renderCount, setRenderCount] = useState(0);
+
+  const [isGrabbing, setIsGrabbing] = useState(false);
 
   /**
    * Calculate the bounds of the component
@@ -73,11 +75,17 @@ export const ElectricalCore = ({
         nodeRef={draggableRef}
         defaultPosition={position}
         positionOffset={{ x: 5, y: 5 }}
+        onStart={() => setIsGrabbing(true)}
+        onStop={() => setIsGrabbing(false)}
         {...rest}
       >
         <div ref={draggableRef}>
           <img
-            className={cx(styles.noDrag, 'rdc-handle')}
+            className={cx(
+              styles.noDrag,
+              'rdc-handle',
+              isGrabbing ? styles.grabbing : styles.grab,
+            )}
             style={{ transform: `rotate(${position.angle}deg)`, width: size }}
             ref={boundingRef}
             src={svgMap.get(type)}
