@@ -4,13 +4,13 @@ import Capacitor from './capacitor.svg';
 import PolarizedCapacitor from './polarized-capacitor.svg';
 import Reactance from './reactance.svg';
 /*
-import Capacitor from './capacitor.svg';
-import Capacitor from './capacitor.svg';
-import Capacitor from './capacitor.svg';
-import Capacitor from './capacitor.svg';
-import Capacitor from './capacitor.svg';
-import Capacitor from './capacitor.svg';
-import Capacitor from './capacitor.svg';
+import A from './a.svg';
+import A from './a.svg';
+import A from './a.svg';
+import A from './a.svg';
+import A from './a.svg';
+import A from './a.svg';
+import A from './a.svg';
 */
 
 export const svgMap = new Map([

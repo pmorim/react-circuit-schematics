@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import styles from './ElectricalCore.module.css';
 
-import { svgMap } from '../../assets';
+import { svgMap } from '../../../assets';
 import { Port } from '../Port';
 import { Label } from '../Label';
 
