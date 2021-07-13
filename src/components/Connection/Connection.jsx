@@ -4,7 +4,14 @@ import PropTypes from 'prop-types';
 
 export const Connection = ({ start, end, type, properties, ...rest }) => {
   return (
-    <XArrow start={start} end={end} path={type} showHead={false} {...rest} />
+    <XArrow
+      start={start}
+      end={end}
+      path={type}
+      showHead={false}
+      gridBreak={1}
+      {...rest}
+    />
   );
 };
 

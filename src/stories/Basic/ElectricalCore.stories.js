@@ -1,7 +1,7 @@
 import { ElectricalCore } from '../../components/ElectricalCore';
 
 export default {
-  title: 'Custom Components/ElectricalCore',
+  title: 'Basic/ElectricalCore',
   component: ElectricalCore,
   parameters: {
     docs: {

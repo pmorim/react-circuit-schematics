@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import useDynamicRefs from 'use-dynamic-refs';
 import useMouse from '@react-hook/mouse-position';
 
-import styles from './Schematic.module.css';
 import PropTypes from 'prop-types';
 
 import { ElectricalCore } from '../ElectricalCore';
@@ -27,14 +26,17 @@ export const Schematic = ({
   return (
     <div
       ref={canvasRef}
-      className={styles.grid}
       style={{
         width,
         height,
         position: 'relative',
 
         // Grid shader
-        backgroundImage: `radial-gradient(circle, ${gridColor} 1px, transparent 1px)`,
+        backgroundImage: `radial-gradient(
+          circle,
+          ${gridColor} 1px,
+          transparent 1px
+        )`,
         backgroundSize: `${gridSize}px ${gridSize}px`,
       }}
       {...rest}
@@ -91,6 +93,10 @@ Schematic.propTypes = {
    * The color of the grid dots
    */
   gridColor: PropTypes.string,
+  /**
+   * The size of the component
+   */
+  componentSize: PropTypes.number,
 };
 
 Schematic.defaultProps = {
@@ -99,4 +105,5 @@ Schematic.defaultProps = {
   height: 500,
   gridSize: 10,
   gridColor: '#777',
+  componentSize: 100,
 };

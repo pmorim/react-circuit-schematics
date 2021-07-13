@@ -57,8 +57,8 @@ export const ElectricalCore = ({
       const rot = (position.angle ?? 0) * (Math.PI / 180);
 
       // Convert to Cartesian coordinates
-      x = radius * Math.cos(teta - rot);
-      y = radius * Math.sin(teta - rot);
+      x = radius * Math.cos(teta + rot);
+      y = radius * Math.sin(teta + rot);
 
       // Shift the coordinates back
       port.position.x = (x + 1) / 2;
@@ -77,7 +77,7 @@ export const ElectricalCore = ({
         <div ref={draggableRef}>
           <img
             className={cx(styles.noDrag, 'rdc-handle')}
-            style={{ transform: `rotate(-${position.angle}deg)`, width: size }}
+            style={{ transform: `rotate(${position.angle}deg)`, width: size }}
             ref={boundingRef}
             src={svgMap.get(type)}
             alt={type}
@@ -137,4 +137,8 @@ ElectricalCore.propTypes = {
       ]),
     }),
   ).isRequired,
+  /**
+   * The size of the component
+   */
+  size: PropTypes.number,
 };

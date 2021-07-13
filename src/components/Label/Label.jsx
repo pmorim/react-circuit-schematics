@@ -4,53 +4,36 @@ import Draggable from 'react-draggable';
 
 import styles from './Label.module.css';
 
-export const Label = ({
-  as,
-  name,
-  value,
-  unit,
-  onNameChange,
-  onValueChange,
-  position,
-  ...rest
-}) => {
+const DefaultLabel = (props) => (
+  <b>
+    <div
+      className={styles.editable}
+      onInput={(e) => props.onNameChange(e.currentTarget.textContent)}
+      suppressContentEditableWarning
+      contentEditable
+    >
+      {props.name}
+    </div>
+    {' = '}
+    <div
+      className={styles.editable}
+      onInput={(e) => props.onValueChange(e.currentTarget.textContent)}
+      suppressContentEditableWarning
+      contentEditable
+    >
+      {props.value}
+    </div>
+    {' ' + props.unit}
+  </b>
+);
+
+export const Label = ({ as, position, ...rest }) => {
   const nodeRef = useRef();
 
   return (
     <Draggable defaultPosition={position} nodeRef={nodeRef} {...rest}>
       <div className={styles.label} ref={nodeRef}>
-        {as ? (
-          // Render Custom Label
-          React.createElement(as, {
-            name,
-            value,
-            unit,
-            onNameChange,
-            onValueChange,
-          })
-        ) : (
-          // Render Default Label
-          <>
-            <div
-              className={styles.editable}
-              onInput={(e) => onNameChange(e.currentTarget.textContent)}
-              suppressContentEditableWarning
-              contentEditable
-            >
-              {name}
-            </div>
-            {' = '}
-            <div
-              className={styles.editable}
-              onInput={(e) => onValueChange(e.currentTarget.textContent)}
-              suppressContentEditableWarning
-              contentEditable
-            >
-              {value}
-            </div>
-            {' ' + unit}
-          </>
-        )}
+        {as ? React.createElement(as, rest) : <DefaultLabel {...rest} />}
       </div>
     </Draggable>
   );

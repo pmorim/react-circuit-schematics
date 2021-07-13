@@ -54,7 +54,7 @@ Port.propTypes = {
 
 Port.defaultProps = {
   properties: {
-    radius: 10,
+    radius: 6,
     color: '#bbb',
   },
   position: { x: 0.5, y: 0.5 },

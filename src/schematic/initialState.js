@@ -26,7 +26,7 @@ export const initialState = {
       {
         id: 'r2',
         type: 'Resistor',
-        position: { x: 300, y: 200, angle: 0 },
+        position: { x: 300, y: 200, angle: 90 },
         label: {
           name: 'R2',
           value: '10k',
