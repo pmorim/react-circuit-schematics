@@ -1,19 +1,24 @@
-.Schematic {
-  --color: #3333;
+.grid {
+  --color: #333;
 
+  background-image: radial-gradient(circle, var(--color) 1px, transparent 1px);
+
+  /*
   background-image: linear-gradient(
       to right,
-      var(--color) 1%,
+      var(--dark) 1%,
       transparent 1%,
       transparent 99%,
-      var(--color)
+      var(--dark)
     ),
     linear-gradient(
       to bottom,
-      var(--color) 1%,
+      var(--dark) 1%,
       transparent 1%,
       transparent 99%,
-      var(--color)
+      var(--dark)
     );
-  background-size: 100px 100px;
+  */
+
+  background-size: 10px 10px;
 }

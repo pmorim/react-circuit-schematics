@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import useDynamicRefs from 'use-dynamic-refs';
 import useMouse from '@react-hook/mouse-position';
 
@@ -14,6 +14,8 @@ export const Schematic = ({
   width,
   height,
   gridSize,
+  gridColor,
+  componentSize,
   children,
   ...rest
 }) => {
@@ -25,17 +27,31 @@ export const Schematic = ({
   return (
     <div
       ref={canvasRef}
-      className={styles.Schematic}
-      style={{ width, height, position: 'relative' }}
+      className={styles.grid}
+      style={{
+        width,
+        height,
+        position: 'relative',
+
+        // Grid shader
+        backgroundImage: `radial-gradient(circle, ${gridColor} 1px, transparent 1px)`,
+        backgroundSize: `${gridSize}px ${gridSize}px`,
+      }}
       {...rest}
     >
       {children}
 
       {data.components?.map((comp) => {
-        // Pre-build all refs
+        // Pre-build the port refs
         comp.ports.forEach((port) => (port.ref = setRef(port.id)));
+
         return (
-          <ElectricalCore key={comp.id} grid={[gridSize, gridSize]} {...comp} />
+          <ElectricalCore
+            key={comp.id}
+            grid={[gridSize, gridSize]}
+            size={componentSize}
+            {...comp}
+          />
         );
       })}
 
@@ -71,6 +87,10 @@ Schematic.propTypes = {
    * The size of the grid units, in pixels
    */
   gridSize: PropTypes.number,
+  /**
+   * The color of the grid dots
+   */
+  gridColor: PropTypes.string,
 };
 
 Schematic.defaultProps = {
@@ -78,4 +98,5 @@ Schematic.defaultProps = {
   width: 800,
   height: 500,
   gridSize: 10,
+  gridColor: '#777',
 };

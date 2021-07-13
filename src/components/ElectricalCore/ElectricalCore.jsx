@@ -9,7 +9,14 @@ import { svgMap } from '../../assets';
 import { Port } from '../Port';
 import { Label } from '../Label';
 
-export const ElectricalCore = ({ type, position, label, ports, ...rest }) => {
+export const ElectricalCore = ({
+  type,
+  position,
+  label,
+  ports,
+  size,
+  ...rest
+}) => {
   const draggableRef = useRef();
   const boundingRef = useRef();
 
@@ -70,7 +77,7 @@ export const ElectricalCore = ({ type, position, label, ports, ...rest }) => {
         <div ref={draggableRef}>
           <img
             className={cx(styles.noDrag, 'rdc-handle')}
-            style={{ transform: `rotate(-${position.angle}deg)` }}
+            style={{ transform: `rotate(-${position.angle}deg)`, width: size }}
             ref={boundingRef}
             src={svgMap.get(type)}
             alt={type}
