@@ -18,10 +18,10 @@ export default {
   },
 };
 
-export const Empty = () => <Schematic />;
+export const Empty = () => <Schematic width={800} height={500} />;
 
 export const Simple = () => {
   const { schematic } = useSchematic(initialState);
 
-  return <Schematic data={schematic} />;
+  return <Schematic width={800} height={500} data={schematic} />;
 };

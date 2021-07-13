@@ -101,8 +101,8 @@ Schematic.propTypes = {
 
 Schematic.defaultProps = {
   data: {},
-  width: 800,
-  height: 500,
+  width: '100%',
+  height: '100%',
   gridSize: 10,
   gridColor: '#777',
   componentSize: 100,
