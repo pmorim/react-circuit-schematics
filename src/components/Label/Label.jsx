@@ -4,35 +4,48 @@ import Draggable from 'react-draggable';
 
 import styles from './Label.module.css';
 
-const DefaultLabel = (props) => (
-  <b>
-    <div
-      className={styles.editable}
-      onInput={(e) => props.onNameChange(e.currentTarget.textContent)}
-      suppressContentEditableWarning
-      contentEditable
-    >
-      {props.name}
-    </div>
-    {' = '}
-    <div
-      className={styles.editable}
-      onInput={(e) => props.onValueChange(e.currentTarget.textContent)}
-      suppressContentEditableWarning
-      contentEditable
-    >
-      {props.value}
-    </div>
-    {' ' + props.unit}
-  </b>
-);
+const setContentEditable = (ref, val) => {
+  ref.current.contentEditable = val;
+};
 
-export const Label = ({ as, position, ...rest }) => {
-  const nodeRef = useRef();
+const DefaultLabel = (props) => {
+  const nameRef = useRef();
+  const valueRef = useRef();
 
   return (
-    <Draggable defaultPosition={position} nodeRef={nodeRef} {...rest}>
-      <div className={styles.label} ref={nodeRef}>
+    <b>
+      <div
+        ref={nameRef}
+        className={styles.editable}
+        onDoubleClick={() => setContentEditable(nameRef, true)}
+        onInput={(e) => props.onNameChange(e.currentTarget.textContent)}
+        onBlur={() => setContentEditable(nameRef, false)}
+        suppressContentEditableWarning
+      >
+        {props.name}
+      </div>
+      {' = '}
+      <div
+        ref={valueRef}
+        className={styles.editable}
+        onDoubleClick={() => setContentEditable(valueRef, true)}
+        onInput={(e) => props.onValueChange(e.currentTarget.textContent)}
+        onBlur={() => setContentEditable(valueRef, false)}
+        suppressContentEditableWarning
+      >
+        {props.value}
+      </div>
+      {' ' + props.unit}
+    </b>
+  );
+};
+
+export const Label = ({ as, position, ...rest }) => {
+  const draggableRef = useRef();
+
+  return (
+    <Draggable defaultPosition={position} nodeRef={draggableRef} {...rest}>
+      <div className={styles.label} ref={draggableRef}>
         {as ? React.createElement(as, rest) : <DefaultLabel {...rest} />}
       </div>
     </Draggable>
