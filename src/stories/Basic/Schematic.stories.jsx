@@ -112,9 +112,6 @@ export const Simple = () => {
         },
       ],
     },
-    settings: {
-      optimize: true,
-    },
   };
 
   const { schematic } = useSchematic(RLC_Circuit);

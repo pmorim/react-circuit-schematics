@@ -1,21 +1,11 @@
 import { useReducer } from 'react';
 
 import { reducer, ACTIONS } from './reducer';
+import { initialState } from './initialState';
 import { initializer } from './initializer';
 
-const defaultSchematic = {
-  schematic: {
-    components: [],
-    nodes: [],
-    connections: [],
-  },
-  settings: {
-    optimize: true,
-  },
-};
-
 export const useSchematic = (initialSchematic) => {
-  const initial = { ...defaultSchematic, ...initialSchematic };
+  const initial = { ...initialState, ...initialSchematic };
   const [state, dispatch] = useReducer(reducer, initial, initializer);
 
   return {
@@ -49,6 +39,20 @@ export const useSchematic = (initialSchematic) => {
      */
     deleteComponent: (id) => {
       dispatch({ type: ACTIONS.DELETE, payload: { id } });
+    },
+
+    /**
+     * Undo the last change to the schematic.
+     */
+    undo: () => {
+      dispatch({ type: ACTIONS.UNDO });
+    },
+
+    /**
+     * Redo the last "undone" change to the schematic.
+     */
+    redo: () => {
+      dispatch({ type: ACTIONS.REDO });
     },
   };
 };

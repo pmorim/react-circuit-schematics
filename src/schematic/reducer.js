@@ -12,6 +12,11 @@ export const ACTIONS = {
 };
 
 export const reducer = (state, action) => {
+  // Save the previous state to the `history` object.
+  if (action.type === ACTIONS.UNDO)
+    state.history.redoStack.push(state.schematic);
+  else state.history.undoStack.push(state.schematic);
+
   switch (action.type) {
     /**
      * Adds the given element with a randomly generated id
@@ -25,8 +30,8 @@ export const reducer = (state, action) => {
       break;
 
     /**
-     * Deletes an element by the given id
-     * Delete all connections to that element as well
+     * Deletes an element by the given id.
+     * Delete all connections to that element as well.
      */
     case ACTIONS.DELETE:
       // Find the type of element
@@ -52,14 +57,22 @@ export const reducer = (state, action) => {
 
       break;
 
+    /**
+     * Undo the last change to the schematic.
+     */
     case ACTIONS.UNDO:
-      break;
-
-    case ACTIONS.REDO:
+      state.schematic = state.history.undoStack.pop();
       break;
 
     /**
-     * Throw error if the given action type is not defined
+     * Redo the last "undone" change to the schematic.
+     */
+    case ACTIONS.REDO:
+      state.schematic = state.history.redoStack.pop();
+      break;
+
+    /**
+     * Throw error if the given action type is not defined.
      */
     default:
       throw new Error('Action type not supported.');
