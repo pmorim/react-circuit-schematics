@@ -72,6 +72,7 @@ export const ElectricalCore = ({
         handle='.rdc-handle'
         nodeRef={draggableRef}
         defaultPosition={position}
+        positionOffset={{ x: 5, y: 5 }}
         {...rest}
       >
         <div ref={draggableRef}>
