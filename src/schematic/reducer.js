@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { findKey } from 'lodash';
 
-// Helper functions
 import { optimizeSchematic } from './optimizeSchematic';
 
 export const ACTIONS = {
