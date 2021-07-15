@@ -21,3 +21,9 @@ export const Simple = () => (
     <Node />
   </div>
 );
+
+export const Labeled = () => (
+  <div style={{ position: 'relative' }}>
+    <Node label={{ name: 'A', position: { x: -10, y: -30 } }} />
+  </div>
+);
