@@ -17,7 +17,7 @@ export default {
 };
 
 export const ResistorLabel = () => <Label name='R1' value='10k' unit='Ω' />;
-
+export const OnlyName = () => <Label name='R1' />;
 export const CustomLabel = () => (
   <Label
     name='R1'

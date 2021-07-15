@@ -2,43 +2,7 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
 
-import styles from './Label.module.css';
-
-const setContentEditable = (ref, val) => {
-  ref.current.contentEditable = val;
-};
-
-const DefaultLabel = (props) => {
-  const nameRef = useRef();
-  const valueRef = useRef();
-
-  return (
-    <b>
-      <div
-        ref={nameRef}
-        className={styles.editable}
-        onDoubleClick={() => setContentEditable(nameRef, true)}
-        onInput={(e) => props.onNameChange(e.currentTarget.textContent)}
-        onBlur={() => setContentEditable(nameRef, false)}
-        suppressContentEditableWarning
-      >
-        {props.name}
-      </div>
-      {' = '}
-      <div
-        ref={valueRef}
-        className={styles.editable}
-        onDoubleClick={() => setContentEditable(valueRef, true)}
-        onInput={(e) => props.onValueChange(e.currentTarget.textContent)}
-        onBlur={() => setContentEditable(valueRef, false)}
-        suppressContentEditableWarning
-      >
-        {props.value}
-      </div>
-      {' ' + props.unit}
-    </b>
-  );
-};
+import { DefaultLabel } from './DefaultLabel';
 
 export const Label = ({ as, position, gridSize, ...rest }) => {
   const draggableRef = useRef();
@@ -50,7 +14,7 @@ export const Label = ({ as, position, gridSize, ...rest }) => {
       grid={[gridSize, gridSize]}
       {...rest}
     >
-      <div className={styles.label} ref={draggableRef}>
+      <div ref={draggableRef}>
         {as ? React.createElement(as, rest) : <DefaultLabel {...rest} />}
       </div>
     </Draggable>
