@@ -19,7 +19,7 @@ export default {
 
 export const Empty = () => <Schematic width={800} height={500} />;
 
-export const Simple = () => {
+export const RLC_Circuit = () => {
   const RLC_Circuit = {
     schematic: {
       components: [
