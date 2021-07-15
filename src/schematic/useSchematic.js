@@ -11,8 +11,7 @@ export const useSchematic = (initialSchematic) => {
   return {
     /**
      * The schematic object.
-     *
-     * It contains all the data needed to display the schematic.
+     * It contains the schematic in a JSON model.
      */
     schematic: state.schematic,
 
@@ -41,18 +40,31 @@ export const useSchematic = (initialSchematic) => {
       dispatch({ type: ACTIONS.DELETE, payload: { id } });
     },
 
-    /**
-     * Undo the last change to the schematic.
-     */
-    undo: () => {
-      dispatch({ type: ACTIONS.UNDO });
-    },
+      /**
+       * Undo the last change to the schematic.
+       */
+      undo: () => {
+        dispatch({ type: ACTIONS.UNDO });
+      },
 
-    /**
-     * Redo the last "undone" change to the schematic.
-     */
-    redo: () => {
-      dispatch({ type: ACTIONS.REDO });
+      /**
+       * Redo the last "undone" change to the schematic.
+       */
+      redo: () => {
+        dispatch({ type: ACTIONS.REDO });
+      },
+
+      /**
+       * Indicators for the possibility to execute an Undo.
+       * Useful for activating and deactivating an Undo button.
+       */
+      canUndo: state.history.undoStack.length,
+
+      /**
+       * Indicator for the possibility to execute Redo.
+       * Useful for activating and deactivating a Redo button.
+       */
+      canRedo: state.history.redoStack.length,
     },
   };
 };

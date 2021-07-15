@@ -21,6 +21,17 @@ export const reducer = (state, action) => {
     /**
      * Adds the given element with a randomly generated id
      * If the element already contained an id, than use that one
+     *
+     * Usage:
+     * ```js
+     * dispatch({
+     *  type: ACTIONS.ADD,
+     *  payload: {
+     *    where: 'components',
+     *    element: {...}
+     *  },
+     * });
+     * ```
      */
     case ACTIONS.ADD:
       state.schematic[action.payload.where].push({
@@ -32,6 +43,16 @@ export const reducer = (state, action) => {
     /**
      * Deletes an element by the given id.
      * Delete all connections to that element as well.
+     *
+     * Usage:
+     * ```js
+     * dispatch({
+     *  type: ACTIONS.DELETE,
+     *  payload: {
+     *    id: '...',
+     *  },
+     * });
+     * ```
      */
     case ACTIONS.DELETE:
       // Find the type of element
@@ -59,6 +80,11 @@ export const reducer = (state, action) => {
 
     /**
      * Undo the last change to the schematic.
+     *
+     * Usage:
+     * ```js
+     * dispatch({ type: ACTIONS.UNDO });
+     * ```
      */
     case ACTIONS.UNDO:
       state.schematic = state.history.undoStack.pop();
@@ -66,6 +92,11 @@ export const reducer = (state, action) => {
 
     /**
      * Redo the last "undone" change to the schematic.
+     *
+     * Usage:
+     * ```js
+     * dispatch({ type: ACTIONS.REDO });
+     * ```
      */
     case ACTIONS.REDO:
       state.schematic = state.history.redoStack.pop();
