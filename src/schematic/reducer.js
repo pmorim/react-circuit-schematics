@@ -7,6 +7,7 @@ import { optimizeSchematic } from './optimizeSchematic';
 export const ACTIONS = {
   ADD: 'add',
   DELETE: 'delete',
+  EDIT: 'edit',
   UNDO: 'undo',
   REDO: 'redo',
 };
@@ -75,6 +76,32 @@ export const reducer = (state, action) => {
         for (const port of element.ports)
           return port.id !== conn.start && port.id !== conn.end;
       });
+
+      break;
+
+    /**
+     * Edits the contents of an element by the given id.
+     *
+     * Usage:
+     * ```js
+     * dispatch({
+     *  type: ACTIONS.EDIT,
+     *  payload: {
+     *    id: '...',
+     *    edits: {...},
+     *  },
+     * });
+     * ```
+     */
+    case ACTIONS.EDIT:
+      for (const type in state.schematic) {
+        elem = state.schematic[type].find(
+          (elem) => elem.id === action.payload.id,
+        );
+
+        if (!elem) continue;
+        elem = { ...elem, ...action.payload.edits };
+      }
 
       break;
 

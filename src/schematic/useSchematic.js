@@ -40,6 +40,21 @@ export const useSchematic = (initialSchematic) => {
       dispatch({ type: ACTIONS.DELETE, payload: { id } });
     },
 
+    /**
+     * Edits the contents of a component.
+     *
+     * @param {Number} id The id of the component.
+     * @param {Object} edits The content to replace on the component.
+     */
+    editComponent: (id, edits) => {
+      dispatch({ type: ACTIONS.EDIT, payload: { id, edits } });
+    },
+
+    /**
+     * Everything related to controlling the history of the schematic.
+     * In other words, Undo and Redo controls.
+     */
+    history: {
       /**
        * Undo the last change to the schematic.
        */
