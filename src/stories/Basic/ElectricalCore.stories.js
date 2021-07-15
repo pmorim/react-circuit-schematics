@@ -24,7 +24,7 @@ export const ResistorExample = () => (
       name: 'R1',
       value: '10k',
       unit: 'Ω',
-      position: { x: 50, y: -25 },
+      position: { x: 0, y: -25 },
     }}
     ports={[
       {
@@ -36,5 +36,7 @@ export const ResistorExample = () => (
         position: { x: 1, y: 0.5 },
       },
     ]}
+    size={100}
+    gridSize={10}
   />
 );
