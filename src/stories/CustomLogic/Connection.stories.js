@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Connection } from '../../components/Connection';
-import { Port } from '../../components/Port';
+import { Node } from '../../components/Node';
 
 export default {
   title: 'Custom Logic/Connection',
@@ -22,15 +22,30 @@ export const Simple = () => {
   const start = useRef();
   const end = useRef();
 
-  const size = 200;
-  const bounds = { x: size, y: size };
-
   return (
-    <div style={{ width: size, height: size, position: 'relative' }}>
-      <Port ref={start} position={{ x: 0, y: 0 }} bounds={bounds} />
-      <Port ref={end} position={{ x: 1, y: 0.5 }} bounds={bounds} />
+    <div style={{ position: 'relative' }}>
+      <Node ref={start} position={{ x: 0, y: 0 }} />
+      <Node ref={end} position={{ x: 200, y: 50 }} />
 
       <Connection start={start} end={end} />
+    </div>
+  );
+};
+
+export const Labeled = () => {
+  const start = useRef();
+  const end = useRef();
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <Node ref={start} position={{ x: 0, y: 0 }} />
+      <Node ref={end} position={{ x: 200, y: 0 }} />
+
+      <Connection
+        start={start}
+        end={end}
+        label={{ name: 'Hello', position: { x: 70, y: -20 } }}
+      />
     </div>
   );
 };

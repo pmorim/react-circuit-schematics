@@ -2,16 +2,28 @@ import React from 'react';
 import XArrow from 'react-xarrows';
 import PropTypes from 'prop-types';
 
-export const Connection = ({ start, end, type, properties, ...rest }) => {
+import { Label } from '../Label';
+
+export const Connection = ({
+  start,
+  end,
+  label,
+  type,
+  properties,
+  ...rest
+}) => {
   return (
-    <XArrow
-      start={start}
-      end={end}
-      path={type}
-      showHead={false}
-      gridBreak={1}
-      {...rest}
-    />
+    <>
+      <XArrow
+        start={start}
+        end={end}
+        path={type}
+        showHead={false}
+        gridBreak={1}
+        {...rest}
+      />
+      <Label {...label} />
+    </>
   );
 };
 
@@ -30,6 +42,18 @@ Connection.propTypes = {
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.elementType }),
   ]).isRequired,
+  /**
+   * The label of the connection
+   */
+  label: PropTypes.exact({
+    name: PropTypes.string,
+    value: PropTypes.number,
+    unit: PropTypes.string,
+    position: PropTypes.exact({
+      x: PropTypes.number,
+      y: PropTypes.number,
+    }),
+  }),
   /**
    * The type of path the connection takes
    */
