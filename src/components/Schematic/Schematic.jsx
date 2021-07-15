@@ -30,6 +30,7 @@ export const Schematic = ({
         width,
         height,
         position: 'relative',
+        zIndex: 0,
 
         // Grid shader
         backgroundImage: `radial-gradient(

@@ -20,6 +20,7 @@ export const Connection = ({
         path={type}
         showHead={false}
         gridBreak={1}
+        divContainerStyle={{ zIndex: -1 }}
         {...rest}
       />
       <Label {...label} />
