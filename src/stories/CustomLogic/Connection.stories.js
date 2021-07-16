@@ -23,7 +23,7 @@ export const Simple = () => {
   const end = useRef();
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative', zIndex: 0 }}>
       <Node ref={start} position={{ x: 0, y: 0 }} />
       <Node ref={end} position={{ x: 200, y: 50 }} />
 
@@ -37,14 +37,14 @@ export const Labeled = () => {
   const end = useRef();
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative', zIndex: 0 }}>
       <Node ref={start} position={{ x: 0, y: 0 }} />
       <Node ref={end} position={{ x: 200, y: 0 }} />
 
       <Connection
         start={start}
         end={end}
-        label={{ name: 'Hello', position: { x: 70, y: -20 } }}
+        label={{ name: 'Hello', position: { x: 70, y: -30 } }}
       />
     </div>
   );
