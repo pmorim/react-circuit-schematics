@@ -30,7 +30,7 @@ export const Port = forwardRef(
 
 Port.propTypes = {
   /**
-   * The relative position of the Port. Range between `o` and `1`
+   * The relative position of the Port. Range between `0` and `1`
    */
   position: PropTypes.exact({
     x: PropTypes.number,
