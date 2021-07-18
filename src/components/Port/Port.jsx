@@ -1,9 +1,9 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './Port.module.css';
 
-export const Port = forwardRef(
+export const Port = React.forwardRef(
   ({ position, bounds, properties, ...rest }, ref) => {
     return (
       <div
