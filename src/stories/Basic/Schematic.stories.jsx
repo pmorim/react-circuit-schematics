@@ -24,6 +24,29 @@ export const RLC_Circuit = () => {
     schematic: {
       components: [
         {
+          id: 'VDC',
+          type: 'DC Voltage Source',
+          position: { x: 50, y: 100 },
+          label: {
+            name: 'U',
+            value: '5',
+            unit: 'V',
+            position: { x: 70, y: -30 },
+          },
+          ports: [
+            {
+              id: 'VDCa',
+              type: 'hybrid',
+              position: { x: 0.5, y: 0 },
+            },
+            {
+              id: 'VDCb',
+              type: 'hybrid',
+              position: { x: 0.5, y: 1 },
+            },
+          ],
+        },
+        {
           id: 'R',
           type: 'Resistor',
           position: { x: 100, y: 50 },
@@ -72,7 +95,7 @@ export const RLC_Circuit = () => {
         {
           id: 'C',
           type: 'Capacitor',
-          position: { x: 300, y: 200, angle: 90 },
+          position: { x: 250, y: 200, angle: 90 },
           label: {
             name: 'C',
             value: '1µ',
@@ -108,6 +131,11 @@ export const RLC_Circuit = () => {
         {
           id: 'c3',
           start: 'Cb',
+          end: 'VDCb',
+        },
+        {
+          id: 'c4',
+          start: 'VDCa',
           end: 'Ra',
         },
       ],
