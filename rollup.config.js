@@ -6,7 +6,7 @@ export default {
   input: 'src/index.js',
   output: {
     dir: 'storybook-static',
-    format: 'cjs',
+    format: 'es',
   },
   plugins: [
     commonjs({
