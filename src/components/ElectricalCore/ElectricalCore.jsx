@@ -16,6 +16,7 @@ export const ElectricalCore = ({
   ports,
   size,
   gridSize,
+  altImageIdx,
   ...rest
 }) => {
   const draggableRef = useRef();
@@ -25,6 +26,11 @@ export const ElectricalCore = ({
   const [renderCount, setRenderCount] = useState(0);
 
   const [isGrabbing, setIsGrabbing] = useState(false);
+
+  let src = svgMap.get(type);
+  console.log(src);
+  if (Array.isArray(src)) src = src[altImageIdx ?? 0];
+  console.log(src, altImageIdx);
 
   /**
    * Calculate the bounds of the component
@@ -90,7 +96,7 @@ export const ElectricalCore = ({
             )}
             style={{ transform: `rotate(${position.angle}deg)`, width: size }}
             ref={boundingRef}
-            src={svgMap.get(type)}
+            src={src}
             alt={type}
           />
 
@@ -156,10 +162,15 @@ ElectricalCore.propTypes = {
    * The size of the grid, i.e., the amount of pixels the drag skips
    */
   gridSize: PropTypes.number,
+  /**
+   * Index of the alternate images. If `0` then use default image
+   */
+  altImageIdx: PropTypes.number,
 };
 
 ElectricalCore.defaultArgs = {
   position: { x: 0, y: 0 },
   size: 100,
   gridSize: 10,
+  altImageIdx: 0,
 };
