@@ -5,27 +5,18 @@
   "author": "pmorim",
   "license": "MIT",
   "repository": "pmorim/react-draw-circuits",
-  "main": "dist/index.js",
-  "module": "dist/index.modern.js",
+  "main": "storybook-static/index.js",
+  "module": "storybook-static/index.modern.js",
   "source": "src/index.js",
   "engines": {
     "node": ">=10"
   },
   "scripts": {
-    "build": "microbundle-crl --no-compress --format modern,cjs",
-    "start": "microbundle-crl watch --no-compress --format modern,cjs",
-    "prepare": "run-s build",
-    "test": "run-s test:unit test:lint test:build",
-    "test:build": "run-s build",
-    "test:lint": "eslint .",
-    "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
-    "test:watch": "react-scripts test --env=jsdom",
-    "predeploy": "cd example && npm install && npm run build",
-    "deploy": "gh-pages -d example/build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.1.0",
     "@storybook/addon-actions": "^6.2.9",
     "@storybook/addon-docs": "^6.2.9",
     "@storybook/addon-essentials": "^6.2.9",
@@ -52,12 +43,13 @@
     "prettier": "^2.0.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "rollup": "^1.32.1",
     "storybook-addon-paddings": "^4.1.1",
     "storybook-css-modules-preset": "^1.1.1",
     "storybook-dark-mode": "^1.0.8"
   },
   "files": [
-    "dist"
+    "storybook-static"
   ],
   "dependencies": {
     "@react-hook/mouse-position": "^4.1.0",
@@ -65,9 +57,11 @@
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/addon-storysource": "^6.2.9",
     "classnames": "^2.3.1",
+    "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
     "react-draggable": "^4.4.3",
     "react-xarrows": "^1.7.0",
+    "use-dynamic-refs": "^1.0.0",
     "uuid": "^8.3.2"
   },
   "eslintConfig": {

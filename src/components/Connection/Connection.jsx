@@ -2,11 +2,29 @@ import React from 'react';
 import XArrow from 'react-xarrows';
 import PropTypes from 'prop-types';
 
-import styles from './Connection.module.css';
+import { Label } from '../Label';
 
-export const Connection = ({ id, start, end, path, ...rest }) => {
+export const Connection = ({
+  start,
+  end,
+  label,
+  type,
+  properties,
+  ...rest
+}) => {
   return (
-    <XArrow start={start} end={end} path={path} showHead={false} {...rest} />
+    <>
+      <XArrow
+        start={start}
+        end={end}
+        path={type}
+        showHead={false}
+        gridBreak={1}
+        divContainerStyle={{ zIndex: -1 }}
+        {...rest}
+      />
+      <Label {...label} />
+    </>
   );
 };
 
@@ -17,20 +35,43 @@ Connection.propTypes = {
   start: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.elementType }),
-  ]),
+  ]).isRequired,
   /**
    * A `ref` to the component where the connection ends
    */
   end: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.elementType }),
-  ]),
+  ]).isRequired,
+  /**
+   * The label of the connection
+   */
+  label: PropTypes.exact({
+    name: PropTypes.string,
+    value: PropTypes.number,
+    unit: PropTypes.string,
+    position: PropTypes.exact({
+      x: PropTypes.number,
+      y: PropTypes.number,
+    }),
+  }),
   /**
    * The type of path the connection takes
    */
-  path: PropTypes.oneOf(['grid', 'smooth', 'straight']),
+  type: PropTypes.oneOf(['grid', 'smooth', 'straight']),
+  /**
+   * Optional properties of the connection
+   */
+  properties: PropTypes.exact({
+    color: PropTypes.string,
+    stroke: PropTypes.number,
+    decoration: PropTypes.exact({
+      start: PropTypes.string,
+      end: PropTypes.string,
+    }),
+  }),
 };
 
 Connection.defaultProps = {
-  path: 'grid',
+  type: 'grid',
 };

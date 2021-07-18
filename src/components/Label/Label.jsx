@@ -2,55 +2,20 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
 
-import styles from './Label.module.css';
+import { DefaultLabel } from './DefaultLabel';
 
-export const Label = ({
-  as,
-  name,
-  value,
-  unit,
-  onNameChange,
-  onValueChange,
-  defaultPosition,
-  ...rest
-}) => {
-  const nodeRef = useRef();
+export const Label = ({ as, position, gridSize, ...rest }) => {
+  const draggableRef = useRef();
 
   return (
-    <Draggable defaultPosition={defaultPosition} nodeRef={nodeRef} {...rest}>
-      <div className={styles.label} ref={nodeRef}>
-        {as ? (
-          // Render Custom Label
-          React.createElement(as, {
-            name,
-            value,
-            unit,
-            onNameChange,
-            onValueChange,
-          })
-        ) : (
-          // Render Default Label
-          <>
-            <div
-              className={styles.editable}
-              onInput={(e) => onNameChange(e.currentTarget.textContent)}
-              suppressContentEditableWarning
-              contentEditable
-            >
-              {name}
-            </div>
-            {' = '}
-            <div
-              className={styles.editable}
-              onInput={(e) => onValueChange(e.currentTarget.textContent)}
-              suppressContentEditableWarning
-              contentEditable
-            >
-              {value}
-            </div>
-            {' ' + unit}
-          </>
-        )}
+    <Draggable
+      defaultPosition={position}
+      nodeRef={draggableRef}
+      grid={[gridSize, gridSize]}
+      {...rest}
+    >
+      <div ref={draggableRef}>
+        {as ? React.createElement(as, rest) : <DefaultLabel {...rest} />}
       </div>
     </Draggable>
   );
@@ -91,8 +56,13 @@ Label.propTypes = {
     x: PropTypes.number,
     y: PropTypes.number,
   }),
+  /**
+   * The size of the grid, i.e., the amount of pixels the drag skips
+   */
+  gridSize: PropTypes.number,
 };
 
 Label.defaultProps = {
   position: { x: 0, y: 0 },
+  gridSize: 10,
 };

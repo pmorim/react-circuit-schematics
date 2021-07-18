@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Connection } from '../../components/Connection';
-import { Port } from '../../components/Port';
+import { Node } from '../../components/Node';
 
 export default {
   title: 'Custom Logic/Connection',
@@ -11,29 +11,41 @@ export default {
   },
   parameters: {
     docs: {
-      description: {
-        component:
-          'The Connection component is used to connect two components. Usually, instances of either `Port` or `Node`. This component makes use of [react-xarrows](https://www.npmjs.com/package/react-xarrows), therefore, any extra props you pass to this component will be forwarded to `XArrow`.',
+      source: {
+        type: 'code',
       },
     },
   },
 };
 
-const Template = (args) => {
+export const Simple = () => {
   const start = useRef();
   const end = useRef();
 
-  const size = 200;
-  const bounds = { x: size, y: size };
-
   return (
-    <div style={{ width: size, height: size, position: 'relative' }}>
-      <Port ref={start} position={{ x: 0, y: 0 }} bounds={bounds} />
-      <Port ref={end} position={{ x: 1, y: 0.5 }} bounds={bounds} />
+    <div style={{ position: 'relative', zIndex: 0 }}>
+      <Node ref={start} position={{ x: 0, y: 0 }} />
+      <Node ref={end} position={{ x: 200, y: 50 }} />
 
-      <Connection start={start} end={end} {...args} />
+      <Connection start={start} end={end} />
     </div>
   );
 };
 
-export const Simple = Template.bind({});
+export const Labeled = () => {
+  const start = useRef();
+  const end = useRef();
+
+  return (
+    <div style={{ position: 'relative', zIndex: 0 }}>
+      <Node ref={start} position={{ x: 0, y: 0 }} />
+      <Node ref={end} position={{ x: 200, y: 0 }} />
+
+      <Connection
+        start={start}
+        end={end}
+        label={{ name: 'Hello', position: { x: 70, y: -30 } }}
+      />
+    </div>
+  );
+};

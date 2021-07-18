@@ -10,12 +10,15 @@ export default {
         component:
           'The Port component is what allows the user to create connections between components',
       },
+      source: {
+        type: 'code',
+      },
     },
   },
 };
 
-export const Simple = (args) => (
+export const Simple = () => (
   <div style={{ position: 'relative' }}>
-    <Port {...args} />
+    <Port />
   </div>
 );
