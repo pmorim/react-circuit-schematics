@@ -63,7 +63,7 @@ export const CustomComponent = () => (
   <ElectricalCore
     // 👇 You can add your own type and image
     type='AND Gate'
-    imgPath={ANDGate}
+    imgPath={ANDGate} // `import ANDGate from './and-gate.png'`
     // ☝ You can add your own type and image
     ports={[
       {
