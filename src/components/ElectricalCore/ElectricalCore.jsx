@@ -17,6 +17,7 @@ export const ElectricalCore = ({
   size,
   gridSize,
   altImageIdx,
+  imgPath,
   ...rest
 }) => {
   const draggableRef = useRef();
@@ -27,10 +28,9 @@ export const ElectricalCore = ({
 
   const [isGrabbing, setIsGrabbing] = useState(false);
 
+  // Logic for alternate images
   let src = svgMap.get(type);
-  console.log(src);
   if (Array.isArray(src)) src = src[altImageIdx ?? 0];
-  console.log(src, altImageIdx);
 
   /**
    * Calculate the bounds of the component
@@ -63,7 +63,7 @@ export const ElectricalCore = ({
       let teta = Math.atan2(y, x);
 
       // Convert the component's rotation to radians
-      const rot = (position.angle ?? 0) * (Math.PI / 180);
+      const rot = (position?.angle ?? 0) * (Math.PI / 180);
 
       // Convert to Cartesian coordinates
       x = radius * Math.cos(teta + rot);
@@ -94,9 +94,12 @@ export const ElectricalCore = ({
               'rdc-handle',
               isGrabbing ? styles.grabbing : styles.grab,
             )}
-            style={{ transform: `rotate(${position.angle}deg)`, width: size }}
+            style={{
+              transform: `rotate(${position?.angle ?? 0}deg)`,
+              width: size,
+            }}
             ref={boundingRef}
-            src={src}
+            src={imgPath ? imgPath : src}
             alt={type}
           />
 
@@ -120,11 +123,11 @@ ElectricalCore.propTypes = {
    * The position of the component
    */
   position: PropTypes.exact({
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
+    x: PropTypes.number,
+    y: PropTypes.number,
     z: PropTypes.number,
     angle: PropTypes.number,
-  }).isRequired,
+  }),
   /**
    * The label of the component
    */
@@ -136,24 +139,24 @@ ElectricalCore.propTypes = {
       x: PropTypes.number,
       y: PropTypes.number,
     }),
-  }).isRequired,
+  }),
   /**
    * An array of the connection ports
    */
   ports: PropTypes.arrayOf(
     PropTypes.exact({
       id: PropTypes.string,
-      type: PropTypes.string.isRequired,
+      type: PropTypes.string,
       position: PropTypes.exact({
         x: PropTypes.number,
         y: PropTypes.number,
-      }).isRequired,
+      }),
       ref: PropTypes.oneOfType([
         PropTypes.func,
         PropTypes.shape({ current: PropTypes.any }),
       ]),
     }),
-  ).isRequired,
+  ),
   /**
    * The size of the component
    */
@@ -166,6 +169,10 @@ ElectricalCore.propTypes = {
    * Index of the alternate images. If `0` then use default image
    */
   altImageIdx: PropTypes.number,
+  /**
+   * The source path to a custom image to be used by the component
+   */
+  imgPath: PropTypes.string,
 };
 
 ElectricalCore.defaultArgs = {
