@@ -10,6 +10,8 @@ import DCVoltageSource1 from './vdc1.svg';
 import DCVoltageSource2 from './vdc2.svg';
 import ACCurrentSource from './iac.svg';
 import DCCurrentSource from './idc.svg';
+import Voltmeter from './voltmeter.svg';
+import Ammeter from './ammeter.svg';
 
 export const svgMap = new Map([
   ['Resistor', Resistor],
@@ -23,4 +25,6 @@ export const svgMap = new Map([
   ['DC Voltage Source', [DCVoltageSource1, DCVoltageSource2]],
   ['AC Current Source', ACCurrentSource],
   ['DC Current Source', DCCurrentSource],
+  ['Voltmeter', Voltmeter],
+  ['Ammeter', Ammeter],
 ]);
