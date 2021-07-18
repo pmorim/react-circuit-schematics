@@ -26,6 +26,7 @@
     "build-storybook": "build-storybook"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.1.0",
     "@storybook/addon-actions": "^6.3.2",
     "@storybook/addon-docs": "^6.3.2",
     "@storybook/addon-essentials": "^6.3.2",
