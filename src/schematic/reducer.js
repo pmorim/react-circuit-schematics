@@ -9,6 +9,7 @@ export const ACTIONS = {
   EDIT: 'edit',
   SELECTING: 'selecting',
   SELECTED: 'selected',
+  CONNECT: 'connect',
   UNDO: 'undo',
   REDO: 'redo',
 };
@@ -123,6 +124,23 @@ export const reducer = (state, action) => {
         (item) => item.props.id,
       );
       state.selection.selecting = [];
+
+    /**
+     * Creates a connection between two elements.
+     *
+     * Usage:
+     * ```js
+     * dispatch({
+     *  type: ACTIONS.CONNECT,
+     *  payload: {
+     *    start: '...',
+     *    end: '...'
+     *  },
+     * })
+     * ```
+     */
+    case ACTIONS.CONNECT:
+      state.schematic.connections.push({ id: uuidv4(), ...action.payload });
       break;
 
     /**
