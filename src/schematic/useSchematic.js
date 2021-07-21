@@ -51,6 +51,33 @@ export const useSchematic = (initialSchematic) => {
     },
 
     /**
+     *
+     */
+    selection: {
+      /**
+       *
+       * @param {*} item
+       */
+      handleSelecting: (items) => {
+        dispatch({
+          type: ACTIONS.SELECTING,
+          payload: { items },
+        });
+      },
+
+      /**
+       *
+       * @param {*} items
+       */
+      handleSelected: (items) => {
+        dispatch({
+          type: ACTIONS.SELECTED,
+          payload: { items },
+        });
+      },
+    },
+
+    /**
      * Everything related to controlling the history of the schematic.
      * In other words, Undo and Redo controls.
      */

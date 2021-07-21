@@ -7,6 +7,8 @@ export const ACTIONS = {
   ADD: 'add',
   DELETE: 'delete',
   EDIT: 'edit',
+  SELECTING: 'selecting',
+  SELECTED: 'selected',
   UNDO: 'undo',
   REDO: 'redo',
 };
@@ -102,6 +104,25 @@ export const reducer = (state, action) => {
         elem = { ...elem, ...action.payload.edits };
       }
 
+      break;
+
+    /**
+     * Adds a component to the selecting array.
+     */
+    case ACTIONS.SELECTING:
+      state.selection.selecting.push(
+        action.payload.items.map((item) => item.props.id),
+      );
+      break;
+
+    /**
+     * Selects the components and clears the selecting
+     */
+    case ACTIONS.SELECTED:
+      state.selection.selected = action.payload.items.map(
+        (item) => item.props.id,
+      );
+      state.selection.selecting = [];
       break;
 
     /**

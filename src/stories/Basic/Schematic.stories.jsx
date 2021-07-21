@@ -142,6 +142,14 @@ export const RLC_Circuit = () => {
     },
   };
 
-  const { schematic } = useSchematic(RLC_Circuit);
-  return <Schematic width={800} height={500} data={schematic} />;
+  const { schematic, selection } = useSchematic(RLC_Circuit);
+  return (
+    <Schematic
+      width={800}
+      height={500}
+      data={schematic}
+      duringSelection={selection.handleSelecting}
+      onSelectionFinish={selection.handleSelected}
+    />
+  );
 };

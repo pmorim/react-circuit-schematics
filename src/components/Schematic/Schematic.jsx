@@ -17,6 +17,8 @@ export const Schematic = ({
   gridColor,
   componentSize,
   children,
+  duringSelection,
+  onSelectionFinish,
   ...rest
 }) => {
   const [getRef, setRef] = useDynamicRefs();
@@ -45,6 +47,8 @@ export const Schematic = ({
     >
       <SelectableGroup
         clickClassName='rdc-handle'
+        duringSelection={duringSelection}
+        onSelectionFinish={onSelectionFinish}
         enableDeselect
         resetOnStart
         deselectOnEsc
