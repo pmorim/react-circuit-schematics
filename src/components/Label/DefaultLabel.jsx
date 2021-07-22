@@ -1,45 +1,46 @@
-import React, { useRef } from 'react';
-import styles from './Label.module.css';
+import React from 'react';
+import { Editable } from './Editable';
 
-const setContentEditable = (ref, val) => {
-  ref.current.contentEditable = val;
-};
-
-export const DefaultLabel = (props) => {
-  const nameRef = useRef();
-  const valueRef = useRef();
-
+export const DefaultLabel = ({
+  name,
+  value,
+  multiplier,
+  unit,
+  onNameChange,
+  onValueChange,
+  onMultiplierChange,
+  ...rest
+}) => {
   return (
     <b>
-      <div
-        ref={nameRef}
-        className={styles.editable}
-        onInput={(e) => props.onNameChange(e.currentTarget.textContent)}
-        // Content-Editable
-        onDoubleClick={() => setContentEditable(nameRef, true)}
-        onBlur={() => setContentEditable(nameRef, false)}
-        suppressContentEditableWarning
-      >
-        {props.name}
-      </div>
-
-      {props.value && props.unit && (
+      {name && (
+        <Editable onInput={onNameChange} {...rest}>
+          {name}
+        </Editable>
+      )}
+      {value && (
         <>
           {' = '}
-          <div
-            ref={valueRef}
-            className={styles.editable}
-            onBlur={() => setContentEditable(valueRef, false)}
-            // Content-Editable
-            onDoubleClick={() => setContentEditable(valueRef, true)}
-            onInput={(e) => props.onValueChange(e.currentTarget.textContent)}
-            suppressContentEditableWarning
-          >
-            {props.value}
-          </div>
-          {' ' + props.unit}
+          <Editable onInput={onValueChange} {...rest}>
+            {value instanceof Object ? (
+              <>
+                {value.re}
+                {value.im >= 0 ? ' + ' : ' - '}
+                {Math.abs(value.im)}
+                {value.imUnit ?? 'j'}
+              </>
+            ) : (
+              value
+            )}
+          </Editable>
         </>
+      )}{' '}
+      {multiplier && (
+        <Editable onInput={onMultiplierChange} {...rest}>
+          {multiplier}
+        </Editable>
       )}
+      {unit}
     </b>
   );
 };

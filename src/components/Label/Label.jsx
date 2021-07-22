@@ -23,18 +23,33 @@ export const Label = ({ as, position, gridSize, ...rest }) => {
 
 Label.propTypes = {
   /**
-   * A custom label component. Passes the given 'name', 'value' and 'unit' as
-   * children.
+   * A custom label component. Passes all the given props to it
    */
   as: PropTypes.func,
   /**
-   * The name of the component.
+   * The name of the component
    */
   name: PropTypes.string,
   /**
    * The value of the component
    */
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([
+    // For real numbers
+    PropTypes.number,
+    PropTypes.string,
+
+    // For imaginary numbers
+    PropTypes.exact({
+      re: PropTypes.number, // Real part
+      im: PropTypes.number, // Imaginary part
+      format: PropTypes.oneOf(['rect', 'exp', 'polar']),
+      imUnit: PropTypes.oneOf(['i', 'j']),
+    }),
+  ]),
+  /**
+   * The multiplier of the value.
+   */
+  multiplier: PropTypes.oneOf(['p', 'n', 'u', 'm', '', 'k', 'M', 'G']),
   /**
    * The unit of the component
    */
