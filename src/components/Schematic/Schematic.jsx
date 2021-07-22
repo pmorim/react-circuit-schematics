@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { SelectableGroup } from 'react-selectable-fast';
 import useDynamicRefs from 'use-dynamic-refs';
 import useMouse from '@react-hook/mouse-position';
 
@@ -16,6 +17,8 @@ export const Schematic = ({
   gridColor,
   componentSize,
   children,
+  duringSelection,
+  onSelectionFinish,
   ...rest
 }) => {
   const [getRef, setRef] = useDynamicRefs();
@@ -34,41 +37,50 @@ export const Schematic = ({
 
         // Grid shader
         backgroundImage: `radial-gradient(
-          circle,
-          ${gridColor} 1px,
-          transparent 1px
-        )`,
+            circle,
+            ${gridColor} 1px,
+            transparent 1px
+            )`,
         backgroundSize: `${gridSize}px ${gridSize}px`,
       }}
       {...rest}
     >
-      {children}
+      <SelectableGroup
+        clickClassName='rdc-handle'
+        duringSelection={duringSelection}
+        onSelectionFinish={onSelectionFinish}
+        enableDeselect
+        resetOnStart
+        deselectOnEsc
+      >
+        {children}
 
-      {data.components?.map((comp) => {
-        // Pre-build the port refs
-        comp.ports.forEach((port) => (port.ref = setRef(port.id)));
+        {data.components?.map((comp) => {
+          // Pre-build the port refs
+          comp.ports.forEach((port) => (port.ref = setRef(port.id)));
 
-        return (
-          <ElectricalCore
-            key={comp.id}
-            gridSize={gridSize}
-            size={componentSize}
-            {...comp}
+          return (
+            <ElectricalCore
+              key={comp.id}
+              gridSize={gridSize}
+              size={componentSize}
+              {...comp}
+            />
+          );
+        })}
+
+        {data.nodes?.map((node) => (
+          <Node key={node.id} ref={setRef(node.id)} {...node} />
+        ))}
+
+        {data.connections?.map((conn) => (
+          <Connection
+            key={conn.id}
+            start={getRef(conn.start)}
+            end={getRef(conn.end)}
           />
-        );
-      })}
-
-      {data.nodes?.map((node) => (
-        <Node key={node.id} ref={setRef(node.id)} {...node} />
-      ))}
-
-      {data.connections?.map((conn) => (
-        <Connection
-          key={conn.id}
-          start={getRef(conn.start)}
-          end={getRef(conn.end)}
-        />
-      ))}
+        ))}
+      </SelectableGroup>
     </div>
   );
 };

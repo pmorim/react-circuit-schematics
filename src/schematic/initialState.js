@@ -8,6 +8,10 @@ export const initialState = {
     undoStack: [],
     redoStack: [],
   },
+  selection: {
+    selecting: [],
+    selected: [],
+  },
   settings: {
     optimize: true,
   },
