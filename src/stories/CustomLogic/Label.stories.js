@@ -18,7 +18,8 @@ export default {
 
 export const ResistorLabel = () => <Label name='R1' value='10k' unit='Ω' />;
 export const OnlyName = () => <Label name='R1' />;
-export const CustomLabel = () => (
+
+export const CustomLabelFormat = () => (
   <Label
     name='R1'
     value='10k'
@@ -27,10 +28,10 @@ export const CustomLabel = () => (
       <>
         <div>Hi, I'm a custom label</div>
         <div>
-          My name is <b>{name}</b> and I'm worth{' '}
-          <b>
-            {value} {unit}
-          </b>
+          My name is <b>{name}</b>
+        </div>
+        <div>
+          I'm worth <b>{value}</b> <b>{unit}</b>
         </div>
       </>
     )}
