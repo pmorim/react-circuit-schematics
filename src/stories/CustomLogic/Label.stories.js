@@ -25,10 +25,13 @@ export const ImaginaryValues = () => {
 
   return (
     <>
-      <Label {...data} value='1 + 2j' imaginary />
-      <Label {...data} value='3 - 7i' imaginary />
-      <Label {...data} value='2 + 5j' format='polar' imaginary />
-      <Label {...data} value='4 + 6j' format='exp' imaginary />
+      <Label {...data} value={{ real: 1, imaginary: -2 }} />
+      <Label {...data} value={{ modulus: 3, teta: 30 }} />
+      {/* ☝ Automatically convert to Cartesian */}
+
+      {/* 👇 Works in polar format as well */}
+      <Label {...data} value={{ real: 2, imaginary: 5, format: 'polar' }} />
+      <Label {...data} value={{ modulus: 2, teta: 45, format: 'polar' }} />
     </>
   );
 };
