@@ -4,7 +4,7 @@ import Draggable from 'react-draggable';
 
 import { DefaultLabel } from './DefaultLabel';
 
-export const Label = ({ as, position, gridSize, ...rest }) => {
+export const Label = ({ as, position, gridSize, onChange, ...rest }) => {
   const draggableRef = useRef();
 
   return (
@@ -15,7 +15,11 @@ export const Label = ({ as, position, gridSize, ...rest }) => {
       {...rest}
     >
       <div ref={draggableRef}>
-        {as ? React.createElement(as, rest) : <DefaultLabel {...rest} />}
+        {as ? (
+          React.createElement(as, rest)
+        ) : (
+          <DefaultLabel onChange={onChange} {...rest} />
+        )}
       </div>
     </Draggable>
   );
@@ -60,16 +64,6 @@ Label.propTypes = {
    */
   unit: PropTypes.string,
   /**
-   * The function to execute when the use changes the name of the component.
-   * Use this to update the state of the component's name.
-   */
-  onNameChange: PropTypes.func,
-  /**
-   * The function to execute when the use changes the value of the component.
-   * Use this to update the state of the component's value.
-   */
-  onValueChange: PropTypes.func,
-  /**
    * The default position of the label relative to the component
    */
   position: PropTypes.shape({
@@ -80,6 +74,10 @@ Label.propTypes = {
    * The size of the grid, i.e., the amount of pixels the drag skips
    */
   gridSize: PropTypes.number,
+  /**
+   * The function to execute when the user changes the contents of the label
+   */
+  onChange: PropTypes.func,
 };
 
 Label.defaultProps = {
