@@ -39,7 +39,7 @@ Label.propTypes = {
     PropTypes.string,
 
     // For imaginary numbers
-    PropTypes.exact({
+    PropTypes.shape({
       re: PropTypes.number, // Real part
       im: PropTypes.number, // Imaginary part
       format: PropTypes.oneOf(['rect', 'exp', 'polar']),
@@ -67,7 +67,7 @@ Label.propTypes = {
   /**
    * The default position of the label relative to the component
    */
-  position: PropTypes.exact({
+  position: PropTypes.shape({
     x: PropTypes.number,
     y: PropTypes.number,
   }),
