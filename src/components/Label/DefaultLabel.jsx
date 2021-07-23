@@ -1,42 +1,37 @@
 import React from 'react';
+
 import { Editable } from './Editable';
+import { Imaginary } from './Imaginary';
 
 export const DefaultLabel = ({
   name,
   value,
   multiplier,
   unit,
-  onNameChange,
-  onValueChange,
-  onMultiplierChange,
+  onChange,
   ...rest
 }) => {
   return (
     <b>
       {name && (
-        <Editable onInput={onNameChange} {...rest}>
+        <Editable onInput={(name) => onChange({ name })} {...rest}>
           {name}
         </Editable>
       )}
       {value && (
         <>
           {' = '}
-          <Editable onInput={onValueChange} {...rest}>
-            {value instanceof Object ? (
-              <>
-                {value.re}
-                {value.im >= 0 ? ' + ' : ' - '}
-                {Math.abs(value.im)}
-                {value.imUnit ?? 'j'}
-              </>
-            ) : (
-              value
-            )}
-          </Editable>
+          {value instanceof Object ? (
+            <Imaginary onChange={onChange} {...value} />
+          ) : (
+            <Editable onInput={(value) => onChange({ value })} {...rest}>
+              {value}
+            </Editable>
+          )}
         </>
       )}{' '}
       {multiplier && (
-        <Editable onInput={onMultiplierChange} {...rest}>
+        <Editable onInput={(multiplier) => onChange({ multiplier })} {...rest}>
           {multiplier}
         </Editable>
       )}
