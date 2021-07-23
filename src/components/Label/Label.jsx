@@ -40,10 +40,15 @@ Label.propTypes = {
 
     // For imaginary numbers
     PropTypes.shape({
-      re: PropTypes.number, // Real part
-      im: PropTypes.number, // Imaginary part
-      format: PropTypes.oneOf(['rect', 'exp', 'polar']),
+      modulus: PropTypes.number,
+      teta: PropTypes.number,
+      real: PropTypes.number,
+      imaginary: PropTypes.number,
       imUnit: PropTypes.oneOf(['i', 'j']),
+      format: PropTypes.oneOf(['cartesian', 'polar']),
+
+      // How many decimal places to use when converting
+      decimalPlaces: PropTypes.number,
     }),
   ]),
   /**
