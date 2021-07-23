@@ -45,8 +45,6 @@ Node.propTypes = {
    */
   label: PropTypes.shape({
     name: PropTypes.string,
-    value: PropTypes.number,
-    unit: PropTypes.string,
     position: PropTypes.shape({
       x: PropTypes.number,
       y: PropTypes.number,
