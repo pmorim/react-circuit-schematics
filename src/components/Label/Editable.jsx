@@ -17,7 +17,7 @@ export const Editable = ({ onInput, children, ...rest }) => {
   );
 
   return (
-    <div
+    <span
       ref={editRef}
       className={styles.editable}
       onDoubleClick={() => setContentEditable(true)}
@@ -27,6 +27,6 @@ export const Editable = ({ onInput, children, ...rest }) => {
       {...rest}
     >
       {children}
-    </div>
+    </span>
   );
 };
