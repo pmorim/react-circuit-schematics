@@ -35,7 +35,8 @@ export const Schematic = ({
         position: 'relative',
         zIndex: 0,
 
-        // Grid shader
+        // Grid
+        padding: gridSize,
         backgroundImage: `radial-gradient(
             circle,
             ${gridColor} 1px,
@@ -93,11 +94,11 @@ Schematic.propTypes = {
   /**
    * The width of the canvas
    */
-  width: PropTypes.number,
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /**
    * The height of the canvas
    */
-  height: PropTypes.number,
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /**
    * The size of the grid units, in pixels
    */
