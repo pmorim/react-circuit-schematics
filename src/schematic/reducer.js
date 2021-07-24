@@ -124,6 +124,7 @@ export const reducer = (state, action) => {
         (item) => item.props.id,
       );
       state.selection.selecting = [];
+      break;
 
     /**
      * Creates a connection between two elements.
