@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { Schematic } from '../../components/Schematic';
 import { Connection } from '../../components/Connection';
 import { Node } from '../../components/Node';
 
@@ -11,6 +12,11 @@ export default {
   },
   parameters: {
     docs: {
+      description: {
+        component:
+          'The Connection component allows the user to connect Ports and \
+          Nodes.',
+      },
       source: {
         type: 'code',
       },
@@ -23,12 +29,12 @@ export const Simple = () => {
   const end = useRef();
 
   return (
-    <div style={{ position: 'relative', zIndex: 0 }}>
+    <Schematic>
       <Node ref={start} position={{ x: 0, y: 0 }} />
-      <Node ref={end} position={{ x: 200, y: 50 }} />
+      <Node ref={end} position={{ x: 200, y: 40 }} />
 
       <Connection start={start} end={end} />
-    </div>
+    </Schematic>
   );
 };
 
@@ -37,15 +43,15 @@ export const Labeled = () => {
   const end = useRef();
 
   return (
-    <div style={{ position: 'relative', zIndex: 0 }}>
+    <Schematic>
       <Node ref={start} position={{ x: 0, y: 0 }} />
       <Node ref={end} position={{ x: 200, y: 0 }} />
 
       <Connection
         start={start}
         end={end}
-        label={{ name: 'Hello', position: { x: 70, y: -30 } }}
+        label={{ name: 'Hello', position: { x: 80, y: -20 } }}
       />
-    </div>
+    </Schematic>
   );
 };
