@@ -17,9 +17,10 @@ export const Node = forwardRef(
             top: position.y,
 
             // Properties of the node
-            width: properties.radius * 2,
-            height: properties.radius * 2,
-            backgroundColor: properties.color,
+            width: (properties.radius ?? 6) * 2,
+            height: (properties.radius ?? 6) * 2,
+            backgroundColor: properties.color ?? '#6495ED',
+            opacity: properties.opacity ?? 1,
           }}
           {...rest}
         >
@@ -58,10 +59,11 @@ Node.propTypes = {
   properties: PropTypes.exact({
     color: PropTypes.string,
     radius: PropTypes.number,
+    opacity: PropTypes.number,
   }),
 };
 
 Node.defaultProps = {
   position: { x: 0, y: 0 },
-  properties: { radius: 6, color: '#6495ED' },
+  properties: { radius: 6, color: '#6495ED', opacity: 1 },
 };

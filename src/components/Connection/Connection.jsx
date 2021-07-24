@@ -20,7 +20,7 @@ export const Connection = ({
         path={type}
         showHead={false}
         gridBreak={1}
-        divContainerStyle={{ zIndex: -1 }}
+        divContainerStyle={{ zIndex: -1, opacity: properties.opacity ?? 1 }}
         {...rest}
       />
       <Label {...label} />
@@ -69,9 +69,17 @@ Connection.propTypes = {
       start: PropTypes.string,
       end: PropTypes.string,
     }),
+    opacity: PropTypes.number,
   }),
 };
 
 Connection.defaultProps = {
   type: 'grid',
+  // TODO: Define default Connection properties
+  properties: {
+    color: '',
+    stroke: 2,
+    decoration: {},
+    opacity: 1,
+  },
 };
