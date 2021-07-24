@@ -1,45 +1,41 @@
-import React, { useRef } from 'react';
-import styles from './Label.module.css';
+import React from 'react';
 
-const setContentEditable = (ref, val) => {
-  ref.current.contentEditable = val;
-};
+import { Editable } from './Editable';
+import { Imaginary } from './Imaginary';
 
-export const DefaultLabel = (props) => {
-  const nameRef = useRef();
-  const valueRef = useRef();
-
+export const DefaultLabel = ({
+  name,
+  value,
+  multiplier,
+  unit,
+  onChange,
+  ...rest
+}) => {
   return (
     <b>
-      <div
-        ref={nameRef}
-        className={styles.editable}
-        onInput={(e) => props.onNameChange(e.currentTarget.textContent)}
-        // Content-Editable
-        onDoubleClick={() => setContentEditable(nameRef, true)}
-        onBlur={() => setContentEditable(nameRef, false)}
-        suppressContentEditableWarning
-      >
-        {props.name}
-      </div>
-
-      {props.value && props.unit && (
+      {name && (
+        <Editable onInput={(name) => onChange({ name })} {...rest}>
+          {name}
+        </Editable>
+      )}
+      {value && (
         <>
           {' = '}
-          <div
-            ref={valueRef}
-            className={styles.editable}
-            onBlur={() => setContentEditable(valueRef, false)}
-            // Content-Editable
-            onDoubleClick={() => setContentEditable(valueRef, true)}
-            onInput={(e) => props.onValueChange(e.currentTarget.textContent)}
-            suppressContentEditableWarning
-          >
-            {props.value}
-          </div>
-          {' ' + props.unit}
+          {value instanceof Object ? (
+            <Imaginary onChange={onChange} {...value} />
+          ) : (
+            <Editable onInput={(value) => onChange({ value })} {...rest}>
+              {value}
+            </Editable>
+          )}
         </>
+      )}{' '}
+      {multiplier && (
+        <Editable onInput={(multiplier) => onChange({ multiplier })} {...rest}>
+          {multiplier}
+        </Editable>
       )}
+      {unit}
     </b>
   );
 };

@@ -36,18 +36,16 @@ Node.propTypes = {
   /**
    * The position of the node
    */
-  position: PropTypes.exact({
+  position: PropTypes.shape({
     x: PropTypes.number,
     y: PropTypes.number,
   }).isRequired,
   /**
    * The label of the node
    */
-  label: PropTypes.exact({
+  label: PropTypes.shape({
     name: PropTypes.string,
-    value: PropTypes.number,
-    unit: PropTypes.string,
-    position: PropTypes.exact({
+    position: PropTypes.shape({
       x: PropTypes.number,
       y: PropTypes.number,
     }),
@@ -55,7 +53,7 @@ Node.propTypes = {
   /**
    * The optional properties fo the node
    */
-  properties: PropTypes.exact({
+  properties: PropTypes.shape({
     color: PropTypes.string,
     radius: PropTypes.number,
   }),

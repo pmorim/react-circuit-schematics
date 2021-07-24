@@ -52,7 +52,8 @@ export const RLC_Circuit = () => {
           position: { x: 100, y: 50 },
           label: {
             name: 'R',
-            value: '10k',
+            value: '10',
+            multiplier: 'k',
             unit: 'Ω',
             position: { x: 10, y: -110 },
           },
@@ -75,7 +76,8 @@ export const RLC_Circuit = () => {
           position: { x: 200, y: 50 },
           label: {
             name: 'L',
-            value: '10m',
+            value: '10',
+            multiplier: 'm',
             unit: 'H',
             position: { x: 10, y: -110 },
           },
@@ -98,7 +100,8 @@ export const RLC_Circuit = () => {
           position: { x: 250, y: 200, angle: 90 },
           label: {
             name: 'C',
-            value: '1µ',
+            value: '1',
+            multiplier: 'u',
             unit: 'F',
             position: { x: 90, y: -70 },
           },

@@ -46,11 +46,11 @@ Connection.propTypes = {
   /**
    * The label of the connection
    */
-  label: PropTypes.exact({
+  label: PropTypes.shape({
     name: PropTypes.string,
     value: PropTypes.number,
     unit: PropTypes.string,
-    position: PropTypes.exact({
+    position: PropTypes.shape({
       x: PropTypes.number,
       y: PropTypes.number,
     }),
@@ -62,10 +62,10 @@ Connection.propTypes = {
   /**
    * Optional properties of the connection
    */
-  properties: PropTypes.exact({
+  properties: PropTypes.shape({
     color: PropTypes.string,
     stroke: PropTypes.number,
-    decoration: PropTypes.exact({
+    decoration: PropTypes.shape({
       start: PropTypes.string,
       end: PropTypes.string,
     }),
