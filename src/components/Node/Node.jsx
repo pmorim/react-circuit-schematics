@@ -13,8 +13,8 @@ export const Node = forwardRef(
           className={styles.node}
           style={{
             // Positioning of the node
-            left: position.x - properties.radius,
-            top: position.y - properties.radius,
+            left: position.x,
+            top: position.y,
 
             // Properties of the node
             width: properties.radius * 2,
