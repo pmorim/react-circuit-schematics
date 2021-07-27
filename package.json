@@ -11,6 +11,12 @@
   "engines": {
     "node": ">=10"
   },
+  "keywords": [
+    "react",
+    "draw",
+    "circuit",
+    "schematics"
+  ],
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
