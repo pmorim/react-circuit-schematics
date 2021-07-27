@@ -17,6 +17,9 @@
     "circuit",
     "schematics"
   ],
+  "files": [
+    "storybook-static"
+  ],
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -54,9 +57,6 @@
     "storybook-css-modules-preset": "^1.1.1",
     "storybook-dark-mode": "^1.0.8"
   },
-  "files": [
-    "storybook-static"
-  ],
   "dependencies": {
     "@react-hook/mouse-position": "^4.1.0",
     "@storybook/addon-a11y": "^6.2.9",
