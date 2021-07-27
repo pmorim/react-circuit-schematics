@@ -1,20 +1,19 @@
 {
   "name": "react-circuit-schematics",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A React library that allows you to draw circuit schematics",
   "author": "pmorim",
   "license": "MIT",
   "repository": "pmorim/react-circuit-schematics",
-  "main": "storybook-static/index.js",
-  "module": "storybook-static/index.modern.js",
+  "main": "dist/index.js",
+  "module": "dist/index.modern.js",
   "source": "src/index.js",
   "engines": {
     "node": ">=10"
   },
   "keywords": [
     "react",
-    "draw",
-    "circuit",
+    "circuits",
     "schematics"
   ],
   "files": [
@@ -22,7 +21,8 @@
   ],
   "scripts": {
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "build": "microbundle-crl --no-compress --format modern,cjs"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.1.0",
