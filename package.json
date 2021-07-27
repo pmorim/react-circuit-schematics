@@ -1,10 +1,10 @@
 {
-  "name": "react-draw-circuits",
+  "name": "react-circuit-schematics",
   "version": "1.0.0",
   "description": "A React library that allows you to draw circuit schematics",
   "author": "pmorim",
   "license": "MIT",
-  "repository": "pmorim/react-draw-circuits",
+  "repository": "pmorim/react-circuit-schematics",
   "main": "storybook-static/index.js",
   "module": "storybook-static/index.modern.js",
   "source": "src/index.js",
