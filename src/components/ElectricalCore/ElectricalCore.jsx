@@ -187,7 +187,7 @@ ElectricalCore.propTypes = {
   selectionColor: PropTypes.string,
 };
 
-ElectricalCore.defaultArgs = {
+ElectricalCore.defaultProps = {
   position: { x: 0, y: 0 },
   size: 100,
   gridSize: 10,
