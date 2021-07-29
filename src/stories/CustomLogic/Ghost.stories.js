@@ -30,9 +30,9 @@ export const Compare = () => {
   const ghostNodeRef = useRef();
 
   return (
-    <Schematic>
-      <Node ref={nodeRef} position={{ x: 0, y: 0 }} />
-      <Ghost as={Node} ref={ghostNodeRef} position={{ x: 200, y: 40 }} />
+    <Schematic height={100}>
+      <Node ref={nodeRef} position={{ x: 10, y: 10 }} />
+      <Ghost as={Node} ref={ghostNodeRef} position={{ x: 200, y: 100 }} />
 
       <Connection start={nodeRef} end={ghostNodeRef} />
       <Ghost as={Connection} start={ghostNodeRef} end={nodeRef} />

@@ -26,12 +26,12 @@ export const RLC_Circuit = () => {
         {
           id: 'VDC',
           type: 'DC Voltage Source',
-          position: { x: 50, y: 100 },
+          position: { x: 50, y: 150 },
           label: {
             name: 'U',
             value: '5',
             unit: 'V',
-            position: { x: 70, y: -30 },
+            position: { x: 90, y: 40 },
           },
           ports: [
             {
@@ -49,12 +49,12 @@ export const RLC_Circuit = () => {
         {
           id: 'R',
           type: 'Resistor',
-          position: { x: 100, y: 50 },
+          position: { x: 200, y: 100 },
           label: {
             name: 'R',
             value: '10k',
             unit: 'Ω',
-            position: { x: 10, y: -110 },
+            position: { x: 10, y: 0 },
           },
           ports: [
             {
@@ -72,12 +72,12 @@ export const RLC_Circuit = () => {
         {
           id: 'L',
           type: 'Inductor',
-          position: { x: 200, y: 50 },
+          position: { x: 400, y: 100 },
           label: {
             name: 'L',
             value: '10m',
             unit: 'H',
-            position: { x: 10, y: -110 },
+            position: { x: 10, y: 0 },
           },
           ports: [
             {
@@ -95,12 +95,12 @@ export const RLC_Circuit = () => {
         {
           id: 'C',
           type: 'Capacitor',
-          position: { x: 250, y: 200, angle: 90 },
+          position: { x: 500, y: 200, angle: 90 },
           label: {
             name: 'C',
             value: '1µ',
             unit: 'F',
-            position: { x: 90, y: -70 },
+            position: { x: 80, y: 40 },
           },
           ports: [
             {

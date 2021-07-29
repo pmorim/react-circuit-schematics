@@ -29,9 +29,9 @@ export const Simple = () => {
   const end = useRef();
 
   return (
-    <Schematic>
-      <Node ref={start} position={{ x: 0, y: 0 }} />
-      <Node ref={end} position={{ x: 200, y: 40 }} />
+    <Schematic height={100}>
+      <Node ref={start} position={{ x: 10, y: 10 }} />
+      <Node ref={end} position={{ x: 200, y: 100 }} />
 
       <Connection start={start} end={end} />
     </Schematic>
@@ -43,14 +43,14 @@ export const Labeled = () => {
   const end = useRef();
 
   return (
-    <Schematic>
-      <Node ref={start} position={{ x: 0, y: 0 }} />
-      <Node ref={end} position={{ x: 200, y: 0 }} />
+    <Schematic height={100}>
+      <Node ref={start} position={{ x: 20, y: 50 }} />
+      <Node ref={end} position={{ x: 200, y: 50 }} />
 
       <Connection
         start={start}
         end={end}
-        label={{ name: 'Hello', position: { x: 80, y: -20 } }}
+        label={{ name: 'Hello', position: { x: 90, y: 20 } }}
       />
     </Schematic>
   );

@@ -16,13 +16,16 @@ export default {
   },
 };
 
-export const ResistorLabel = () => <Label name='R1' value='10k' unit='Ω' />;
-export const OnlyName = () => <Label name='R1' />;
+export const ResistorLabel = () => (
+  <Label name='R1' value='10k' unit='Ω' position={{ x: 20, y: 20 }} />
+);
+export const OnlyName = () => <Label name='R1' position={{ x: 20, y: 20 }} />;
 export const CustomLabel = () => (
   <Label
     name='R1'
     value='10k'
     unit='Ω'
+    position={{ x: 20, y: 20 }}
     as={({ name, value, unit }) => (
       <>
         <div>Hi, I'm a custom label</div>
