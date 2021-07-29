@@ -82,46 +82,42 @@ export const ElectricalCore = createSelectable(
     }, [position]);
 
     return (
-      <div className={styles.wrapper}>
-        <Draggable
-          handle='.rdc-handle'
-          nodeRef={draggableRef}
-          defaultPosition={position}
-          positionOffset={{ x: 5, y: 5 }}
-          onStart={() => setIsGrabbing(true)}
-          onStop={() => setIsGrabbing(false)}
-          grid={[gridSize, gridSize]}
-          {...rest}
-        >
-          <div ref={draggableRef}>
-            <div ref={selectableRef}>
-              <img
-                className={cx(
-                  styles.noDrag,
-                  'rdc-handle',
-                  isGrabbing ? styles.grabbing : styles.grab,
-                )}
-                style={{
-                  transform: `rotate(${position?.angle ?? 0}deg)`,
-                  width: size,
-                  outline: isSelected ? '2px solid #6495ED' : 'none',
-                }}
-                ref={boundingRef}
-                src={imgPath ? imgPath : src}
-                alt={type}
-              />
+      <Draggable
+        handle='.rdc-handle'
+        nodeRef={draggableRef}
+        defaultPosition={position}
+        positionOffset={{ x: 5, y: 5 }}
+        onStart={() => setIsGrabbing(true)}
+        onStop={() => setIsGrabbing(false)}
+        grid={[gridSize, gridSize]}
+        {...rest}
+      >
+        <div className={styles.wrapper} ref={draggableRef}>
+          <div ref={selectableRef}>
+            <img
+              className={cx(
+                styles.noDrag,
+                'rdc-handle',
+                isGrabbing ? styles.grabbing : styles.grab,
+              )}
+              style={{
+                transform: `rotate(${position?.angle ?? 0}deg)`,
+                width: size,
+                outline: isSelected ? '2px solid #6495ED' : 'none',
+              }}
+              ref={boundingRef}
+              src={imgPath ? imgPath : src}
+              alt={type}
+            />
 
-              {ports.map((port, i) => {
-                return (
-                  <Port key={i} ref={port.ref} bounds={bounds} {...port} />
-                );
-              })}
+            {ports.map((port, i) => {
+              return <Port key={i} ref={port.ref} bounds={bounds} {...port} />;
+            })}
 
-              <Label gridSize={gridSize} {...label} />
-            </div>
+            <Label gridSize={gridSize} {...label} />
           </div>
-        </Draggable>
-      </div>
+        </div>
+      </Draggable>
     );
   },
 );
