@@ -10,6 +10,7 @@ export const Connection = ({
   label,
   type,
   properties,
+  onClick,
   ...rest
 }) => {
   return (
@@ -21,6 +22,7 @@ export const Connection = ({
         showHead={false}
         gridBreak={1}
         divContainerStyle={{ zIndex: -1, opacity: properties.opacity ?? 1 }}
+        passProps={{ onClick }}
         {...rest}
       />
       <Label {...label} />
@@ -71,6 +73,10 @@ Connection.propTypes = {
     }),
     opacity: PropTypes.number,
   }),
+  /**
+   * The callback to execute when clicking on the connection
+   */
+  onClick: PropTypes.func,
 };
 
 Connection.defaultProps = {
