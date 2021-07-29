@@ -30,14 +30,20 @@ export const reducer = (state, action) => {
      * dispatch({
      *  type: ACTIONS.ADD,
      *  payload: {
-     *    where: 'components',
      *    element: {...}
      *  },
      * });
      * ```
      */
     case ACTIONS.ADD:
-      state.schematic[action.payload.where].push({
+      // Where should the element be added?
+      const element = action.payload.element;
+      const where = 'nodes';
+      if (element.hasOwnProperty('ports')) where = 'components';
+      else if (element.hasOwnProperty('start')) where = 'connections';
+
+      // Add the new element to the schematic
+      state.schematic[where].push({
         id: uuidv4(),
         ...action.payload.element,
       });
