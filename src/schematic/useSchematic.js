@@ -10,44 +10,48 @@ export const useSchematic = (initialSchematic) => {
 
   return {
     /**
-     * The schematic object.
-     * It contains the schematic in a JSON model.
+     * The API to read and write to the schematic
      */
-    schematic: state.schematic,
+    schematic: {
+      /**
+       * The schematic object.
+       * It contains the schematic in a JSON model.
+       */
+      data: state.schematic,
 
-    /**
-     * Adds a component to the schematic.
-     * If the component doesn't have an id, then it creates one.
-     *
-     * @param {Object} component The component to be added
-     */
-    addComponent: (component) => {
-      dispatch({
-        type: ACTIONS.ADD,
-        payload: {
-          where: 'components',
-          element: component,
-        },
-      });
-    },
+      /**
+       * Adds a component to the schematic.
+       * If the component doesn't have an id, then it creates one.
+       *
+       * @param {Object} component The component to be added
+       */
+      add: (component) => {
+        dispatch({
+          type: ACTIONS.ADD,
+          payload: {
+            element: component,
+          },
+        });
+      },
 
-    /**
-     * Deletes a component from the schematic.
-     *
-     * @param {String} id The id of the component.
-     */
-    deleteComponent: (id) => {
-      dispatch({ type: ACTIONS.DELETE, payload: { id } });
-    },
+      /**
+       * Deletes a component from the schematic.
+       *
+       * @param {String} id The id of the component.
+       */
+      delete: (id) => {
+        dispatch({ type: ACTIONS.DELETE, payload: { id } });
+      },
 
-    /**
-     * Edits the contents of a component.
-     *
-     * @param {Number} id The id of the component.
-     * @param {Object} edits The content to replace on the component.
-     */
-    editComponent: (id, edits) => {
-      dispatch({ type: ACTIONS.EDIT, payload: { id, edits } });
+      /**
+       * Edits the contents of a component.
+       *
+       * @param {Number} id The id of the component.
+       * @param {Object} edits The content to replace on the component.
+       */
+      edit: (id, edits) => {
+        dispatch({ type: ACTIONS.EDIT, payload: { id, edits } });
+      },
     },
 
     /**
