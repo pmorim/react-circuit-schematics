@@ -1,11 +1,11 @@
 import { useReducer } from 'react';
 
 import { reducer, ACTIONS } from './reducer';
-import { initialState } from './initialState';
+import { defaultState } from './defaultState';
 import { initializer } from './initializer';
 
-export const useSchematic = (initialSchematic) => {
-  const initial = { ...initialState, ...initialSchematic };
+export const useSchematic = (initialState) => {
+  const initial = { ...defaultState, ...initialState };
   const [state, dispatch] = useReducer(reducer, initial, initializer);
 
   return {
