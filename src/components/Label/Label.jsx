@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
 
+import styles from './Label.module.css';
 import { DefaultLabel } from './DefaultLabel';
 
 export const Label = ({ as, position, gridSize, ...rest }) => {
@@ -14,7 +15,7 @@ export const Label = ({ as, position, gridSize, ...rest }) => {
       grid={[gridSize, gridSize]}
       {...rest}
     >
-      <div ref={draggableRef}>
+      <div className={styles.wrapper} ref={draggableRef}>
         {as ? React.createElement(as, rest) : <DefaultLabel {...rest} />}
       </div>
     </Draggable>
