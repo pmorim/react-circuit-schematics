@@ -130,7 +130,7 @@ ElectricalCore.propTypes = {
   /**
    * The position of the component
    */
-  position: PropTypes.exact({
+  position: PropTypes.shape({
     x: PropTypes.number,
     y: PropTypes.number,
     z: PropTypes.number,
@@ -139,11 +139,11 @@ ElectricalCore.propTypes = {
   /**
    * The label of the component
    */
-  label: PropTypes.exact({
+  label: PropTypes.shape({
     name: PropTypes.string,
     value: PropTypes.string,
     unit: PropTypes.string,
-    position: PropTypes.exact({
+    position: PropTypes.shape({
       x: PropTypes.number,
       y: PropTypes.number,
     }),
@@ -152,10 +152,10 @@ ElectricalCore.propTypes = {
    * An array of the connection ports
    */
   ports: PropTypes.arrayOf(
-    PropTypes.exact({
+    PropTypes.shape({
       id: PropTypes.string,
       type: PropTypes.string,
-      position: PropTypes.exact({
+      position: PropTypes.shape({
         x: PropTypes.number,
         y: PropTypes.number,
       }),

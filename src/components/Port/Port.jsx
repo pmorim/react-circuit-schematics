@@ -32,21 +32,21 @@ Port.propTypes = {
   /**
    * The relative position of the Port. Range between `0` and `1`
    */
-  position: PropTypes.exact({
+  position: PropTypes.shape({
     x: PropTypes.number,
     y: PropTypes.number,
   }),
   /**
    * The bounding box of the Port's position
    */
-  bounds: PropTypes.exact({
+  bounds: PropTypes.shape({
     x: PropTypes.number,
     y: PropTypes.number,
   }),
   /**
    * Optional properties of the Port
    */
-  properties: PropTypes.exact({
+  properties: PropTypes.shape({
     radius: PropTypes.number,
     color: PropTypes.string,
   }),

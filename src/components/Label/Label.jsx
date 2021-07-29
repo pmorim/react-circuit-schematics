@@ -53,7 +53,7 @@ Label.propTypes = {
   /**
    * The default position of the label relative to the component
    */
-  position: PropTypes.exact({
+  position: PropTypes.shape({
     x: PropTypes.number,
     y: PropTypes.number,
   }),
