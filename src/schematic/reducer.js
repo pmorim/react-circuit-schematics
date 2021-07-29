@@ -37,10 +37,12 @@ export const reducer = (state, action) => {
      */
     case ACTIONS.ADD:
       // Where should the element be added?
-      const element = action.payload.element;
       const where = 'nodes';
-      if (element.hasOwnProperty('ports')) where = 'components';
-      else if (element.hasOwnProperty('start')) where = 'connections';
+      if (action.payload.element.hasOwnProperty('ports')) {
+        where = 'components';
+      } else if (action.payload.element.hasOwnProperty('start')) {
+        where = 'connections';
+      }
 
       // Add the new element to the schematic
       state.schematic[where].push({
