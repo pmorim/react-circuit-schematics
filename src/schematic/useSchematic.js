@@ -20,34 +20,32 @@ export const useSchematic = (initialSchematic) => {
       data: state.schematic,
 
       /**
-       * Adds a component to the schematic.
-       * If the component doesn't have an id, then it creates one.
+       * Adds a element to the schematic.
+       * If the element doesn't have an id, then it creates one.
        *
-       * @param {Object} component The component to be added
+       * @param {Object} element The element to be added
        */
-      add: (component) => {
+      add: (element) => {
         dispatch({
           type: ACTIONS.ADD,
-          payload: {
-            element: component,
-          },
+          payload: { element },
         });
       },
 
       /**
-       * Deletes a component from the schematic.
+       * Deletes a element from the schematic.
        *
-       * @param {String} id The id of the component.
+       * @param {String} id The id of the element.
        */
       delete: (id) => {
         dispatch({ type: ACTIONS.DELETE, payload: { id } });
       },
 
       /**
-       * Edits the contents of a component.
+       * Edits the contents of a element.
        *
-       * @param {Number} id The id of the component.
-       * @param {Object} edits The content to replace on the component.
+       * @param {Number} id The id of the element.
+       * @param {Object} edits The content to replace on the element.
        */
       edit: (id, edits) => {
         dispatch({ type: ACTIONS.EDIT, payload: { id, edits } });
@@ -55,10 +53,11 @@ export const useSchematic = (initialSchematic) => {
     },
 
     /**
-     *
+     * The API to handle the selection of elements
      */
     selection: {
       /**
+       * Handles the elements that are currently being selected
        *
        * @param {*} item
        */
@@ -70,6 +69,7 @@ export const useSchematic = (initialSchematic) => {
       },
 
       /**
+       * Handles the elements that have been selected
        *
        * @param {*} items
        */
