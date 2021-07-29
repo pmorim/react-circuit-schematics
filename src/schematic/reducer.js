@@ -1,8 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { findKey } from 'lodash';
 
-import { optimizeSchematic } from './optimizeSchematic';
-
 export const ACTIONS = {
   ADD: 'add',
   DELETE: 'delete',
@@ -49,7 +47,7 @@ export const reducer = (state, action) => {
         id: uuidv4(),
         ...action.payload.element,
       });
-      break;
+      return state;
 
     /**
      * Deletes an element by the given id.
@@ -87,7 +85,7 @@ export const reducer = (state, action) => {
           return port.id !== conn.start && port.id !== conn.end;
       });
 
-      break;
+      return state;
 
     /**
      * Edits the contents of an element by the given id.
@@ -113,7 +111,7 @@ export const reducer = (state, action) => {
         elem = { ...elem, ...action.payload.edits };
       }
 
-      break;
+      return state;
 
     /**
      * Adds a component to the selecting array.
@@ -122,7 +120,7 @@ export const reducer = (state, action) => {
       state.selection.selecting.push(
         action.payload.items.map((item) => item.props.id),
       );
-      break;
+      return state;
 
     /**
      * Selects the components and clears the selecting
@@ -132,7 +130,7 @@ export const reducer = (state, action) => {
         (item) => item.props.id,
       );
       state.selection.selecting = [];
-      break;
+      return state;
 
     /**
      * Creates a connection between two elements.
@@ -150,7 +148,7 @@ export const reducer = (state, action) => {
      */
     case ACTIONS.CONNECT:
       state.schematic.connections.push({ id: uuidv4(), ...action.payload });
-      break;
+      return state;
 
     /**
      * Undo the last change to the schematic.
@@ -162,7 +160,7 @@ export const reducer = (state, action) => {
      */
     case ACTIONS.UNDO:
       state.schematic = state.history.undoStack.pop();
-      break;
+      return state;
 
     /**
      * Redo the last "undone" change to the schematic.
@@ -174,7 +172,7 @@ export const reducer = (state, action) => {
      */
     case ACTIONS.REDO:
       state.schematic = state.history.redoStack.pop();
-      break;
+      return state;
 
     /**
      * Throw error if the given action type is not defined.
@@ -182,8 +180,4 @@ export const reducer = (state, action) => {
     default:
       throw new Error('Action type not supported.');
   }
-
-  // Return the updated schematic
-  if (!state.settings.optimize) return state;
-  return optimizeSchematic(state);
 };

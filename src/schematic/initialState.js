@@ -12,7 +12,4 @@ export const initialState = {
     selecting: [],
     selected: [],
   },
-  settings: {
-    optimize: true,
-  },
 };
