@@ -147,9 +147,8 @@ export const RLC_Circuit = () => {
     <Schematic
       width={800}
       height={500}
-      data={schematic.data}
-      duringSelection={selection.handleSelecting}
-      onSelectionFinish={selection.handleSelected}
+      schematic={schematic}
+      selection={selection}
     />
   );
 };

@@ -13,6 +13,8 @@ export const Schematic = ({
   data,
   width,
   height,
+  schematic,
+  selection,
   gridSize,
   gridColor,
   componentSize,
@@ -48,8 +50,8 @@ export const Schematic = ({
     >
       <SelectableGroup
         clickClassName='rdc-handle'
-        duringSelection={duringSelection}
-        onSelectionFinish={onSelectionFinish}
+        duringSelection={selection.handleSelecting}
+        onSelectionFinish={selection.handleSelected}
         enableDeselect
         resetOnStart
         deselectOnEsc
