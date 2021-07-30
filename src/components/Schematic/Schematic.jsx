@@ -40,10 +40,10 @@ export const Schematic = ({
         // Grid
         padding: gridSize,
         backgroundImage: `radial-gradient(
-            circle,
-            ${gridColor} 1px,
-            transparent 1px
-            )`,
+          circle,
+          ${gridColor} 1px,
+          transparent 1px
+          )`,
         backgroundSize: `${gridSize}px ${gridSize}px`,
       }}
       {...rest}
