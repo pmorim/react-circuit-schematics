@@ -83,7 +83,7 @@ export const ElectricalCore = createSelectable(
 
     return (
       <Draggable
-        handle='.rdc-handle'
+        handle='.rcs-handle'
         nodeRef={draggableRef}
         defaultPosition={position}
         positionOffset={{ x: 5, y: 5 }}
