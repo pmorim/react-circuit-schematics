@@ -1,34 +1,41 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useRef } from 'react';
+import Draggable from 'react-draggable';
 import { PropTypes } from 'prop-types';
 
+import cx from 'classnames';
 import styles from './Node.module.css';
 
 import { Label } from '../Label';
 
 export const Node = forwardRef(
-  ({ position, label, properties, ...rest }, ref) => {
+  ({ position, label, properties, gridSize, ...rest }, ref) => {
+    const draggableRef = useRef();
+
     return (
-      <>
-        <div
-          className={styles.node}
-          style={{
-            // Positioning of the node
-            left: position.x,
-            top: position.y,
+      <Draggable
+        handle='.rcs-handle'
+        defaultPosition={position}
+        nodeRef={draggableRef}
+        grid={[gridSize, gridSize]}
+        {...rest}
+      >
+        <div ref={draggableRef}>
+          <div
+            className={cx(styles.node, 'rcs-handle')}
+            style={{
+              width: (properties.radius ?? 6) * 2,
+              height: (properties.radius ?? 6) * 2,
+              backgroundColor: properties.color ?? '#6495ED',
+              opacity: properties.opacity ?? 1,
+            }}
+            {...rest}
+          >
+            <div ref={ref} />
+          </div>
 
-            // Properties of the node
-            width: (properties.radius ?? 6) * 2,
-            height: (properties.radius ?? 6) * 2,
-            backgroundColor: properties.color ?? '#6495ED',
-            opacity: properties.opacity ?? 1,
-          }}
-          {...rest}
-        >
-          <div ref={ref} />
+          <Label gridSize={gridSize} {...label} />
         </div>
-
-        <Label {...label} />
-      </>
+      </Draggable>
     );
   },
 );
@@ -61,9 +68,14 @@ Node.propTypes = {
     radius: PropTypes.number,
     opacity: PropTypes.number,
   }),
+  /**
+   * The size of the grid, i.e., the amount of pixels the drag skips
+   */
+  gridSize: PropTypes.number,
 };
 
 Node.defaultProps = {
   position: { x: 0, y: 0 },
   properties: { radius: 6, color: '#6495ED', opacity: 1 },
+  gridSize: 10,
 };
