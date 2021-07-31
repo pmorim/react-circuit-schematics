@@ -5,6 +5,7 @@ import useMouse from '@react-hook/mouse-position';
 
 import PropTypes from 'prop-types';
 
+import { useMouseGrid } from '../../hooks/useMouseGrid';
 import { ElectricalCore } from '../ElectricalCore';
 import { Connection } from '../Connection';
 import { Node } from '../Node';

@@ -1,5 +1,5 @@
 import { Schematic } from '../../components/Schematic';
-import { useSchematic } from '../../useSchematic';
+import { useSchematic } from '../../hooks/useSchematic';
 
 export default {
   title: 'Basic/Schematic',
