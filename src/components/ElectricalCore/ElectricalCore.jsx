@@ -97,7 +97,7 @@ export const ElectricalCore = createSelectable(
             <img
               className={cx(
                 styles.noDrag,
-                'rdc-handle',
+                'rcs-handle',
                 isGrabbing ? styles.grabbing : styles.grab,
               )}
               style={{
