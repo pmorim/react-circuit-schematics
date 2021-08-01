@@ -19,7 +19,7 @@ export default {
 };
 
 export const ResistorExample = () => (
-  <Schematic height={150}>
+  <Schematic height={150} width={200}>
     <ElectricalCore
       type='Resistor'
       position={{ x: 50, y: 40 }}
@@ -50,7 +50,7 @@ export const AlternateImages = () => {
   };
 
   return (
-    <Schematic height={150}>
+    <Schematic height={150} width={200}>
       <ElectricalCore position={{ x: 0, y: 30 }} {...data} />
       <ElectricalCore position={{ x: 100, y: 30 }} altImageIdx={1} {...data} />
     </Schematic>
@@ -58,7 +58,7 @@ export const AlternateImages = () => {
 };
 
 export const CustomComponent = () => (
-  <Schematic height={150}>
+  <Schematic height={150} width={200}>
     <ElectricalCore
       // 👇 You can add your own type, image and size
       type='AND Gate'

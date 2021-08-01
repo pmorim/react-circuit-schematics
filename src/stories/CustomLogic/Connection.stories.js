@@ -29,7 +29,7 @@ export const Simple = () => {
   const end = useRef();
 
   return (
-    <Schematic height={100}>
+    <Schematic height={120} width={220}>
       <Node ref={start} position={{ x: 10, y: 10 }} />
       <Node ref={end} position={{ x: 200, y: 100 }} />
 
@@ -43,14 +43,14 @@ export const Labeled = () => {
   const end = useRef();
 
   return (
-    <Schematic height={100}>
+    <Schematic height={100} width={220}>
       <Node ref={start} position={{ x: 20, y: 50 }} />
       <Node ref={end} position={{ x: 200, y: 50 }} />
 
       <Connection
         start={start}
         end={end}
-        label={{ name: 'Hello', position: { x: 90, y: 20 } }}
+        label={{ name: 'Hello', position: { x: 100, y: 30 } }}
       />
     </Schematic>
   );
