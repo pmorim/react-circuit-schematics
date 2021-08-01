@@ -36,7 +36,7 @@ export const reducer = (state, action) => {
      */
     case ACTIONS.ADD:
       // Where should the element be added?
-      const where = 'nodes';
+      let where = 'nodes';
       if (action.payload.element.hasOwnProperty('ports')) {
         where = 'components';
       } else if (action.payload.element.hasOwnProperty('start')) {
