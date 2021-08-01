@@ -10,11 +10,12 @@ export const useMouseGrid = (ref, gridSize) => {
   };
 
   const updateMousePosition = (e) => {
-    let rect = ref.current.getBoundingClientRect();
-    setMousePosition({
-      x: snapToGrid(e.clientX - rect.left, gridSize),
-      y: snapToGrid(e.clientY - rect.top, gridSize),
-    });
+    const rect = ref.current.getBoundingClientRect();
+    const x = snapToGrid(e.clientX - rect.left, gridSize);
+    const y = snapToGrid(e.clientY - rect.top, gridSize);
+
+    if (x !== mousePosition.x || y !== mousePosition.y)
+      setMousePosition({ x, y });
   };
 
   useEffect(() => {
