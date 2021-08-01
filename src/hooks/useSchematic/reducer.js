@@ -10,6 +10,7 @@ export const ACTIONS = {
   CONNECT: 'connect',
   UNDO: 'undo',
   REDO: 'redo',
+  UPDATE_FLAG: 'update flag',
 };
 
 export const reducer = (state, action) => {
@@ -172,6 +173,20 @@ export const reducer = (state, action) => {
      */
     case ACTIONS.REDO:
       state.schematic = state.history.redoStack.pop();
+      return state;
+
+    /**
+     * Updates the value of the given flag
+     *
+     * Usage:
+     * ```js
+     * dispatch({ type: ACTIONS.UPDATE_FLAG, payload: { [flag]: true } });
+     * ```
+     */
+    case ACTIONS.UPDATE_FLAG:
+      for (const [flag, value] of Object.entries(action.payload)) {
+        state.flags[flag] = value;
+      }
       return state;
 
     /**

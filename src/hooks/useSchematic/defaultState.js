@@ -12,4 +12,7 @@ export const defaultState = {
     selecting: [],
     selected: [],
   },
+  flags: {
+    connecting: false,
+  },
 };

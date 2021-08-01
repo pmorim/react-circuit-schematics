@@ -112,5 +112,36 @@ export const useSchematic = (initialState) => {
        */
       canRedo: state.history.redoStack.length,
     },
+
+    /**
+     * Some state flags
+     */
+    flags: (() => {
+      for (const [flag, value] of Object.entries(state.flags)) {
+        state.flags[flag] = {
+          value,
+          on: () => {
+            dispatch({
+              type: ACTIONS.UPDATE_FLAG,
+              payload: { [flag]: true },
+            });
+          },
+          off: () => {
+            dispatch({
+              type: ACTIONS.UPDATE_FLAG,
+              payload: { [flag]: false },
+            });
+          },
+          toggle: function () {
+            dispatch({
+              type: ACTIONS.UPDATE_FLAG,
+              payload: { [flag]: !this.value },
+            });
+          },
+        };
+      }
+
+      return state.flags;
+    })(),
   };
 };
