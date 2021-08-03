@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback } from 'react';
 
-export const useHistory = (value, setter) => {
+export const useHistory = (value, setter, maxHistoryLength = 10) => {
   const [history, setHistory] = useState({ undoStack: [], redoStack: [] });
 
   /**
@@ -16,7 +16,8 @@ export const useHistory = (value, setter) => {
     const state = null;
 
     setHistory((curr) => {
-      curr.redoStack.push(value);
+      if (curr.redoStack.push(value) >= maxHistoryLength)
+        curr.redoStack.shift();
       state = curr.undoStack.pop();
       return curr;
     });
@@ -31,7 +32,8 @@ export const useHistory = (value, setter) => {
     const state = null;
 
     setHistory((curr) => {
-      curr.undoStack.push(value);
+      if (curr.undoStack.push(value) >= maxHistoryLength)
+        curr.undoStack.shift();
       state = curr.redoStack.pop();
       return curr;
     });
