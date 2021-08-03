@@ -24,11 +24,12 @@ export const ElectricalCore = createSelectable(
     isSelected,
     isSelecting,
     selectionColor,
+    handlePortClick,
     ...rest
   }) => {
     const draggableRef = useRef();
-    const boundingRef = useRef();
 
+    const boundingRef = useRef();
     const [bounds, setBounds] = useState({ x: 0, y: 0 });
     const [renderCount, setRenderCount] = useState(0);
 
@@ -65,8 +66,8 @@ export const ElectricalCore = createSelectable(
         y = y * 2 - 1;
 
         // Convert to polar coordinates
-        let radius = Math.sqrt(x * x + y * y);
-        let teta = Math.atan2(y, x);
+        const radius = Math.sqrt(x * x + y * y);
+        const teta = Math.atan2(y, x);
 
         // Convert the component's rotation to radians
         const rot = (position?.angle ?? 0) * (Math.PI / 180);
@@ -111,7 +112,15 @@ export const ElectricalCore = createSelectable(
             />
 
             {ports.map((port, i) => {
-              return <Port key={i} ref={port.ref} bounds={bounds} {...port} />;
+              return (
+                <Port
+                  key={i}
+                  ref={port.ref}
+                  bounds={bounds}
+                  onClick={() => handlePortClick?.(port.id)}
+                  {...port}
+                />
+              );
             })}
 
             <Label gridSize={gridSize} {...label} />

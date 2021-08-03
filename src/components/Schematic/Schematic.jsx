@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
-import { SelectableGroup } from 'react-selectable-fast';
+import React, { useRef, useCallback } from 'react';
 import useDynamicRefs from 'use-dynamic-refs';
-import useMouse from '@react-hook/mouse-position';
+import { v4 as uuidv4 } from 'uuid';
+import { SelectableGroup } from 'react-selectable-fast';
 
 import PropTypes from 'prop-types';
 
@@ -9,25 +9,21 @@ import { useMouseGrid } from '../../hooks/useMouseGrid';
 import { ElectricalCore } from '../ElectricalCore';
 import { Connection } from '../Connection';
 import { Node } from '../Node';
+import { ConnectionPoint } from '../ConnectionPoint';
 
 export const Schematic = ({
-  data,
   width,
   height,
   schematic,
-  selection,
   gridSize,
   gridColor,
-  componentSize,
   children,
-  duringSelection,
-  onSelectionFinish,
   ...rest
 }) => {
   const [getRef, setRef] = useDynamicRefs();
 
   const canvasRef = useRef();
-  const mouse = useMouse(canvasRef);
+  const mousePosition = useMouseGrid(canvasRef, gridSize);
 
   return (
     <div
@@ -39,7 +35,7 @@ export const Schematic = ({
         zIndex: 0,
 
         // Grid
-        padding: gridSize,
+        //padding: gridSize,
         backgroundImage: `radial-gradient(
           circle,
           ${gridColor} 1px,
@@ -49,6 +45,7 @@ export const Schematic = ({
       }}
       {...rest}
     >
+      {/*
       <SelectableGroup
         clickClassName='rdc-handle'
         duringSelection={selection.handleSelecting}
@@ -56,35 +53,40 @@ export const Schematic = ({
         enableDeselect
         resetOnStart
         deselectOnEsc
-      >
-        {children}
+        >
+      */}
+      {children}
 
-        {data.components?.map((comp) => {
-          // Pre-build the port refs
-          comp.ports.forEach((port) => (port.ref = setRef(port.id)));
+      <ConnectionPoint ref={setRef('mouse')} position={mousePosition} />
 
-          return (
-            <ElectricalCore
-              key={comp.id}
-              gridSize={gridSize}
-              size={componentSize}
-              {...comp}
+      {schematic?.data.components?.map((comp) => {
+        comp.ports.forEach((port) => (port.ref = setRef(port.id)));
+        return <ElectricalCore key={comp.id} gridSize={gridSize} {...comp} />;
+      })}
+
+      {schematic?.data.nodes?.map((node) => (
+        <Node
+          key={node.id}
+          ref={setRef(node.id)}
+          gridSize={gridSize}
+          {...node}
+        />
+      ))}
+
+      {schematic?.data.connections?.map(
+        (conn) =>
+          conn.start &&
+          conn.end && (
+            <Connection
+              key={conn.id}
+              start={getRef(conn.start)}
+              end={getRef(conn.end)}
             />
-          );
-        })}
-
-        {data.nodes?.map((node) => (
-          <Node key={node.id} ref={setRef(node.id)} {...node} />
-        ))}
-
-        {data.connections?.map((conn) => (
-          <Connection
-            key={conn.id}
-            start={getRef(conn.start)}
-            end={getRef(conn.end)}
-          />
-        ))}
-      </SelectableGroup>
+          ),
+      )}
+      {/*
+        </SelectableGroup>
+      */}
     </div>
   );
 };
@@ -110,10 +112,6 @@ Schematic.propTypes = {
    * The color of the grid dots
    */
   gridColor: PropTypes.string,
-  /**
-   * The size of the component
-   */
-  componentSize: PropTypes.number,
 };
 
 Schematic.defaultProps = {
@@ -122,5 +120,4 @@ Schematic.defaultProps = {
   height: '100%',
   gridSize: 10,
   gridColor: '#777',
-  componentSize: 100,
 };
