@@ -140,6 +140,17 @@ export const RLC_Circuit = () => {
     ],
   };
 
-  const { schematic } = useSchematic(RLC_Circuit);
-  return <Schematic width={800} height={500} schematic={schematic} />;
+  const { schematic, history } = useSchematic(RLC_Circuit);
+  return (
+    <>
+      <button onClick={history.undo} disabled={!history.canUndo}>
+        Undo
+      </button>
+      <button onClick={history.redo} disabled={!history.canRedo}>
+        Redo
+      </button>
+
+      <Schematic width={800} height={500} schematic={schematic} />
+    </>
+  );
 };
