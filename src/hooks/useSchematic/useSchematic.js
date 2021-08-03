@@ -53,15 +53,17 @@ export const useSchematic = (initialSchematic) => {
   );
 
   const editById = useCallback(
-    (id, edits) => {
-      setSchematic((schematic) => {
-        for (const type in schematic) {
-          elem = schematic[type].find((elem) => elem.id === id);
-          if (elem) elem = { ...elem, ...edits };
-        }
+    (id, edits, callback) => {
+      if (callback) setSchematic(callback);
+      else
+        setSchematic((schematic) => {
+          for (const type in schematic) {
+            elem = schematic[type].find((elem) => elem.id === id);
+            if (elem) elem = { ...elem, ...edits };
+          }
 
-        return schematic;
-      });
+          return schematic;
+        });
     },
     [setSchematic],
   );
