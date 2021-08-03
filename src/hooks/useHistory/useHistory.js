@@ -13,32 +13,36 @@ export const useHistory = (value, setter, maxHistoryLength = 10) => {
    * Set the value to its previous state
    */
   const undo = useCallback(() => {
-    const state = null;
+    setter((prev) => {
+      const curr = prev;
 
-    setHistory((curr) => {
-      if (curr.redoStack.push(value) >= maxHistoryLength)
-        curr.redoStack.shift();
-      state = curr.undoStack.pop();
+      setHistory((hist) => {
+        if (hist.redoStack.push(prev) > maxHistoryLength)
+          hist.redoStack.shift();
+        curr = hist.undoStack.pop();
+        return hist;
+      });
+
       return curr;
     });
-
-    setter(state);
   }, [value, setter, setHistory]);
 
   /**
    * Return the value to its recent state
    */
   const redo = useCallback(() => {
-    const state = null;
+    setter((prev) => {
+      const curr = prev;
 
-    setHistory((curr) => {
-      if (curr.undoStack.push(value) >= maxHistoryLength)
-        curr.undoStack.shift();
-      state = curr.redoStack.pop();
+      setHistory((hist) => {
+        if (hist.undoStack.push(prev) > maxHistoryLength)
+          hist.undoStack.shift();
+        curr = hist.redoStack.pop();
+        return hist;
+      });
+
       return curr;
     });
-
-    setter(state);
   }, [value, setter, setHistory]);
 
   return { undo, redo, canUndo, canRedo };
