@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback } from 'react';
 
-export const useHistory = (value, setter, maxHistoryLength = 10) => {
+export const useHistory = (setter, maxLength = 10) => {
   const [history, setHistory] = useState({ undoStack: [], redoStack: [] });
 
   /**
@@ -17,40 +17,39 @@ export const useHistory = (value, setter, maxHistoryLength = 10) => {
   );
 
   /**
-   * Set the value to its previous state
+   * Updater of the history state
    */
-  const undo = useCallback(() => {
-    setter((prev) => {
-      const curr = prev;
+  const updateHistory = useCallback(
+    (isUndo) => {
+      const saveStack = isUndo ? hist.redoStack : hist.undoStack;
+      const getStack = isUndo ? hist.undoStack : hist.redoStack;
 
-      setHistory((hist) => {
-        if (hist.redoStack.push(prev) > maxHistoryLength)
-          hist.redoStack.shift();
-        curr = hist.undoStack.pop();
-        return hist;
+      setter((prev) => {
+        const curr = prev;
+
+        setHistory((hist) => {
+          if (saveStack.push(prev) > maxLength) saveStack.shift();
+          curr = getStack.pop();
+          return hist;
+        });
+
+        return curr;
       });
-
-      return curr;
-    });
-  }, [value, setter, setHistory]);
+    },
+    [setter, setHistory],
+  );
 
   /**
-   * Return the value to its recent state
+   * Set the value to its previous state
    */
-  const redo = useCallback(() => {
-    setter((prev) => {
-      const curr = prev;
+  const undo = useCallback(() => updateHistory(true), [updateHistory]);
+  const redo = useCallback(() => updateHistory(false), [updateHistory]);
 
-      setHistory((hist) => {
-        if (hist.undoStack.push(prev) > maxHistoryLength)
-          hist.undoStack.shift();
-        curr = hist.redoStack.pop();
-        return hist;
-      });
-
-      return curr;
-    });
-  }, [value, setter, setHistory]);
+  /**
+   * Memoized values to enable/disable buttons
+   */
+  const canUndo = useMemo(() => !!history.undoStack.length, [history]);
+  const canRedo = useMemo(() => !!history.redoStack.length, [history]);
 
   return { makeChange, undo, redo, canUndo, canRedo };
 };
