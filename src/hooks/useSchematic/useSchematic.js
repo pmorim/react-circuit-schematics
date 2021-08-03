@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useHistory } from '../useHistory';
 
-export const useSchematic = (initialSchematic) => {
+export const useSchematic = (initialSchematic, options) => {
   const [schematic, setSchematic] = useState({
     components: [],
     nodes: [],
@@ -9,7 +9,7 @@ export const useSchematic = (initialSchematic) => {
     ...initialSchematic,
   });
 
-  const history = useHistory(setSchematic);
+  const history = useHistory(setSchematic, options?.maxHistoryLength ?? 10);
 
   const add = useCallback(
     (element) => {

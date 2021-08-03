@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback } from 'react';
 
-export const useHistory = (setter, maxLength = 10) => {
+export const useHistory = (setter, maxLength) => {
   const [history, setHistory] = useState({ undoStack: [], redoStack: [] });
 
   /**
