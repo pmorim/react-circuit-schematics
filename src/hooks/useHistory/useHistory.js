@@ -21,15 +21,18 @@ export const useHistory = (setter, maxLength = 10) => {
    */
   const updateHistory = useCallback(
     (isUndo) => {
-      const saveStack = isUndo ? hist.redoStack : hist.undoStack;
-      const getStack = isUndo ? hist.undoStack : hist.redoStack;
-
       setter((prev) => {
-        const curr = prev;
+        let curr = prev;
 
         setHistory((hist) => {
-          if (saveStack.push(prev) > maxLength) saveStack.shift();
-          curr = getStack.pop();
+          const saveStack = isUndo ? hist.redoStack : hist.undoStack;
+          const getStack = isUndo ? hist.undoStack : hist.redoStack;
+
+          if (getStack.length) {
+            if (saveStack.push(prev) > maxLength) saveStack.shift();
+            curr = getStack.pop();
+          }
+
           return hist;
         });
 

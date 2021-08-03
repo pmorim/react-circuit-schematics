@@ -9,7 +9,7 @@ export const useSchematic = (initialSchematic) => {
     ...initialSchematic,
   });
 
-  const history = useHistory(schematic, setSchematic);
+  const history = useHistory(setSchematic);
 
   const add = useCallback(
     (element) => {
