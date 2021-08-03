@@ -4,10 +4,17 @@ export const useHistory = (value, setter, maxHistoryLength = 10) => {
   const [history, setHistory] = useState({ undoStack: [], redoStack: [] });
 
   /**
-   * Memoized values to enable/disable buttons
+   * Makes a change to the history
+   * Adds the given change to the undo stack
    */
-  const canUndo = useMemo(() => !!history.undoStack.length, [history]);
-  const canRedo = useMemo(() => !!history.redoStack.length, [history]);
+  const makeChange = useCallback(
+    (change) =>
+      setHistory((hist) => {
+        if (hist.undoStack.push(change) > maxLength) hist.undoStack.shift();
+        return hist;
+      }),
+    [setHistory],
+  );
 
   /**
    * Set the value to its previous state
@@ -45,5 +52,5 @@ export const useHistory = (value, setter, maxHistoryLength = 10) => {
     });
   }, [value, setter, setHistory]);
 
-  return { undo, redo, canUndo, canRedo };
+  return { makeChange, undo, redo, canUndo, canRedo };
 };
