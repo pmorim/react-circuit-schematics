@@ -76,5 +76,5 @@ export const useHistory = (setter, maxLength) => {
   /**
    * Return the relevant data to the user.
    */
-  return { makeChange, undo, redo, canUndo, canRedo };
+  return { save, undo, redo, canUndo, canRedo };
 };
