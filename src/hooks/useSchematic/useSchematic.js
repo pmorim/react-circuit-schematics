@@ -72,6 +72,10 @@ export const useSchematic = (initialSchematic, options) => {
   /**
    * Applies certain edits to the specified element.
    *
+   * Searches for the element that has the given id, and applies the given
+   * edits. Note that if multiple elements share the same id, they will all
+   * be edited.
+   *
    * @param {String} id The id of the element to be edited.
    * @param {Object} edits The edits to be applied to the element.
    * @param {Function} cb The callback to be executed to apply the edits.
