@@ -11,6 +11,14 @@ export const useSchematic = (initialSchematic, options) => {
 
   const history = useHistory(setSchematic, options?.maxHistoryLength ?? 10);
 
+  /**
+   * Adds an element to the schematic.
+   *
+   * Automatically detects if it is a Component, Node or Connection
+   * by it's properties.
+   *
+   * @param {Object} element The element to be added
+   */
   const add = useCallback(
     (element) => {
       setSchematic((schematic) => {
@@ -30,6 +38,15 @@ export const useSchematic = (initialSchematic, options) => {
     [setSchematic],
   );
 
+  /**
+   * Deletes an element from the schematic.
+   *
+   * Searches for the element that has the given id, and removes it from the
+   * schematic. Note that if multiple elements share the same id, they will all
+   * be deleted.
+   *
+   * @param {String} id The id of the element to be deleted.
+   */
   const deleteById = useCallback(
     (id) => {
       useSchematic((schematic) => {
@@ -52,13 +69,20 @@ export const useSchematic = (initialSchematic, options) => {
     [setSchematic],
   );
 
+  /**
+   * Applies certain edits to the specified element.
+   *
+   * @param {String} id The id of the element to be edited.
+   * @param {Object} edits The edits to be applied to the element.
+   * @param {Function} cb The callback to be executed to apply the edits.
+   */
   const editById = useCallback(
-    (id, edits, callback) => {
-      if (callback) setSchematic(callback);
+    (id, edits, cb) => {
+      if (cb) setSchematic(cb);
       else
         setSchematic((schematic) => {
           for (const type in schematic) {
-            elem = schematic[type].find((elem) => elem.id === id);
+            let elem = schematic[type].find((elem) => elem.id === id);
             if (elem) elem = { ...elem, ...edits };
           }
 
@@ -68,6 +92,9 @@ export const useSchematic = (initialSchematic, options) => {
     [setSchematic],
   );
 
+  /**
+   * Return the relevant data to the user
+   */
   return {
     schematic: {
       data: schematic,
