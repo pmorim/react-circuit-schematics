@@ -1,11 +1,20 @@
 import { useState, useMemo, useCallback } from 'react';
 
+/**
+ * A react Hook that tracks the history of a state.
+ *
+ * @param {Function} setter The setter function of the tracked state.
+ * @param {Number} maxLength The maximum history length.
+ * @returns {Object} Properties and methods that control the history.
+ */
 export const useHistory = (setter, maxLength) => {
   const [history, setHistory] = useState({ undoStack: [], redoStack: [] });
 
   /**
-   * Makes a change to the history
-   * Adds the given change to the undo stack
+   * Makes a change to the history.
+   * It adds the given state to the undo stack.
+   *
+   * @param {Object} change The state to be added to the undo stack.
    */
   const makeChange = useCallback(
     (change) =>
@@ -17,7 +26,13 @@ export const useHistory = (setter, maxLength) => {
   );
 
   /**
-   * Updater of the history state
+   * Updater of the history state.
+   *
+   * Pops a state from one stack and pushes it into the other.
+   * It also takes into account the `maxLength` of the stacks.
+   * Can be used as an `undo()` or `redo()` function.
+   *
+   * @param {Boolean} isUndo if this is an **undo** or **redo** action.
    */
   const updateHistory = useCallback(
     (isUndo) => {
@@ -43,16 +58,21 @@ export const useHistory = (setter, maxLength) => {
   );
 
   /**
-   * Set the value to its previous state
+   * Aliases of the updateHistory function.
+   * Made to simplify the API of the hook.
    */
   const undo = useCallback(() => updateHistory(true), [updateHistory]);
   const redo = useCallback(() => updateHistory(false), [updateHistory]);
 
   /**
-   * Memoized values to enable/disable buttons
+   * Aliases of the length of the undo and redo stacks.
+   * Used to disable buttons when the action is not available.
    */
   const canUndo = useMemo(() => !!history.undoStack.length, [history]);
   const canRedo = useMemo(() => !!history.redoStack.length, [history]);
 
+  /**
+   * Return the relevant data to the user.
+   */
   return { makeChange, undo, redo, canUndo, canRedo };
 };

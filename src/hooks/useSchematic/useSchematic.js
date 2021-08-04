@@ -3,7 +3,14 @@ import { isFunction } from 'lodash';
 
 import { useHistory } from '../useHistory';
 
-export const useSchematic = (initialSchematic, options) => {
+/**
+ * A React Hook that takes care of the logic required to run a schematic.
+ *
+ * @param {Object} initialSchematic The initial value of the schematic.
+ * @param {Object} options Extra options to define optional behaviour.
+ * @returns {Object} Properties and methods that control the schematic.
+ */
+export const useSchematic = (initialSchematic = {}, options = {}) => {
   const [schematic, setSchematic] = useState({
     components: [],
     nodes: [],
@@ -19,7 +26,7 @@ export const useSchematic = (initialSchematic, options) => {
    * Automatically detects if it is a Component, Node or Connection
    * by it's properties.
    *
-   * @param {Object} element The element to be added
+   * @param {Object} element The element to be added.
    */
   const add = useCallback(
     (element) => {
@@ -101,7 +108,7 @@ export const useSchematic = (initialSchematic, options) => {
   );
 
   /**
-   * Return the relevant data to the user
+   * Return the relevant data to the user.
    */
   return {
     schematic: {
