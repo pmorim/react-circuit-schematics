@@ -64,34 +64,6 @@ export const ElectricalCore = createSelectable(
       else setRenderCount(renderCount + 1);
     }, [boundingRef, renderCount]);
 
-    /**
-     * Update the port's position to take into account the component's rotation.
-     */
-    useEffect(() => {
-      for (const port of ports) {
-        let { x, y } = port.position;
-
-        // Shift the coordinates to origin
-        x = x * 2 - 1;
-        y = y * 2 - 1;
-
-        // Convert to polar coordinates
-        const radius = Math.sqrt(x * x + y * y);
-        const teta = Math.atan2(y, x);
-
-        // Convert the component's rotation to radians
-        const rot = (position?.angle ?? 0) * (Math.PI / 180);
-
-        // Convert to Cartesian coordinates
-        x = radius * Math.cos(teta + rot);
-        y = radius * Math.sin(teta + rot);
-
-        // Shift the coordinates back
-        port.position.x = (x + 1) / 2;
-        port.position.y = (y + 1) / 2;
-      }
-    }, [position]);
-
     return (
       <Draggable
         handle='.rcs-handle'
@@ -128,6 +100,7 @@ export const ElectricalCore = createSelectable(
                   ref={port.ref}
                   bounds={bounds}
                   onClick={() => handlePortClick?.(port.id)}
+                  rotation={position?.angle}
                   {...port}
                 />
               );
