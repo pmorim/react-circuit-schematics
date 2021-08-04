@@ -12,10 +12,10 @@ import { Node } from '../Node';
 import { ConnectionPoint } from '../ConnectionPoint';
 
 export const Schematic = ({
-  width,
-  height,
   schematic,
   history,
+  width,
+  height,
   gridSize,
   gridColor,
   children,
@@ -79,7 +79,7 @@ export const Schematic = ({
 
       <ConnectionPoint ref={setRef('mouse')} position={mousePosition} />
 
-      {schematic?.data.components?.map((comp) => {
+      {schematic?.data?.components?.map((comp) => {
         comp.ports.forEach((port) => (port.ref = setRef(port.id)));
         return (
           <ElectricalCore
@@ -91,7 +91,7 @@ export const Schematic = ({
         );
       })}
 
-      {schematic?.data.nodes?.map((node) => (
+      {schematic?.data?.nodes?.map((node) => (
         <Node
           key={node.id}
           ref={setRef(node.id)}
@@ -100,7 +100,7 @@ export const Schematic = ({
         />
       ))}
 
-      {schematic?.data.connections?.map(
+      {schematic?.data?.connections?.map(
         (conn) =>
           conn.start &&
           conn.end && (
@@ -122,7 +122,11 @@ Schematic.propTypes = {
   /**
    * The schematic data
    */
-  data: PropTypes.any,
+  schematic: PropTypes.object,
+  /**
+   * The history data
+   */
+  history: PropTypes.object,
   /**
    * The width of the canvas
    */
@@ -142,7 +146,7 @@ Schematic.propTypes = {
 };
 
 Schematic.defaultProps = {
-  data: {},
+  schematic: {},
   width: '100%',
   height: '100%',
   gridSize: 10,
