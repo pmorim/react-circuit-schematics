@@ -15,6 +15,7 @@ export const Schematic = ({
   width,
   height,
   schematic,
+  history,
   gridSize,
   gridColor,
   children,

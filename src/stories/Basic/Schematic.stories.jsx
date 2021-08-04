@@ -150,7 +150,12 @@ export const RLC_Circuit = () => {
         Redo
       </button>
 
-      <Schematic width={800} height={500} schematic={schematic} />
+      <Schematic
+        width={800}
+        height={500}
+        schematic={schematic}
+        history={history}
+      />
     </>
   );
 };
