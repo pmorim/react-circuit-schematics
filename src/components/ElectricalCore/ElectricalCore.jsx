@@ -1,4 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, {
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+} from 'react';
 import { createSelectable } from 'react-selectable-fast';
 import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
@@ -35,9 +41,13 @@ export const ElectricalCore = createSelectable(
 
     const [isGrabbing, setIsGrabbing] = useState(false);
 
-    // Logic for alternate images
-    let src = svgMap.get(type);
-    if (Array.isArray(src)) src = src[altImageIdx ?? 0];
+    /**
+     * Calculate which SVG to use
+     */
+    const src = useMemo(() => {
+      const src = svgMap.get(type);
+      return Array.isArray(src) ? src[altImageIdx ?? 0] : src;
+    }, [altImageIdx]);
 
     /**
      * Calculate the bounds of the component
