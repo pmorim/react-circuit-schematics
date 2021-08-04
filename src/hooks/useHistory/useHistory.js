@@ -11,12 +11,14 @@ export const useHistory = (setter, maxLength) => {
   const [history, setHistory] = useState({ undoStack: [], redoStack: [] });
 
   /**
-   * Makes a change to the history.
+   * Saves a state to the history.
+   *
    * It adds the given state to the undo stack.
+   * It also takes into account the `maxLength` of the stack.
    *
    * @param {Object} change The state to be added to the undo stack.
    */
-  const makeChange = useCallback(
+  const save = useCallback(
     (change) =>
       setHistory((hist) => {
         if (hist.undoStack.push(change) > maxLength) hist.undoStack.shift();
