@@ -70,8 +70,14 @@ export const useHistory = (setter, maxLength) => {
    * Aliases of the length of the undo and redo stacks.
    * Used to disable buttons when the action is not available.
    */
-  const canUndo = useMemo(() => !!history.undoStack.length, [history]);
-  const canRedo = useMemo(() => !!history.redoStack.length, [history]);
+  const canUndo = useMemo(
+    () => !!history.undoStack.length,
+    [history.undoStack.length],
+  );
+  const canRedo = useMemo(
+    () => !!history.redoStack.length,
+    [history.undoStack.length],
+  );
 
   /**
    * Return the relevant data to the user.
