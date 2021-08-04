@@ -18,6 +18,7 @@ import { Label } from '../Label';
 
 export const ElectricalCore = createSelectable(
   ({
+    id,
     type,
     position,
     label,
@@ -31,6 +32,7 @@ export const ElectricalCore = createSelectable(
     isSelecting,
     selectionColor,
     handlePortClick,
+    onDragStop,
     ...rest
   }) => {
     const draggableRef = useRef();
@@ -71,7 +73,10 @@ export const ElectricalCore = createSelectable(
         defaultPosition={position}
         positionOffset={{ x: 5, y: 5 }}
         onStart={() => setIsGrabbing(true)}
-        onStop={() => setIsGrabbing(false)}
+        onStop={(e, position) => {
+          setIsGrabbing(false);
+          onDragStop(id, position);
+        }}
         grid={[gridSize, gridSize]}
         {...rest}
       >
@@ -115,6 +120,10 @@ export const ElectricalCore = createSelectable(
 );
 
 ElectricalCore.propTypes = {
+  /**
+   * The unique id of the component
+   */
+  id: PropTypes.string,
   /**
    * The type of the component
    */

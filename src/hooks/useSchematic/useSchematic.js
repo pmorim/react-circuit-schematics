@@ -1,4 +1,6 @@
 import { useState, useCallback } from 'react';
+import { isFunction } from 'lodash';
+
 import { useHistory } from '../useHistory';
 
 export const useSchematic = (initialSchematic, options) => {
@@ -74,24 +76,26 @@ export const useSchematic = (initialSchematic, options) => {
    *
    * Searches for the element that has the given id, and applies the given
    * edits. Note that if multiple elements share the same id, they will all
-   * be edited.
+   * be edited. The edits can be directly passed and added to the element, but,
+   * if a more complex edit is required, you can pass a callback to be applied
+   * to the element.
    *
    * @param {String} id The id of the element to be edited.
-   * @param {Object} edits The edits to be applied to the element.
-   * @param {Function} cb The callback to be executed to apply the edits.
+   * @param {any} edits If it's a function, apply it to the correct element.
+   * Otherwise, apply the given edits (Object) to the state.
    */
   const editById = useCallback(
-    (id, edits, cb) => {
-      if (cb) setSchematic(cb);
-      else
-        setSchematic((schematic) => {
-          for (const type in schematic) {
-            let elem = schematic[type].find((elem) => elem.id === id);
-            if (elem) elem = { ...elem, ...edits };
-          }
+    (id, edits) => {
+      setSchematic((schematic) => {
+        for (const type in schematic) {
+          schematic[type] = schematic[type].map((elem) => {
+            if (elem.id !== id) return elem;
+            return isFunction(edits) ? edits(elem) : { ...elem, ...edits };
+          });
+        }
 
-          return schematic;
-        });
+        return schematic;
+      });
     },
     [setSchematic],
   );

@@ -26,6 +26,25 @@ export const Schematic = ({
   const canvasRef = useRef();
   const mousePosition = useMouseGrid(canvasRef, gridSize);
 
+  /**
+   * Update the coordinates when the dragging ends
+   *
+   * Uses the callback version of the `schematic.editById()` because it must
+   * not override the rotation of the element.
+   *
+   * @param {String} id The id of the element that is dragged.
+   * @param {Object} position The new coordinates of the element.
+   */
+  const handleDragStop = useCallback(
+    (id, { x, y }) => {
+      schematic.editById(id, (elem) => {
+        elem.position = { ...elem.position, x, y };
+        return elem;
+      });
+    },
+    [schematic?.editById],
+  );
+
   return (
     <div
       ref={canvasRef}
@@ -62,7 +81,14 @@ export const Schematic = ({
 
       {schematic?.data.components?.map((comp) => {
         comp.ports.forEach((port) => (port.ref = setRef(port.id)));
-        return <ElectricalCore key={comp.id} gridSize={gridSize} {...comp} />;
+        return (
+          <ElectricalCore
+            key={comp.id}
+            gridSize={gridSize}
+            onDragStop={handleDragStop}
+            {...comp}
+          />
+        );
       })}
 
       {schematic?.data.nodes?.map((node) => (
