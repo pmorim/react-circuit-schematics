@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { isFunction } from 'lodash';
+import { cloneDeep, isEqual, isFunction } from 'lodash';
 
 import { useHistory } from '../useHistory';
 
@@ -30,7 +30,10 @@ export const useSchematic = (initialSchematic = {}, options = {}) => {
    */
   const add = useCallback(
     (element) => {
-      setSchematic((schematic) => {
+      setSchematic((oldSchematic) => {
+        // Make a clone of the current schematic
+        const newSchematic = cloneDeep(oldSchematic);
+
         // Where should the element be added?
         let where = 'nodes';
         if (element.hasOwnProperty('ports')) {
@@ -40,8 +43,12 @@ export const useSchematic = (initialSchematic = {}, options = {}) => {
         }
 
         // Add the new element to the schematic
-        schematic[where].push({ id: uuidv4(), ...element });
-        return schematic;
+        newSchematic[where].push({ id: uuidv4(), ...element });
+
+        // If the changes are valid, save the old schematic
+        if (!isEqual(oldSchematic, newSchematic)) history.save(oldSchematic);
+
+        return newSchematic;
       });
     },
     [setSchematic],
@@ -58,13 +65,18 @@ export const useSchematic = (initialSchematic = {}, options = {}) => {
    */
   const deleteById = useCallback(
     (id) => {
-      useSchematic((schematic) => {
+      useSchematic((oldSchematic) => {
+        // Make a clone of the current schematic
+        const newSchematic = cloneDeep(oldSchematic);
+
         // Delete the element
-        for (const type in schematic)
-          schematic[type] = schematic[type].filter((elem) => elem.id !== id);
+        for (const type in newSchematic)
+          newSchematic[type] = newSchematic[type].filter(
+            (elem) => elem.id !== id,
+          );
 
         // Delete the connections to the element
-        schematic.connections.filter((conn) => {
+        newSchematic.connections.filter((conn) => {
           const isConnected = false;
           for (const port of element.ports)
             if (port.id === conn.start || port.id === conn.end)
@@ -72,7 +84,10 @@ export const useSchematic = (initialSchematic = {}, options = {}) => {
           return !isConnected;
         });
 
-        return schematic;
+        // If the changes are valid, save the old schematic
+        if (!isEqual(oldSchematic, newSchematic)) history.save(oldSchematic);
+
+        return newSchematic;
       });
     },
     [setSchematic],
@@ -93,15 +108,22 @@ export const useSchematic = (initialSchematic = {}, options = {}) => {
    */
   const editById = useCallback(
     (id, edits) => {
-      setSchematic((schematic) => {
-        for (const type in schematic) {
-          schematic[type] = schematic[type].map((elem) => {
+      setSchematic((oldSchematic) => {
+        // Make a clone of the current schematic
+        const newSchematic = cloneDeep(oldSchematic);
+
+        // Apply the edits
+        for (const type in newSchematic) {
+          newSchematic[type] = newSchematic[type].map((elem) => {
             if (elem.id !== id) return elem;
             return isFunction(edits) ? edits(elem) : { ...elem, ...edits };
           });
         }
 
-        return schematic;
+        // If the changes are valid, save the old schematic
+        if (!isEqual(oldSchematic, newSchematic)) history.save(oldSchematic);
+
+        return newSchematic;
       });
     },
     [setSchematic],
