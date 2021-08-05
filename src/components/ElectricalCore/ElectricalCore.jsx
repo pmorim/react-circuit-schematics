@@ -70,7 +70,7 @@ export const ElectricalCore = createSelectable(
       <Draggable
         handle='.rcs-handle'
         nodeRef={draggableRef}
-        defaultPosition={position}
+        position={position}
         positionOffset={{ x: 5, y: 5 }}
         onStart={() => setIsGrabbing(true)}
         onStop={(e, position) => {
