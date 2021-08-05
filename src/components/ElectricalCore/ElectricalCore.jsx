@@ -70,8 +70,8 @@ export const ElectricalCore = createSelectable(
 
     return (
       <Draggable
-        handle='.rcs-handle'
-        bounds='parent'
+        handle='.component-handle'
+        bounds='.schematic'
         nodeRef={draggableRef}
         position={position}
         positionOffset={{ x: 5, y: 5 }}
@@ -82,7 +82,7 @@ export const ElectricalCore = createSelectable(
         <div className={styles.wrapper} ref={draggableRef}>
           <div ref={selectableRef}>
             <img
-              className={cx(styles.noDrag, 'rcs-handle')}
+              className={cx(styles.noDrag, 'component-handle')}
               style={{
                 transform: `rotate(${position?.angle ?? 0}deg)`,
                 width: size,

@@ -10,6 +10,7 @@ export const Label = ({ as, position, gridSize, onDragStop, ...rest }) => {
 
   return (
     <Draggable
+      bounds='.schematic'
       position={position}
       nodeRef={draggableRef}
       grid={[gridSize, gridSize]}

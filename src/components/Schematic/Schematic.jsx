@@ -64,6 +64,7 @@ export const Schematic = ({
 
   return (
     <div
+      className='schematic'
       ref={canvasRef}
       style={{
         width,

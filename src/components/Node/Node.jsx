@@ -25,7 +25,8 @@ export const Node = forwardRef(
 
     return (
       <Draggable
-        handle='.rcs-handle'
+        handle='.node-handle'
+        bounds='.schematic'
         position={position}
         nodeRef={draggableRef}
         grid={[gridSize, gridSize]}
@@ -34,7 +35,7 @@ export const Node = forwardRef(
       >
         <div ref={draggableRef}>
           <div
-            className={cx(styles.node, 'rcs-handle')}
+            className={cx(styles.node, 'node-handle')}
             style={{
               width: (properties.radius ?? 6) * 2,
               height: (properties.radius ?? 6) * 2,
