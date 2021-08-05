@@ -1,7 +1,7 @@
 import { useState, useMemo, useCallback } from 'react';
 
 /**
- * A react Hook that tracks the history of a state.
+ * A React Hook that aids with tracking the history of a state.
  *
  * @param {Function} setter The setter function of the tracked state.
  * @param {Number} maxLength The maximum history length.
