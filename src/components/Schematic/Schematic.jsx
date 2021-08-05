@@ -1,6 +1,5 @@
 import React, { useRef, useCallback } from 'react';
 import useDynamicRefs from 'use-dynamic-refs';
-import { v4 as uuidv4 } from 'uuid';
 import { SelectableGroup } from 'react-selectable-fast';
 
 import PropTypes from 'prop-types';
