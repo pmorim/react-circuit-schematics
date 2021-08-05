@@ -32,6 +32,7 @@ export const Connection = ({
         <Label
           gridSize={gridSize}
           onDragStop={(e, position) => onLabelDragStop(id, position)}
+          {...rest}
           {...label}
         />
       )}

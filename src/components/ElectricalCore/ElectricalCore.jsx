@@ -101,6 +101,7 @@ export const ElectricalCore = createSelectable(
                   bounds={bounds}
                   onClick={() => handlePortClick?.(port.id)}
                   rotation={position?.angle}
+                  {...rest}
                   {...port}
                 />
               );
@@ -110,6 +111,7 @@ export const ElectricalCore = createSelectable(
               <Label
                 gridSize={gridSize}
                 onDragStop={(e, position) => onLabelDragStop(id, position)}
+                {...rest}
                 {...label}
               />
             )}

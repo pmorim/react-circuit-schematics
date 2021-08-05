@@ -105,3 +105,8 @@ export const UndoAndRedo = () => {
     </>
   );
 };
+
+export const ReadOnly = () => {
+  const { schematic } = useSchematic(RLC_Circuit);
+  return <Schematic width={800} height={500} schematic={schematic} readOnly />;
+};

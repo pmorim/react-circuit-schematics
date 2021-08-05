@@ -42,7 +42,6 @@ export const Node = forwardRef(
               backgroundColor: properties.color ?? '#6495ED',
               opacity: properties.opacity ?? 1,
             }}
-            {...rest}
           >
             <div ref={ref} />
           </div>
@@ -51,6 +50,8 @@ export const Node = forwardRef(
             <Label
               gridSize={gridSize}
               onDragStop={(e, position) => onLabelDragStop(id, position)}
+              disabled={disabled}
+              {...rest}
               {...label}
             />
           )}

@@ -14,6 +14,7 @@ export const Schematic = ({
   schematic,
   width,
   height,
+  readOnly,
   gridSize,
   gridColor,
   children,
@@ -106,6 +107,7 @@ export const Schematic = ({
             gridSize={gridSize}
             onDragStop={handleComponentDragStop}
             onLabelDragStop={handleLabelDragStop}
+            disabled={readOnly}
           />
         );
       })}
@@ -118,6 +120,7 @@ export const Schematic = ({
           gridSize={gridSize}
           onDragStop={handleComponentDragStop}
           onLabelDragStop={handleLabelDragStop}
+          disabled={readOnly}
         />
       ))}
 
@@ -132,6 +135,7 @@ export const Schematic = ({
               end={getRef(conn.end)}
               gridSize={gridSize}
               onLabelDragStop={handleLabelDragStop}
+              disabled={readOnly}
             />
           ),
       )}
@@ -155,6 +159,10 @@ Schematic.propTypes = {
    * The height of the canvas
    */
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /**
+   * Flag that enables or disables the dragging/editing ability
+   */
+  readOnly: PropTypes.bool,
   /**
    * The size of the grid units, in pixels
    */

@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
+import cx from 'classnames';
 
 import styles from './Label.module.css';
 import { DefaultLabel } from './DefaultLabel';
@@ -17,7 +18,10 @@ export const Label = ({ as, position, gridSize, onDragStop, ...rest }) => {
       onStop={onDragStop}
       {...rest}
     >
-      <div className={styles.wrapper} ref={draggableRef}>
+      <div
+        className={cx(styles.wrapper, styles.unselectable)}
+        ref={draggableRef}
+      >
         {as ? React.createElement(as, rest) : <DefaultLabel {...rest} />}
       </div>
     </Draggable>
