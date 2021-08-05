@@ -4,6 +4,7 @@ import { SelectableGroup } from 'react-selectable-fast';
 
 import PropTypes from 'prop-types';
 
+import { snapToGrid } from '../../util';
 import { useMouseGrid } from '../../hooks/useMouseGrid';
 import { ElectricalCore } from '../ElectricalCore';
 import { Connection } from '../Connection';
@@ -37,11 +38,15 @@ export const Schematic = ({
   const handleComponentDragStop = useCallback(
     (id, { x, y }) => {
       schematic.editById(id, (elem) => {
-        elem.position = { ...elem.position, x, y };
+        elem.position = {
+          ...elem.position,
+          x: snapToGrid(x, gridSize),
+          y: snapToGrid(y, gridSize),
+        };
         return elem;
       });
     },
-    [schematic?.editById],
+    [schematic?.editById, gridSize],
   );
 
   /**
@@ -56,11 +61,15 @@ export const Schematic = ({
   const handleLabelDragStop = useCallback(
     (id, { x, y }) => {
       schematic.editById(id, (elem) => {
-        elem.label.position = { ...elem.label.position, x, y };
+        elem.label.position = {
+          ...elem.label.position,
+          x: snapToGrid(x, gridSize),
+          y: snapToGrid(y, gridSize),
+        };
         return elem;
       });
     },
-    [schematic?.editById],
+    [schematic?.editById, gridSize],
   );
 
   return (

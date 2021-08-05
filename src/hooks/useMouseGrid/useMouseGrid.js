@@ -1,13 +1,8 @@
 import { useState, useEffect } from 'react';
+import { snapToGrid } from '../../util';
 
 export const useMouseGrid = (ref, gridSize) => {
   const [mousePosition, setMousePosition] = useState({ x: null, y: null });
-
-  const snapToGrid = (pos, gridSize) => {
-    const mod = pos % gridSize;
-    if (mod < gridSize / 2) return pos - mod;
-    return pos + (gridSize - mod);
-  };
 
   const updateMousePosition = (e) => {
     const rect = ref.current.getBoundingClientRect();
