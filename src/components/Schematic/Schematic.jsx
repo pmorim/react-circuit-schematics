@@ -55,7 +55,7 @@ export const Schematic = ({
         zIndex: 0,
 
         // Grid
-        //padding: gridSize,
+        padding: gridSize,
         backgroundImage: `radial-gradient(
           circle,
           ${gridColor} 1px,
