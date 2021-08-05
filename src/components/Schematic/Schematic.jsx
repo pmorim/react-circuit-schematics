@@ -13,7 +13,6 @@ import { ConnectionPoint } from '../ConnectionPoint';
 
 export const Schematic = ({
   schematic,
-  history,
   width,
   height,
   gridSize,
@@ -148,10 +147,6 @@ Schematic.propTypes = {
    * The schematic data
    */
   schematic: PropTypes.object,
-  /**
-   * The history data
-   */
-  history: PropTypes.object,
   /**
    * The width of the canvas
    */
