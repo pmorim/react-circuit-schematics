@@ -5,14 +5,15 @@ import Draggable from 'react-draggable';
 import styles from './Label.module.css';
 import { DefaultLabel } from './DefaultLabel';
 
-export const Label = ({ as, position, gridSize, ...rest }) => {
+export const Label = ({ as, position, gridSize, onDragStop, ...rest }) => {
   const draggableRef = useRef();
 
   return (
     <Draggable
-      defaultPosition={position}
+      position={position}
       nodeRef={draggableRef}
       grid={[gridSize, gridSize]}
+      onStop={onDragStop}
       {...rest}
     >
       <div className={styles.wrapper} ref={draggableRef}>

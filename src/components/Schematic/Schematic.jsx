@@ -27,7 +27,7 @@ export const Schematic = ({
   const mousePosition = useMouseGrid(canvasRef, gridSize);
 
   /**
-   * Update the coordinates when the dragging ends
+   * Update the coordinates of a Component.
    *
    * Uses the callback version of the `schematic.editById()` because it must
    * not override the rotation of the element.
@@ -35,10 +35,29 @@ export const Schematic = ({
    * @param {String} id The id of the element that is dragged.
    * @param {Object} position The new coordinates of the element.
    */
-  const handleDragStop = useCallback(
+  const handleComponentDragStop = useCallback(
     (id, { x, y }) => {
       schematic.editById(id, (elem) => {
         elem.position = { ...elem.position, x, y };
+        return elem;
+      });
+    },
+    [schematic?.editById],
+  );
+
+  /**
+   * Update the coordinates of a Label.
+   *
+   * Uses the callback version of the `schematic.editById()` because it must
+   * not override the rotation of the element.
+   *
+   * @param {String} id The id of the parent element of the Label.
+   * @param {Object} position The new coordinates of the Label.
+   */
+  const handleLabelDragStop = useCallback(
+    (id, { x, y }) => {
+      schematic.editById(id, (elem) => {
+        elem.label.position = { ...elem.label.position, x, y };
         return elem;
       });
     },
@@ -86,7 +105,8 @@ export const Schematic = ({
             {...comp}
             key={comp.id}
             gridSize={gridSize}
-            onDragStop={handleDragStop}
+            onDragStop={handleComponentDragStop}
+            onLabelDragStop={handleLabelDragStop}
           />
         );
       })}
@@ -97,7 +117,8 @@ export const Schematic = ({
           key={node.id}
           ref={setRef(node.id)}
           gridSize={gridSize}
-          onDragStop={handleDragStop}
+          onDragStop={handleComponentDragStop}
+          onLabelDragStop={handleLabelDragStop}
         />
       ))}
 
@@ -111,6 +132,7 @@ export const Schematic = ({
               start={getRef(conn.start)}
               end={getRef(conn.end)}
               gridSize={gridSize}
+              onLabelDragStop={handleLabelDragStop}
             />
           ),
       )}

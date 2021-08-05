@@ -27,6 +27,7 @@ export const ElectricalCore = createSelectable(
     selectionColor,
     handlePortClick,
     onDragStop,
+    onLabelDragStop,
     ...rest
   }) => {
     const draggableRef = useRef();
@@ -105,7 +106,11 @@ export const ElectricalCore = createSelectable(
               );
             })}
 
-            <Label gridSize={gridSize} {...label} />
+            <Label
+              gridSize={gridSize}
+              onDragStop={onLabelDragStop}
+              {...label}
+            />
           </div>
         </div>
       </Draggable>

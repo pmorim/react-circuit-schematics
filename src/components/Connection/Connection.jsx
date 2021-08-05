@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Label } from '../Label';
 
 export const Connection = ({
+  id,
   start,
   end,
   label,
@@ -12,6 +13,7 @@ export const Connection = ({
   properties,
   gridSize,
   onClick,
+  onLabelDragStop,
   ...rest
 }) => {
   return (
@@ -26,12 +28,20 @@ export const Connection = ({
         passProps={{ onClick }}
         {...rest}
       />
-      <Label gridSize={gridSize} {...label} />
+      <Label
+        gridSize={gridSize}
+        onDragStop={(e, position) => onLabelDragStop(id, position)}
+        {...label}
+      />
     </>
   );
 };
 
 Connection.propTypes = {
+  /**
+   * The unique id of the connection
+   */
+  id: PropTypes.string,
   /**
    * A `ref` to the component where the connection starts
    */

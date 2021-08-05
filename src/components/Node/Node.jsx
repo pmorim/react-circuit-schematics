@@ -8,7 +8,19 @@ import styles from './Node.module.css';
 import { Label } from '../Label';
 
 export const Node = forwardRef(
-  ({ id, position, label, properties, gridSize, onDragStop, ...rest }, ref) => {
+  (
+    {
+      id,
+      position,
+      label,
+      properties,
+      gridSize,
+      onDragStop,
+      onLabelDragStop,
+      ...rest
+    },
+    ref,
+  ) => {
     const draggableRef = useRef();
 
     return (
@@ -34,7 +46,11 @@ export const Node = forwardRef(
             <div ref={ref} />
           </div>
 
-          <Label gridSize={gridSize} {...label} />
+          <Label
+            gridSize={gridSize}
+            onDragStop={(e, position) => onLabelDragStop(id, position)}
+            {...label}
+          />
         </div>
       </Draggable>
     );
