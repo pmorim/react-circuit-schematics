@@ -19,10 +19,10 @@ export const useMouseGrid = (ref, gridSize) => {
   };
 
   useEffect(() => {
-    ref.current.addEventListener('mousemove', updateMousePosition);
+    ref?.current?.addEventListener('mousemove', updateMousePosition);
 
     return () =>
-      ref.current.removeEventListener('mousemove', updateMousePosition);
+      ref?.current?.removeEventListener('mousemove', updateMousePosition);
   }, []);
 
   return mousePosition;
