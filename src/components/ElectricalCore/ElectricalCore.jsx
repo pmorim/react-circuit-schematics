@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useState,
-  useEffect,
-  useCallback,
-  useMemo,
-} from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { createSelectable } from 'react-selectable-fast';
 import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
