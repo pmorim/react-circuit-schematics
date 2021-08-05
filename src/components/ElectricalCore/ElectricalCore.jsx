@@ -71,6 +71,7 @@ export const ElectricalCore = createSelectable(
     return (
       <Draggable
         handle='.rcs-handle'
+        bounds='parent'
         nodeRef={draggableRef}
         position={position}
         positionOffset={{ x: 5, y: 5 }}
