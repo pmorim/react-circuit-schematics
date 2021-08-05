@@ -21,7 +21,7 @@ export default {
 export const Empty = () => <Schematic width={800} height={500} />;
 
 export const JSON_FormatExample = () => {
-  const RLC_Circuit = {
+  const circuit = {
     components: [
       {
         id: '8c0168ec-07fe-4b2c-96ee-4292ab34cfb2',
@@ -85,7 +85,7 @@ export const JSON_FormatExample = () => {
     ],
   };
 
-  const { schematic } = useSchematic(RLC_Circuit);
+  const { schematic } = useSchematic(circuit);
   return <Schematic width={800} height={500} schematic={schematic} />;
 };
 
