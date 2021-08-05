@@ -46,11 +46,13 @@ export const Node = forwardRef(
             <div ref={ref} />
           </div>
 
-          <Label
-            gridSize={gridSize}
-            onDragStop={(e, position) => onLabelDragStop(id, position)}
-            {...label}
-          />
+          {label && (
+            <Label
+              gridSize={gridSize}
+              onDragStop={(e, position) => onLabelDragStop(id, position)}
+              {...label}
+            />
+          )}
         </div>
       </Draggable>
     );

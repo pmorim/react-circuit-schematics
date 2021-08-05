@@ -28,11 +28,13 @@ export const Connection = ({
         passProps={{ onClick }}
         {...rest}
       />
-      <Label
-        gridSize={gridSize}
-        onDragStop={(e, position) => onLabelDragStop(id, position)}
-        {...label}
-      />
+      {label && (
+        <Label
+          gridSize={gridSize}
+          onDragStop={(e, position) => onLabelDragStop(id, position)}
+          {...label}
+        />
+      )}
     </>
   );
 };
