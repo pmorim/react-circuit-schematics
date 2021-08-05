@@ -10,6 +10,7 @@ export const Connection = ({
   label,
   type,
   properties,
+  gridSize,
   onClick,
   ...rest
 }) => {
@@ -25,7 +26,7 @@ export const Connection = ({
         passProps={{ onClick }}
         {...rest}
       />
-      <Label {...label} />
+      <Label gridSize={gridSize} {...label} />
     </>
   );
 };
@@ -81,7 +82,6 @@ Connection.propTypes = {
 
 Connection.defaultProps = {
   type: 'grid',
-  // TODO: Define default Connection properties
   properties: {
     color: '',
     stroke: 2,

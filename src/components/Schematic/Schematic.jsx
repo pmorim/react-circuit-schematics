@@ -83,21 +83,21 @@ export const Schematic = ({
         comp.ports.forEach((port) => (port.ref = setRef(port.id)));
         return (
           <ElectricalCore
+            {...comp}
             key={comp.id}
             gridSize={gridSize}
             onDragStop={handleDragStop}
-            {...comp}
           />
         );
       })}
 
       {schematic?.data?.nodes?.map((node) => (
         <Node
+          {...node}
           key={node.id}
           ref={setRef(node.id)}
           gridSize={gridSize}
           onDragStop={handleDragStop}
-          {...node}
         />
       ))}
 
@@ -106,9 +106,11 @@ export const Schematic = ({
           conn.start &&
           conn.end && (
             <Connection
+              {...conn}
               key={conn.id}
               start={getRef(conn.start)}
               end={getRef(conn.end)}
+              gridSize={gridSize}
             />
           ),
       )}
