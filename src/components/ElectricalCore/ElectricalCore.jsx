@@ -93,10 +93,10 @@ export const ElectricalCore = createSelectable(
               alt={type}
             />
 
-            {ports.map((port, i) => {
+            {ports.map((port) => {
               return (
                 <Port
-                  key={i}
+                  key={port.id}
                   ref={port.ref}
                   bounds={bounds}
                   onClick={() => handlePortClick?.(port.id)}
