@@ -96,6 +96,7 @@ export const Schematic = ({
           key={node.id}
           ref={setRef(node.id)}
           gridSize={gridSize}
+          onDragStop={handleDragStop}
           {...node}
         />
       ))}

@@ -8,15 +8,16 @@ import styles from './Node.module.css';
 import { Label } from '../Label';
 
 export const Node = forwardRef(
-  ({ position, label, properties, gridSize, ...rest }, ref) => {
+  ({ id, position, label, properties, gridSize, onDragStop, ...rest }, ref) => {
     const draggableRef = useRef();
 
     return (
       <Draggable
         handle='.rcs-handle'
-        defaultPosition={position}
+        position={position}
         nodeRef={draggableRef}
         grid={[gridSize, gridSize]}
+        onStop={(e, position) => onDragStop(id, position)}
         {...rest}
       >
         <div ref={draggableRef}>
@@ -41,6 +42,10 @@ export const Node = forwardRef(
 );
 
 Node.propTypes = {
+  /**
+   * The unique id of the node
+   */
+  id: PropTypes.string,
   /**
    * The position of the node
    */
@@ -72,6 +77,10 @@ Node.propTypes = {
    * The size of the grid, i.e., the amount of pixels the drag skips
    */
   gridSize: PropTypes.number,
+  /**
+   * The handler that updates the position of the Node on drag
+   */
+  onDragStop: PropTypes.func,
 };
 
 Node.defaultProps = {
