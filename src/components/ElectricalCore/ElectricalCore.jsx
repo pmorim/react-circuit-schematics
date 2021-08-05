@@ -36,18 +36,25 @@ export const ElectricalCore = createSelectable(
     const [bounds, setBounds] = useState({ x: 0, y: 0 });
     const [renderCount, setRenderCount] = useState(0);
 
-    const [isGrabbing, setIsGrabbing] = useState(false);
-
     /**
-     * Calculate which SVG to use
+     * Calculate which SVG to use.
+     *
+     * If a custom image is provided, then it uses that one.
+     * Otherwise, if it was provided an alternate image index, use that.
+     * Otherwise, use the default one.
      */
     const src = useMemo(() => {
+      // If there is a custom image, use that one
+      if (imgPath) return imgPath;
+
+      // Otherwise, grab the correct SVG
       const src = svgMap.get(type);
       return Array.isArray(src) ? src[altImageIdx ?? 0] : src;
     }, [altImageIdx]);
 
     /**
-     * Calculate the bounds of the component
+     * Calculate the bounds of the component.
+     * Force re-renders until the bounds are properly calculated.
      */
     useEffect(() => {
       // Calculate the bounds of the component's image
@@ -67,29 +74,21 @@ export const ElectricalCore = createSelectable(
         nodeRef={draggableRef}
         position={position}
         positionOffset={{ x: 5, y: 5 }}
-        onStart={() => setIsGrabbing(true)}
-        onStop={(e, position) => {
-          setIsGrabbing(false);
-          onDragStop(id, position);
-        }}
         grid={[gridSize, gridSize]}
+        onStop={(e, position) => onDragStop(id, position)}
         {...rest}
       >
         <div className={styles.wrapper} ref={draggableRef}>
           <div ref={selectableRef}>
             <img
-              className={cx(
-                styles.noDrag,
-                'rcs-handle',
-                isGrabbing ? styles.grabbing : styles.grab,
-              )}
+              className={cx(styles.noDrag, 'rcs-handle')}
               style={{
                 transform: `rotate(${position?.angle ?? 0}deg)`,
                 width: size,
                 outline: isSelected ? '2px solid #6495ED' : 'none',
               }}
               ref={boundingRef}
-              src={imgPath ? imgPath : src}
+              src={src}
               alt={type}
             />
 
