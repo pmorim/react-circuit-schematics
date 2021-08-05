@@ -108,7 +108,7 @@ export const ElectricalCore = createSelectable(
 
             <Label
               gridSize={gridSize}
-              onDragStop={onLabelDragStop}
+              onDragStop={(e, position) => onLabelDragStop(id, position)}
               {...label}
             />
           </div>
