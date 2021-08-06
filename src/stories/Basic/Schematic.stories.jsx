@@ -90,7 +90,7 @@ export const JSON_FormatExample = () => {
 };
 
 export const UndoAndRedo = () => {
-  const { schematic, history } = useSchematic(RLC_Circuit);
+  const { schematic, history, selection } = useSchematic(RLC_Circuit);
 
   return (
     <>
@@ -101,7 +101,12 @@ export const UndoAndRedo = () => {
         Redo
       </button>
 
-      <Schematic width={800} height={500} schematic={schematic} />
+      <Schematic
+        width={800}
+        height={500}
+        schematic={schematic}
+        selection={selection}
+      />
     </>
   );
 };
