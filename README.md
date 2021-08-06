@@ -4,7 +4,7 @@
 
 **This repository is no longer maintained.**
 
-**It was moved to: [urisolve/circuiteditor](https://github.com/urisolve/circuiteditor)**
+**It was moved to: [urisolve/react-circuit-schematics](https://github.com/urisolve/react-circuit-schematics)**
 
 ## License
 
