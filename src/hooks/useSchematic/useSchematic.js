@@ -1,6 +1,7 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { cloneDeep, isEqual, isFunction } from 'lodash';
 
+import { useSelection } from '../useSelection';
 import { useHistory } from '../useHistory';
 
 /**
@@ -10,7 +11,11 @@ import { useHistory } from '../useHistory';
  * @param {Object} options Extra options to define optional behaviour.
  * @returns {Object} Properties and methods that control the schematic.
  */
-export const useSchematic = (initialSchematic = {}, options = {}) => {
+export const useSchematic = (
+  initialSchematic = {},
+  initialSelection = [],
+  maxHistoryLength = 10,
+) => {
   const [schematic, setSchematic] = useState({
     components: [],
     nodes: [],
@@ -18,7 +23,21 @@ export const useSchematic = (initialSchematic = {}, options = {}) => {
     ...initialSchematic,
   });
 
-  const history = useHistory(setSchematic, options?.maxHistoryLength ?? 10);
+  /**
+   * Place all elements into a single array.
+   * It's useful for, for example, searching for a certain component by the id.
+   */
+  const elements = useMemo(
+    () => [
+      ...schematic.components,
+      ...schematic.nodes,
+      ...schematic.connections,
+    ],
+    [schematic],
+  );
+
+  const selection = useSelection(schematic, initialSelection);
+  const history = useHistory(setSchematic, maxHistoryLength);
 
   /**
    * Adds an element to the schematic.
@@ -135,11 +154,13 @@ export const useSchematic = (initialSchematic = {}, options = {}) => {
   return {
     schematic: {
       data: schematic,
+      elements,
       add,
       deleteById,
       editById,
     },
 
+    selection,
     history,
   };
 };
