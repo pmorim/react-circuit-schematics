@@ -23,18 +23,16 @@ export const OnlyName = () => <Label name='R1' position={{ x: 20, y: 20 }} />;
 export const CustomLabel = () => (
   <Label
     name='R1'
-    value='10k'
+    value='10'
+    multiplier='k'
     unit='Ω'
     position={{ x: 20, y: 20 }}
     as={({ name, value, unit }) => (
       <>
-        <div>Hi, I'm a custom label</div>
-        <div>
-          My name is <b>{name}</b> and I'm worth{' '}
-          <b>
-            {value} {unit}
-          </b>
-        </div>
+        <b>
+          {name} = {value}
+          {multiplier}
+        </b>
       </>
     )}
   />

@@ -1,6 +1,6 @@
 .editable {
   display: inline-block;
-  padding: 3px;
+  padding: 1px;
 }
 
 /* Forces <Draggable /> to fit it's content */

@@ -95,6 +95,7 @@ export const Schematic = ({
     >
       {/*
       <SelectableGroup
+        style={{ width: '100%', height: '100%' }}
         clickClassName='rdc-handle'
         duringSelection={selection.handleSelecting}
         onSelectionFinish={selection.handleSelected}

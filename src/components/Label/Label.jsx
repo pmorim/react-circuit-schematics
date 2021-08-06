@@ -30,32 +30,42 @@ export const Label = ({ as, position, gridSize, onDragStop, ...rest }) => {
 
 Label.propTypes = {
   /**
-   * A custom label component. Passes the given 'name', 'value' and 'unit' as
-   * children.
+   * A custom label component. Passes all the given props to it
    */
   as: PropTypes.func,
   /**
-   * The name of the component.
+   * The name of the component
    */
   name: PropTypes.string,
   /**
    * The value of the component
    */
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([
+    // For real numbers
+    PropTypes.number,
+    PropTypes.string,
+
+    // For imaginary numbers
+    PropTypes.shape({
+      modulus: PropTypes.number,
+      teta: PropTypes.number,
+      real: PropTypes.number,
+      imaginary: PropTypes.number,
+      imUnit: PropTypes.oneOf(['i', 'j']),
+      format: PropTypes.oneOf(['cartesian', 'polar']),
+
+      // How many decimal places to use when converting
+      decimalPlaces: PropTypes.number,
+    }),
+  ]),
+  /**
+   * The multiplier of the value.
+   */
+  multiplier: PropTypes.oneOf(['p', 'n', 'u', 'm', '', 'k', 'M', 'G']),
   /**
    * The unit of the component
    */
   unit: PropTypes.string,
-  /**
-   * The function to execute when the use changes the name of the component.
-   * Use this to update the state of the component's name.
-   */
-  onNameChange: PropTypes.func,
-  /**
-   * The function to execute when the use changes the value of the component.
-   * Use this to update the state of the component's value.
-   */
-  onValueChange: PropTypes.func,
   /**
    * The default position of the label relative to the component
    */
@@ -67,6 +77,10 @@ Label.propTypes = {
    * The size of the grid, i.e., the amount of pixels the drag skips
    */
   gridSize: PropTypes.number,
+  /**
+   * The function to execute when the user changes the contents of the label
+   */
+  onChange: PropTypes.func,
 };
 
 Label.defaultProps = {

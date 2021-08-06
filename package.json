@@ -23,6 +23,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "build": "microbundle-crl --no-compress --format modern,cjs"
+    "chromatic": "npx chromatic --project-token=d486c344d97e"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.1.0",
@@ -34,6 +35,7 @@
     "@storybook/preset-create-react-app": "^3.1.7",
     "@storybook/react": "^6.2.9",
     "babel-eslint": "^10.0.3",
+    "chromatic": "^5.10.0-canary.0",
     "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
     "eslint-config-google": "^0.14.0",
