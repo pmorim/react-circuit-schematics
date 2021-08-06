@@ -1,10 +1,37 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './Port.module.css';
 
 export const Port = forwardRef(
-  ({ position, bounds, properties, ...rest }, ref) => {
+  ({ position, bounds, properties, rotation, ...rest }, ref) => {
+    const realPos = useMemo(() => {
+      // Shift the coordinates to origin
+      let x = position.x * 2 - 1;
+      let y = position.y * 2 - 1;
+
+      // Convert to polar coordinates
+      let radius = Math.sqrt(x * x + y * y);
+      let teta = Math.atan2(y, x);
+
+      // Apply the rotation
+      teta += rotation * (Math.PI / 180);
+
+      // Convert back to Cartesian coordinates
+      x = radius * Math.cos(teta);
+      y = radius * Math.sin(teta);
+
+      // Shift the coordinates back
+      x = (x + 1) / 2;
+      y = (y + 1) / 2;
+
+      // Scale the position to fit the bounds
+      return {
+        x: x * bounds.x - properties.radius,
+        y: y * bounds.y - properties.radius,
+      };
+    }, [position, rotation, bounds, properties?.radius]);
+
     return (
       <div
         className={styles.port}
@@ -17,8 +44,8 @@ export const Port = forwardRef(
           backgroundColor: properties.color,
 
           // The positioning of the port
-          left: position.x * bounds.x - properties.radius,
-          top: position.y * bounds.y - properties.radius,
+          left: realPos.x,
+          top: realPos.y,
         }}
         {...rest}
       >
@@ -50,6 +77,10 @@ Port.propTypes = {
     radius: PropTypes.number,
     color: PropTypes.string,
   }),
+  /**
+   * The rotation of the port, around its parent's bounds
+   */
+  rotation: PropTypes.number,
 };
 
 Port.defaultProps = {
@@ -59,4 +90,5 @@ Port.defaultProps = {
   },
   position: { x: 0.5, y: 0.5 },
   bounds: { x: 1, y: 1 },
+  rotation: 0,
 };

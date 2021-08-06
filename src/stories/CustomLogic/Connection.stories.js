@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { Schematic } from '../../components/Schematic';
 import { Connection } from '../../components/Connection';
 import { Node } from '../../components/Node';
 
@@ -11,6 +12,11 @@ export default {
   },
   parameters: {
     docs: {
+      description: {
+        component:
+          'The Connection component allows the user to connect Ports and \
+          Nodes.',
+      },
       source: {
         type: 'code',
       },
@@ -23,12 +29,12 @@ export const Simple = () => {
   const end = useRef();
 
   return (
-    <div style={{ position: 'relative', zIndex: 0 }}>
-      <Node ref={start} position={{ x: 0, y: 0 }} />
-      <Node ref={end} position={{ x: 200, y: 50 }} />
+    <Schematic height={120} width={220}>
+      <Node ref={start} position={{ x: 10, y: 10 }} />
+      <Node ref={end} position={{ x: 200, y: 100 }} />
 
       <Connection start={start} end={end} />
-    </div>
+    </Schematic>
   );
 };
 
@@ -37,15 +43,15 @@ export const Labeled = () => {
   const end = useRef();
 
   return (
-    <div style={{ position: 'relative', zIndex: 0 }}>
-      <Node ref={start} position={{ x: 0, y: 0 }} />
-      <Node ref={end} position={{ x: 200, y: 0 }} />
+    <Schematic height={100} width={220}>
+      <Node ref={start} position={{ x: 20, y: 50 }} />
+      <Node ref={end} position={{ x: 200, y: 50 }} />
 
       <Connection
         start={start}
         end={end}
-        label={{ name: 'Hello', position: { x: 70, y: -30 } }}
+        label={{ name: 'Hello', position: { x: 100, y: 30 } }}
       />
-    </div>
+    </Schematic>
   );
 };

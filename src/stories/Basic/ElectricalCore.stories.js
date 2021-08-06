@@ -1,4 +1,5 @@
 import { ElectricalCore } from '../../components/ElectricalCore';
+import { Schematic } from '../../components/Schematic';
 import ANDGate from './and-gate.png';
 
 export default {
@@ -18,68 +19,67 @@ export default {
 };
 
 export const ResistorExample = () => (
-  <ElectricalCore
-    type='Resistor'
-    position={{ x: 0, y: 0 }}
-    label={{
-      name: 'R1',
-      value: '10k',
-      unit: 'Ω',
-      position: { x: 0, y: -25 },
-    }}
-    ports={[
-      {
-        type: 'hybrid',
-        position: { x: 0, y: 0.5 },
-      },
-      {
-        type: 'hybrid',
-        position: { x: 1, y: 0.5 },
-      },
-    ]}
-    size={100}
-    gridSize={10}
-  />
+  <Schematic height={150} width={200}>
+    <ElectricalCore
+      type='Resistor'
+      position={{ x: 50, y: 40 }}
+      label={{
+        name: 'R',
+        value: '10k',
+        unit: 'Ω',
+        position: { x: 10, y: 0 },
+      }}
+      ports={[
+        {
+          type: 'hybrid',
+          position: { x: 0, y: 0.5 },
+        },
+        {
+          type: 'hybrid',
+          position: { x: 1, y: 0.5 },
+        },
+      ]}
+    />
+  </Schematic>
 );
 
 export const AlternateImages = () => {
   const data = {
     type: 'DC Voltage Source',
-    position: { x: 0, y: 0 },
     ports: [{ position: { x: 0.5, y: 0 } }, { position: { x: 0.5, y: 1 } }],
-    size: 100,
-    gridSize: 10,
   };
 
   return (
-    <>
-      <ElectricalCore {...data} />
-      <ElectricalCore altImageIdx={1} {...data} />
-    </>
+    <Schematic height={150} width={200}>
+      <ElectricalCore position={{ x: 0, y: 30 }} {...data} />
+      <ElectricalCore position={{ x: 100, y: 30 }} altImageIdx={1} {...data} />
+    </Schematic>
   );
 };
 
 export const CustomComponent = () => (
-  <ElectricalCore
-    // 👇 You can add your own type and image
-    type='AND Gate'
-    imgPath={ANDGate} // `import ANDGate from './and-gate.png'`
-    // ☝ You can add your own type and image
-    ports={[
-      {
-        type: 'input',
-        position: { x: 0.1, y: 0.3 },
-      },
-      {
-        type: 'input',
-        position: { x: 0.1, y: 0.7 },
-      },
-      {
-        type: 'output',
-        position: { x: 0.9, y: 0.5 },
-      },
-    ]}
-    size={100}
-    gridSize={10}
-  />
+  <Schematic height={150} width={200}>
+    <ElectricalCore
+      // 👇 You can add your own type, image and size
+      type='AND Gate'
+      imgPath={ANDGate} // `import ANDGate from './and-gate.png'`
+      size={120}
+      // ☝ You can add your own type, image and size
+      position={{ x: 20, y: 50 }}
+      ports={[
+        {
+          type: 'input',
+          position: { x: 0.1, y: 0.3 },
+        },
+        {
+          type: 'input',
+          position: { x: 0.1, y: 0.7 },
+        },
+        {
+          type: 'output',
+          position: { x: 0.9, y: 0.5 },
+        },
+      ]}
+    />
+  </Schematic>
 );

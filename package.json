@@ -1,19 +1,28 @@
 {
-  "name": "react-draw-circuits",
-  "version": "1.0.0",
+  "name": "react-circuit-schematics",
+  "version": "1.0.2",
   "description": "A React library that allows you to draw circuit schematics",
   "author": "pmorim",
   "license": "MIT",
-  "repository": "pmorim/react-draw-circuits",
-  "main": "storybook-static/index.js",
-  "module": "storybook-static/index.modern.js",
+  "repository": "pmorim/react-circuit-schematics",
+  "main": "dist/index.js",
+  "module": "dist/index.modern.js",
   "source": "src/index.js",
   "engines": {
     "node": ">=10"
   },
+  "keywords": [
+    "react",
+    "circuits",
+    "schematics"
+  ],
+  "files": [
+    "storybook-static"
+  ],
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
+    "build": "microbundle-crl --no-compress --format modern,cjs"
     "chromatic": "npx chromatic --project-token=d486c344d97e"
   },
   "devDependencies": {
@@ -50,19 +59,15 @@
     "storybook-css-modules-preset": "^1.1.1",
     "storybook-dark-mode": "^1.0.8"
   },
-  "files": [
-    "storybook-static"
-  ],
   "dependencies": {
-    "@react-hook/mouse-position": "^4.1.0",
     "@storybook/addon-a11y": "^6.2.9",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/addon-storysource": "^6.2.9",
     "classnames": "^2.3.1",
     "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
+    "react-drag-to-select": "^1.0.3-rc01",
     "react-draggable": "^4.4.3",
-    "react-selectable-fast": "^3.4.0",
     "react-xarrows": "^1.7.0",
     "use-dynamic-refs": "^1.0.0",
     "uuid": "^8.3.2"

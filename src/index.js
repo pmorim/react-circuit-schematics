@@ -1,3 +1,4 @@
 import { Schematic } from './components/Schematic';
+import { useSchematic } from './schematic';
 
-export default Schematic;
+export { Schematic, useSchematic };

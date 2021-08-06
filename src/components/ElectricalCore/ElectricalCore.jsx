@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { createSelectable } from 'react-selectable-fast';
+import React, { useRef, useState, useEffect, useMemo, forwardRef } from 'react';
+import useDynamicRefs from 'use-dynamic-refs';
 import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
 
@@ -10,36 +10,53 @@ import { svgMap } from '../../../assets';
 import { Port } from '../Port';
 import { Label } from '../Label';
 
-export const ElectricalCore = createSelectable(
-  ({
-    type,
-    position,
-    label,
-    ports,
-    size,
-    gridSize,
-    altImageIdx,
-    imgPath,
-    selectableRef,
-    isSelected,
-    isSelecting,
-    selectionColor,
-    ...rest
-  }) => {
+export const ElectricalCore = forwardRef(
+  (
+    {
+      id,
+      type,
+      position,
+      label,
+      ports,
+      size,
+      gridSize,
+      altImageIdx,
+      imgPath,
+      handlePortClick,
+      onDragStop,
+      onLabelDragStop,
+      onClick,
+      isSelected,
+      ...rest
+    },
+    ref,
+  ) => {
+    const [getRef] = useDynamicRefs();
     const draggableRef = useRef();
-    const boundingRef = useRef();
 
+    const boundingRef = useRef();
     const [bounds, setBounds] = useState({ x: 0, y: 0 });
     const [renderCount, setRenderCount] = useState(0);
 
-    const [isGrabbing, setIsGrabbing] = useState(false);
+    /**
+     * Calculate which SVG to use.
+     *
+     * If a custom image is provided, then it uses that one.
+     * Otherwise, if it was provided an alternate image index, use that.
+     * Otherwise, use the default one.
+     */
+    const src = useMemo(() => {
+      // If there is a custom image, use that one
+      if (imgPath) return imgPath;
 
-    // Logic for alternate images
-    let src = svgMap.get(type);
-    if (Array.isArray(src)) src = src[altImageIdx ?? 0];
+      // Otherwise, grab the correct SVG
+      const src = svgMap.get(type);
+      return Array.isArray(src) ? src[altImageIdx ?? 0] : src;
+    }, [altImageIdx]);
 
     /**
-     * Calculate the bounds of the component
+     * Calculate the bounds of the component.
+     * Force re-renders until the bounds are properly calculated.
      */
     useEffect(() => {
       // Calculate the bounds of the component's image
@@ -53,80 +70,70 @@ export const ElectricalCore = createSelectable(
       else setRenderCount(renderCount + 1);
     }, [boundingRef, renderCount]);
 
-    /**
-     * Update the port's position to take into account the component's rotation.
-     */
-    useEffect(() => {
-      for (const port of ports) {
-        let { x, y } = port.position;
-
-        // Shift the coordinates to origin
-        x = x * 2 - 1;
-        y = y * 2 - 1;
-
-        // Convert to polar coordinates
-        let radius = Math.sqrt(x * x + y * y);
-        let teta = Math.atan2(y, x);
-
-        // Convert the component's rotation to radians
-        const rot = (position?.angle ?? 0) * (Math.PI / 180);
-
-        // Convert to Cartesian coordinates
-        x = radius * Math.cos(teta + rot);
-        y = radius * Math.sin(teta + rot);
-
-        // Shift the coordinates back
-        port.position.x = (x + 1) / 2;
-        port.position.y = (y + 1) / 2;
-      }
-    }, [position]);
-
     return (
-      <div className={styles.wrapper}>
-        <Draggable
-          handle='.rdc-handle'
-          nodeRef={draggableRef}
-          defaultPosition={position}
-          positionOffset={{ x: 5, y: 5 }}
-          onStart={() => setIsGrabbing(true)}
-          onStop={() => setIsGrabbing(false)}
-          grid={[gridSize, gridSize]}
-          {...rest}
-        >
-          <div ref={draggableRef}>
-            <div ref={selectableRef}>
-              <img
-                className={cx(
-                  styles.noDrag,
-                  'rdc-handle',
-                  isGrabbing ? styles.grabbing : styles.grab,
-                )}
-                style={{
-                  transform: `rotate(${position?.angle ?? 0}deg)`,
-                  width: size,
-                  outline: isSelected ? '2px solid #6495ED' : 'none',
-                }}
-                ref={boundingRef}
-                src={imgPath ? imgPath : src}
-                alt={type}
-              />
+      <Draggable
+        handle='.component-handle'
+        bounds='.schematic'
+        nodeRef={draggableRef}
+        position={position}
+        positionOffset={{ x: 5, y: 5 }}
+        grid={[gridSize, gridSize]}
+        onStop={(e, position) => onDragStop(id, position)}
+        {...rest}
+      >
+        <div className={styles.wrapper} ref={draggableRef}>
+          <div ref={ref}>
+            <img
+              className={cx(styles.noDrag, 'component-handle')}
+              style={{
+                transform: `rotate(${position?.angle ?? 0}deg)`,
+                width: size,
 
-              {ports.map((port, i) => {
-                return (
-                  <Port key={i} ref={port.ref} bounds={bounds} {...port} />
-                );
-              })}
-
-              <Label gridSize={gridSize} {...label} />
-            </div>
+                // Selection
+                filter: isSelected && `drop-shadow(3px 2px ${0}px ${'#888'})`,
+                WebkitFilter:
+                  isSelected && `drop-shadow(3px 2px ${0}px ${'#888'})`,
+              }}
+              onClick={onClick}
+              ref={boundingRef}
+              src={src}
+              alt={type}
+            />
           </div>
-        </Draggable>
-      </div>
+
+          {ports.map((port) => {
+            return (
+              <Port
+                key={port.id}
+                ref={getRef(port.id)}
+                bounds={bounds}
+                onClick={() => handlePortClick?.(port.id)}
+                rotation={position?.angle}
+                {...rest}
+                {...port}
+              />
+            );
+          })}
+
+          {label && (
+            <Label
+              gridSize={gridSize}
+              onDragStop={(e, position) => onLabelDragStop(id, position)}
+              {...rest}
+              {...label}
+            />
+          )}
+        </div>
+      </Draggable>
     );
   },
 );
 
 ElectricalCore.propTypes = {
+  /**
+   * The unique id of the component
+   */
+  id: PropTypes.string,
   /**
    * The type of the component
    */
@@ -185,16 +192,11 @@ ElectricalCore.propTypes = {
    * The source path to a custom image to be used by the component
    */
   imgPath: PropTypes.string,
-  /**
-   * The color of the border when the element is selected
-   */
-  selectionColor: PropTypes.string,
 };
 
-ElectricalCore.defaultArgs = {
+ElectricalCore.defaultProps = {
   position: { x: 0, y: 0 },
   size: 100,
   gridSize: 10,
   altImageIdx: 0,
-  selectionColor: '#6495ED',
 };

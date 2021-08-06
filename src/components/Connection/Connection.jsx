@@ -1,34 +1,55 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import XArrow from 'react-xarrows';
 import PropTypes from 'prop-types';
 
 import { Label } from '../Label';
 
-export const Connection = ({
-  start,
-  end,
-  label,
-  type,
-  properties,
-  ...rest
-}) => {
-  return (
-    <>
-      <XArrow
-        start={start}
-        end={end}
-        path={type}
-        showHead={false}
-        gridBreak={1}
-        divContainerStyle={{ zIndex: -1 }}
-        {...rest}
-      />
-      <Label {...label} />
-    </>
-  );
-};
+export const Connection = forwardRef(
+  (
+    {
+      id,
+      start,
+      end,
+      label,
+      type,
+      properties,
+      gridSize,
+      onClick,
+      onLabelDragStop,
+      ...rest
+    },
+    ref,
+  ) => {
+    return (
+      <div ref={ref}>
+        <XArrow
+          start={start}
+          end={end}
+          path={type}
+          showHead={false}
+          gridBreak={1}
+          divContainerStyle={{ zIndex: -1, opacity: properties.opacity ?? 1 }}
+          passProps={{ onClick }}
+          {...rest}
+        />
+        {label && (
+          <Label
+            gridSize={gridSize}
+            onDragStop={(e, position) => onLabelDragStop(id, position)}
+            {...rest}
+            {...label}
+          />
+        )}
+      </div>
+    );
+  },
+);
 
 Connection.propTypes = {
+  /**
+   * The unique id of the connection
+   */
+  id: PropTypes.string,
   /**
    * A `ref` to the component where the connection starts
    */
@@ -69,9 +90,20 @@ Connection.propTypes = {
       start: PropTypes.string,
       end: PropTypes.string,
     }),
+    opacity: PropTypes.number,
   }),
+  /**
+   * The callback to execute when clicking on the connection
+   */
+  onClick: PropTypes.func,
 };
 
 Connection.defaultProps = {
   type: 'grid',
+  properties: {
+    color: '',
+    stroke: 2,
+    decoration: {},
+    opacity: 1,
+  },
 };

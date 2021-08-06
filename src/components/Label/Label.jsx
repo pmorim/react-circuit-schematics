@@ -1,25 +1,28 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
+import cx from 'classnames';
 
+import styles from './Label.module.css';
 import { DefaultLabel } from './DefaultLabel';
 
-export const Label = ({ as, position, gridSize, onChange, ...rest }) => {
+export const Label = ({ as, position, gridSize, onDragStop, ...rest }) => {
   const draggableRef = useRef();
 
   return (
     <Draggable
-      defaultPosition={position}
+      bounds='.schematic'
+      position={position}
       nodeRef={draggableRef}
       grid={[gridSize, gridSize]}
+      onStop={onDragStop}
       {...rest}
     >
-      <div ref={draggableRef}>
-        {as ? (
-          React.createElement(as, rest)
-        ) : (
-          <DefaultLabel onChange={onChange} {...rest} />
-        )}
+      <div
+        className={cx(styles.wrapper, styles.unselectable)}
+        ref={draggableRef}
+      >
+        {as ? React.createElement(as, rest) : <DefaultLabel {...rest} />}
       </div>
     </Draggable>
   );

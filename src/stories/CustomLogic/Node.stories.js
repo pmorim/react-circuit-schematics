@@ -24,6 +24,6 @@ export const Simple = () => (
 
 export const Labeled = () => (
   <div style={{ position: 'relative' }}>
-    <Node label={{ name: 'A', position: { x: -10, y: -30 } }} />
+    <Node label={{ name: "I'm a node", position: { x: 20, y: -6 } }} />
   </div>
 );
