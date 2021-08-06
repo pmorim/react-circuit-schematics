@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect, useMemo } from 'react';
-import { createSelectable } from 'react-selectable-fast';
+import React, { useRef, useState, useEffect, useMemo, forwardRef } from 'react';
+import useDynamicRefs from 'use-dynamic-refs';
 import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
 
@@ -10,26 +10,28 @@ import { svgMap } from '../../../assets';
 import { Port } from '../Port';
 import { Label } from '../Label';
 
-export const ElectricalCore = createSelectable(
-  ({
-    id,
-    type,
-    position,
-    label,
-    ports,
-    size,
-    gridSize,
-    altImageIdx,
-    imgPath,
-    selectableRef,
-    isSelected,
-    isSelecting,
-    selectionColor,
-    handlePortClick,
-    onDragStop,
-    onLabelDragStop,
-    ...rest
-  }) => {
+export const ElectricalCore = forwardRef(
+  (
+    {
+      id,
+      type,
+      position,
+      label,
+      ports,
+      size,
+      gridSize,
+      altImageIdx,
+      imgPath,
+      handlePortClick,
+      onDragStop,
+      onLabelDragStop,
+      onClick,
+      isSelected,
+      ...rest
+    },
+    ref,
+  ) => {
+    const [getRef] = useDynamicRefs();
     const draggableRef = useRef();
 
     const boundingRef = useRef();
@@ -80,42 +82,47 @@ export const ElectricalCore = createSelectable(
         {...rest}
       >
         <div className={styles.wrapper} ref={draggableRef}>
-          <div ref={selectableRef}>
+          <div ref={ref}>
             <img
               className={cx(styles.noDrag, 'component-handle')}
               style={{
                 transform: `rotate(${position?.angle ?? 0}deg)`,
                 width: size,
-                outline: isSelected ? '2px solid #6495ED' : 'none',
+
+                // Selection
+                filter: isSelected && `drop-shadow(3px 2px ${0}px ${'#888'})`,
+                WebkitFilter:
+                  isSelected && `drop-shadow(3px 2px ${0}px ${'#888'})`,
               }}
+              onClick={onClick}
               ref={boundingRef}
               src={src}
               alt={type}
             />
-
-            {ports.map((port) => {
-              return (
-                <Port
-                  key={port.id}
-                  ref={port.ref}
-                  bounds={bounds}
-                  onClick={() => handlePortClick?.(port.id)}
-                  rotation={position?.angle}
-                  {...rest}
-                  {...port}
-                />
-              );
-            })}
-
-            {label && (
-              <Label
-                gridSize={gridSize}
-                onDragStop={(e, position) => onLabelDragStop(id, position)}
-                {...rest}
-                {...label}
-              />
-            )}
           </div>
+
+          {ports.map((port) => {
+            return (
+              <Port
+                key={port.id}
+                ref={getRef(port.id)}
+                bounds={bounds}
+                onClick={() => handlePortClick?.(port.id)}
+                rotation={position?.angle}
+                {...rest}
+                {...port}
+              />
+            );
+          })}
+
+          {label && (
+            <Label
+              gridSize={gridSize}
+              onDragStop={(e, position) => onLabelDragStop(id, position)}
+              {...rest}
+              {...label}
+            />
+          )}
         </div>
       </Draggable>
     );
@@ -185,10 +192,6 @@ ElectricalCore.propTypes = {
    * The source path to a custom image to be used by the component
    */
   imgPath: PropTypes.string,
-  /**
-   * The color of the border when the element is selected
-   */
-  selectionColor: PropTypes.string,
 };
 
 ElectricalCore.defaultProps = {
@@ -196,5 +199,4 @@ ElectricalCore.defaultProps = {
   size: 100,
   gridSize: 10,
   altImageIdx: 0,
-  selectionColor: '#6495ED',
 };
