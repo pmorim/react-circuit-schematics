@@ -1,44 +1,49 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import XArrow from 'react-xarrows';
 import PropTypes from 'prop-types';
 
 import { Label } from '../Label';
 
-export const Connection = ({
-  id,
-  start,
-  end,
-  label,
-  type,
-  properties,
-  gridSize,
-  onClick,
-  onLabelDragStop,
-  ...rest
-}) => {
-  return (
-    <>
-      <XArrow
-        start={start}
-        end={end}
-        path={type}
-        showHead={false}
-        gridBreak={1}
-        divContainerStyle={{ zIndex: -1, opacity: properties.opacity ?? 1 }}
-        passProps={{ onClick }}
-        {...rest}
-      />
-      {label && (
-        <Label
-          gridSize={gridSize}
-          onDragStop={(e, position) => onLabelDragStop(id, position)}
+export const Connection = forwardRef(
+  (
+    {
+      id,
+      start,
+      end,
+      label,
+      type,
+      properties,
+      gridSize,
+      onClick,
+      onLabelDragStop,
+      ...rest
+    },
+    ref,
+  ) => {
+    return (
+      <div ref={ref}>
+        <XArrow
+          start={start}
+          end={end}
+          path={type}
+          showHead={false}
+          gridBreak={1}
+          divContainerStyle={{ zIndex: -1, opacity: properties.opacity ?? 1 }}
+          passProps={{ onClick }}
           {...rest}
-          {...label}
         />
-      )}
-    </>
-  );
-};
+        {label && (
+          <Label
+            gridSize={gridSize}
+            onDragStop={(e, position) => onLabelDragStop(id, position)}
+            {...rest}
+            {...label}
+          />
+        )}
+      </div>
+    );
+  },
+);
 
 Connection.propTypes = {
   /**
